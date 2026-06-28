@@ -458,6 +458,19 @@ def get_injury_impact(team_name):
 # PredictionEngine — Flask集成接口
 # ══════════════════════════════════════════════════════════════
 
+
+def _get_r32_teams():
+    try:
+        matches = _load_json("matches.json")
+        teams = set()
+        for m in matches.get("matches", []):
+            if m.get("round") == "R32":
+                if m.get("home"): teams.add(m["home"])
+                if m.get("away"): teams.add(m["away"])
+        return teams
+    except:
+        return None
+
 class PredictionEngine:
     """预测引擎统一接口"""
     
@@ -508,6 +521,9 @@ class PredictionEngine:
         for r in results:
             r['adjusted_prob'] = round(r['adjusted_prob'] / total_adj * 100, 1) if total_adj > 0 else 0
         results.sort(key=lambda x: x['adjusted_prob'], reverse=True)
+        r32_teams = _get_r32_teams()
+        if r32_teams:
+            results = [r for r in results if r['team'] in r32_teams]
         return results
     
     def get_mystic_analysis(self, team=None):
