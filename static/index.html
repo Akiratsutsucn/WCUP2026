@@ -97,7 +97,6 @@ select{max-width:220px}
   <button class="nav-btn" data-tab="mystic"> 玄学分析</button>
   <button class="nav-btn" data-tab="h2h"> 对战预测</button>
   <button class="nav-btn" data-tab="squad"> 球员阵容</button>
-  <button class="nav-btn" data-tab="susp"> 伤病停赛</button>
   <button class="nav-btn" data-tab="bracket"> 淘汰赛对阵</button>
 </nav>
 
@@ -169,7 +168,6 @@ function renderAll(){
     case 'mystic': html = renderMystic(); break;
     case 'h2h': html = renderH2H(); break;
     case 'squad': html = renderSquad(); break;
-    case 'susp': html = renderSuspensions(); break;
     case 'bracket': html = renderBracketPage(); break;
   }
   document.getElementById('app').innerHTML = html;

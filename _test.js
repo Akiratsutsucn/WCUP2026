@@ -47,7 +47,6 @@ function renderAll(){
     case 'mystic': html = renderMystic(); break;
     case 'h2h': html = renderH2H(); break;
     case 'squad': html = renderSquad(); break;
-    case 'susp': html = renderSuspensions(); break;
     case 'bracket': html = renderBracketPage(); break;
   }
   document.getElementById('app').innerHTML = html;
