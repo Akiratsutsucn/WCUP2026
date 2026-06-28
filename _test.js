@@ -72,7 +72,7 @@ function renderPredict(){
     h += '<div class="bar-wrap"><div class="bar-fill" style="width:' + barW + '%"></div></div>';
     h += '<span class="prob">' + prob.toFixed(1) + '%</span></div>';
   }
-  h += '<div class="mt-8" style="font-size:.75em;color:#7aa4c8;">基于：Elo评分 + 球员数据 + 球队因子 + 玄学修正</div>';
+  h += '<div class="mt-8" style="font-size:.75em;color:#7aa4c8;">基于：实力评分 + 球员数据 + 球队因子 + 玄学修正</div>';
   return h + '</div>';
 }
 
@@ -90,7 +90,7 @@ function renderFactor(){
   var t = predictData.rankings.find(function(x){ return x.team === sel; });
   if(t){
     h += '<div class="factor-grid">';
-    h += '<div class="factor-tag"><span>Elo评分</span><span class="val">' + (t.elo || '暂无') + '</span></div>';
+    h += '<div class="factor-tag"><span>实力评分</span><span class="val">' + (t.elo || '暂无') + '</span></div>';
     h += '<div class="factor-tag"><span>球员数量</span><span class="val">' + (t.player_count || '暂无') + '</span></div>';
     h += '<div class="factor-tag"><span>平均年龄</span><span class="val">' + (t.avg_age || '暂无') + '</span></div>';
     h += '<div class="factor-tag"><span>综合得分</span><span class="val">' + (t.total_score || t.score || '暂无') + '</span></div>';
@@ -144,7 +144,7 @@ async function loadMysticDetail(){
     h += '<div class="card" style="padding:10px;margin:6px 0;"><b style="color:#f0d878;">【第三境 · 看山还是山】</b><br>' + (ts.stage3||'暂无') + '</div>';
     h += '<div class="card" style="padding:10px;margin:6px 0;"><b style="color:#c9a84c;">【道德经】</b><br>' + (d.tao_te_ching||'暂无') + '</div>';
     h += '<div class="card" style="padding:10px;margin:6px 0;"><b style="color:#c9a84c;">【易经卦象】</b><br>' + (d.i_ching||'暂无') + '</div>';
-    if(d.elo) h += '<div style="font-size:.75em;color:#7aa4c8;margin-top:4px;">Elo：' + d.elo + '</div>';
+    if(d.elo) h += '<div style="font-size:.75em;color:#7aa4c8;margin-top:4px;">实力：' + d.elo + '</div>';
   }
   document.getElementById('mystic-detail').innerHTML = h;
 }
@@ -178,9 +178,9 @@ async function loadH2H(ta, tb){
     document.getElementById('h2h-result').innerHTML =
       '<div class="card" style="margin-top:10px;">' +
       '<div class="h2h-compare">' +
-        '<div class="h2h-team"><div class="flag">' + getFlag(d.team_a) + '</div><div class="name">' + cn(d.team_a) + '</div><div class="elo">Elo：' + (d.elo_a||'暂无') + '</div></div>' +
+        '<div class="h2h-team"><div class="flag">' + getFlag(d.team_a) + '</div><div class="name">' + cn(d.team_a) + '</div><div class="elo">实力：' + (d.elo_a||'暂无') + '</div></div>' +
         '<div class="h2h-vs">对阵</div>' +
-        '<div class="h2h-team"><div class="flag">' + getFlag(d.team_b) + '</div><div class="name">' + cn(d.team_b) + '</div><div class="elo">Elo：' + (d.elo_b||'暂无') + '</div></div>' +
+        '<div class="h2h-team"><div class="flag">' + getFlag(d.team_b) + '</div><div class="name">' + cn(d.team_b) + '</div><div class="elo">实力：' + (d.elo_b||'暂无') + '</div></div>' +
       '</div>' +
       '<div class="h2h-probs">' +
         '<div><div class="p">' + ((d.win_prob_a||0).toFixed(1)) + '%</div><div class="l">' + cn(d.team_a) + ' 胜</div></div>' +
@@ -451,16 +451,16 @@ async function resetBracket(){
 
 // ── 国旗映射 ──
 var FLAGS = {
-  Brazil:'🇧🇷',Argentina:'🇦🇷',France:'🇫🇷',England:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',Germany:'🇩🇪',Spain:'🇪🇸',Portugal:'🇵🇹',Netherlands:'🇳🇱',
-  Belgium:'🇧🇪',Croatia:'🇭🇷',Switzerland:'🇨🇭',Uruguay:'🇺🇾',Colombia:'🇨🇴',Mexico:'🇲🇽',
-  'United States':'🇺🇸',USA:'🇺🇸',Japan:'🇯🇵','South Korea':'🇰🇷',Australia:'🇦🇺',Iran:'🇮🇷',
-  Morocco:'🇲🇦',Senegal:'🇸🇳',Egypt:'🇪🇬',Austria:'🇦🇹','Czech Republic':'🇨🇿',Turkey:'🇹🇷',Sweden:'🇸🇪',
-  Ecuador:'🇪🇨',Paraguay:'🇵🇾','Saudi Arabia':'🇸🇦',Qatar:'🇶🇦','Ivory Coast':'🇨🇮',Ghana:'🇬🇭',
-  Tunisia:'🇹🇳',Algeria:'🇩🇿','DR Congo':'🇨🇩','Cape Verde':'🇨🇻',Uzbekistan:'🇺🇿',Jordan:'🇯🇴',
-  Panama:'🇵🇦',Haiti:'🇭🇹',Canada:'🇨🇦','New Zealand':'🇳🇿',Norway:'🇳🇴','South Africa':'🇿🇦',
-  Iraq:'🇮🇶','Curaçao':'🇨🇼','Bosnia and Herzegovina':'🇧🇦',Scotland:'🏴󠁧󠁢󠁳󠁣󠁴󠁿'
+  Brazil:'',Argentina:'',France:'',England:'',Germany:'',Spain:'',Portugal:'',Netherlands:'',
+  Belgium:'',Croatia:'',Switzerland:'',Uruguay:'',Colombia:'',Mexico:'',
+  'United States':'',USA:'',Japan:'','South Korea':'',Australia:'',Iran:'',
+  Morocco:'',Senegal:'',Egypt:'',Austria:'','Czech Republic':'',Turkey:'',Sweden:'',
+  Ecuador:'',Paraguay:'','Saudi Arabia':'',Qatar:'','Ivory Coast':'',Ghana:'',
+  Tunisia:'',Algeria:'','DR Congo':'','Cape Verde':'',Uzbekistan:'',Jordan:'',
+  Panama:'',Haiti:'',Canada:'','New Zealand':'',Norway:'','South Africa':'',
+  Iraq:'','Curaçao':'','Bosnia and Herzegovina':'',Scotland:''
 };
-function getFlag(team){ return FLAGS[team] || ''; }
+function getFlag(team){ return ''; }
 
 // ── 中文队名 ──
 var CN = {
