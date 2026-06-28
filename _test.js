@@ -55,6 +55,7 @@ function renderAll(){
 
 // ── 1. 冠军预测 ──
 function renderPredict(){
+  if(!currentFactorTeam && predictData && predictData.rankings && predictData.rankings.length) currentFactorTeam = predictData.rankings[0].team;
   if(!predictData || !predictData.rankings || !predictData.rankings.length)
     return '<div class="card"><h3>🏆 冠军预测排行</h3><div class="loading">预测引擎正在启动，请稍候...</div></div>';
   var r = predictData.rankings;
@@ -75,16 +76,17 @@ function renderPredict(){
   return h + '</div>';
 }
 
+var currentFactorTeam = null;
 // ── 2. 因子分析 ──
 function renderFactor(){
   if(!predictData || !predictData.rankings || !predictData.rankings.length)
     return '<div class="card"><h3>🔬 球队因子分析</h3><div class="loading">数据加载中...</div></div>';
   var h = '<div class="card"><h3>🔬 球队评分因子构成</h3>';
-  h += '<div class="btn-bar"><select id="factor-team" onchange="renderAll()">';
+  h += '<div class="btn-bar"><select id="factor-team" onchange="currentFactorTeam=this.value;renderAll();">';
   for(var i=0; i<Math.min(predictData.rankings.length, 20); i++)
-    h += '<option>' + cn(predictData.rankings[i].team) + '</option>';
+    var tn = predictData.rankings[i].team; h += '<option value="' + tn + '"' + (tn === currentFactorTeam ? ' selected' : '') + '>' + cn(tn) + '</option>';
   h += '</select></div>';
-  var sel = (document.getElementById('factor-team') && document.getElementById('factor-team').value) || predictData.rankings[0].team;
+  var t = predictData.rankings.find(function(x){ return x.team === currentFactorTeam; });
   var t = predictData.rankings.find(function(x){ return x.team === sel; });
   if(t){
     h += '<div class="factor-grid">';
@@ -120,15 +122,15 @@ function renderMystic(){
     return '<div class="card"><h3>☯ 玄学分析</h3><div class="loading">玄学数据加载中...</div></div>';
   var h = '<div class="card"><h3>☯ 玄学因子 — 悖论框架 · 道德经 · 易经</h3>';
   h += '<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">三重境界：看山是山 → 看山不是山 → 看山还是山</p>';
-  h += '<div class="btn-bar"><select id="mystic-team" onchange="renderAll()">';
-  for(var i=0; i<Math.min(allTeams.length, 30); i++) h += '<option value=\"' + allTeams[i] + '\">' + cn(allTeams[i]) + '</option>';
+  h += '<div class="btn-bar"><select id="mystic-team" onchange="renderAll();">';
+  for(var i=0; i<Math.min(allTeams.length, 30); i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
   h += '</select><button class="btn-sm" onclick="loadMysticDetail()">查看详情</button></div>';
   h += '<div id="mystic-detail" class="mt-8" style="font-size:.8em;color:#a0b8d0;"></div>';
   return h + '</div>';
 }
 async function loadMysticDetail(){
   var sel = document.getElementById('mystic-team');
-  var team = sel ? sel.value : allTeams[0];
+  var team = (sel && sel.value) ? sel.value : allTeams[0];
   var r = await fetch('/api/predict/mystic?team=' + encodeURIComponent(team));
   var d = await r.json();
   document.getElementById('mystic-detail').innerHTML = '<pre style="white-space:pre-wrap;font-size:.75em;">' + JSON.stringify(d, null, 2) + '</pre>';
@@ -138,9 +140,9 @@ async function loadMysticDetail(){
 function renderH2H(){
   var h = '<div class="card"><h3>⚔ 对战预测</h3>';
   h += '<div class="btn-bar"><select id="h2h-a">';
-  for(var i=0; i<allTeams.length; i++) h += '<option value=\"' + allTeams[i] + '\">' + cn(allTeams[i]) + '</option>';
+  for(var i=0; i<allTeams.length; i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
   h += '</select><span style="color:#c9a84c;font-weight:bold;margin:0 6px;">对阵</span><select id="h2h-b">';
-  for(var i=0; i<allTeams.length; i++) h += '<option value=\"' + allTeams[i] + '\">' + cn(allTeams[i]) + '</option>';
+  for(var i=0; i<allTeams.length; i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
   h += '</select><button class="btn-sm" onclick="loadH2H()">⚡ 开始预测</button></div>';
   h += '<div id="h2h-result" class="mt-8"></div>';
   return h + '</div>';
@@ -175,7 +177,7 @@ async function loadH2H(){
 function renderSquad(){
   var h = '<div class="card"><h3>👥 球员阵容</h3>';
   h += '<div class="btn-bar"><select id="squad-team" onchange="loadSquad()">';
-  for(var i=0; i<allTeams.length; i++) h += '<option value=\"' + allTeams[i] + '\">' + cn(allTeams[i]) + '</option>';
+  for(var i=0; i<allTeams.length; i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
   h += '</select></div><div id="squad-result" class="squad-list"></div>';
   h += '</div>';
   setTimeout(loadSquad, 100);
@@ -183,7 +185,7 @@ function renderSquad(){
 }
 async function loadSquad(){
   var sel = document.getElementById('squad-team');
-  var team = sel ? sel.value : allTeams[0];
+  var team = (sel && sel.value) ? sel.value : allTeams[0];
   try{
     var r = await fetch('/api/predict/squad?team=' + encodeURIComponent(team));
     var d = await r.json();
@@ -192,7 +194,7 @@ async function loadSquad(){
     if(!players.length){ document.getElementById('squad-result').innerHTML = '<div class="loading">该队暂无阵容数据</div>'; return; }
     var tbl = '<table><thead><tr><th>#</th><th>姓名</th><th>位置</th><th>年龄</th><th>国家队出场</th><th>国家队进球</th><th>俱乐部</th></tr></thead><tbody>';
     players.slice(0, 26).forEach(function(p, i){
-      tbl += '<tr><td>' + (i+1) + '</td><td>' + (p.name || p.player_name || '未知') + '</td><td>' + (p.position || p.pos || '-') + '</td><td>' + (p.age || '-') + '</td><td>' + (p.caps || p.national_caps || '-') + '</td><td>' + (p.goals || p.national_goals || '-') + '</td><td>' + (p.club || '-') + '</td></tr>';
+      tbl += '<tr><td>' + (i+1) + '</td><td>' + (p.name_cn || p.name || p.player_name || '未知') + '</td><td>' + (p.position || p.pos || '-') + '</td><td>' + (p.age || '-') + '</td><td>' + (p.caps || p.national_caps || '-') + '</td><td>' + (p.goals || p.national_goals || '-') + '</td><td>' + (p.club || '-') + '</td></tr>';
     });
     tbl += '</tbody></table>';
     document.getElementById('squad-result').innerHTML = tbl;
