@@ -1,10 +1,11 @@
 {
+  "rules_note": "小组赛后单张黄牌清零。最后一场小组赛吃第2张黄牌者R32停赛。淘汰赛R32→QF累计2黄停1场。QF后再次清零。红牌不清零。",
   "injuries": {
     "Brazil": [
       {"player": "罗德里戈 (Rodrygo)", "status": "赛季报销", "detail": "十字韧带撕裂，无缘剩余比赛", "impact": "high"},
       {"player": "埃斯特旺 (Estêvão)", "status": "确认缺阵", "detail": "大腿拉伤，恢复期3-4周", "impact": "high"},
       {"player": "米利唐 (Éder Militão)", "status": "确认缺阵", "detail": "小组赛受伤，淘汰赛无法出战", "impact": "high"},
-      {"player": "内马尔 (Neymar)", "status": "带伤出战", "detail": "膝盖不适，带伤坚持比赛", "impact": "medium"}
+      {"player": "内马尔 (Neymar)", "status": "带伤出战", "detail": "膝盖不适，带伤坚持，状态存疑", "impact": "medium"}
     ],
     "Netherlands": [
       {"player": "哈维·西蒙斯 (Xavi Simons)", "status": "确认缺阵", "detail": "膝伤严重，缺席剩余比赛", "impact": "high"},
@@ -17,103 +18,49 @@
     "Argentina": [
       {"player": "梅西 (Lionel Messi)", "status": "轻微不适", "detail": "肌肉轻微拉伤，预计可出战但状态未达100%", "impact": "medium"}
     ],
-    "France": [
-      {"player": "姆巴佩 (Kylian Mbappé)", "status": "健康", "detail": "全员健康，阵容齐整", "impact": "none"}
-    ],
-    "Germany": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病困扰", "impact": "none"}
-    ],
-    "Spain": [
-      {"player": "佩德里 (Pedri)", "status": "健康", "detail": "全员健康，阵容深厚", "impact": "none"}
-    ],
-    "Portugal": [
-      {"player": "C罗 (Cristiano Ronaldo)", "status": "健康", "detail": "保持出色状态，无伤病", "impact": "none"}
-    ],
-    "Belgium": [
-      {"player": "德布劳内 (Kevin De Bruyne)", "status": "轻微不适", "detail": "小组赛轻微撞伤，不影响出战", "impact": "low"}
-    ],
-    "Croatia": [
-      {"player": "莫德里奇 (Luka Modrić)", "status": "健康", "detail": "老将状态保持良好", "impact": "none"}
-    ],
-    "Uruguay": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病报告", "impact": "none"}
-    ],
-    "Colombia": [
-      {"player": "路易斯·迪亚斯 (Luis Díaz)", "status": "健康", "detail": "锋线核心状态正佳", "impact": "none"}
-    ],
-    "Mexico": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
-    ],
-    "United States": [
-      {"player": "普利西奇 (Christian Pulisic)", "status": "健康", "detail": "全员健康，主场作战", "impact": "none"}
-    ],
-    "Japan": [
-      {"player": "三笘薰 (Kaoru Mitoma)", "status": "健康", "detail": "状态出色，无伤病", "impact": "none"}
-    ],
-    "South Korea": [
-      {"player": "孙兴慜 (Son Heung-min)", "status": "健康", "detail": "核心球员状态良好", "impact": "none"}
-    ],
-    "Morocco": [
-      {"player": "阿什拉夫 (Achraf Hakimi)", "status": "健康", "detail": "防线核心无伤病", "impact": "none"}
-    ],
-    "Senegal": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病", "impact": "none"}
-    ],
     "Austria": [
       {"player": "阿拉巴 (David Alaba)", "status": "恢复中", "detail": "已恢复训练，可替补出战", "impact": "medium"}
     ],
-    "Switzerland": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
-    ],
-    "Ecuador": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "年轻阵容无伤病", "impact": "none"}
-    ],
-    "Paraguay": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病报告", "impact": "none"}
-    ],
-    "Sweden": [
-      {"player": "伊萨克 (Alexander Isak)", "status": "健康", "detail": "锋线核心状态良好", "impact": "none"}
-    ],
-    "Ivory Coast": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
-    ],
-    "Norway": [
-      {"player": "哈兰德 (Erling Haaland)", "status": "健康", "detail": "头号射手状态正佳", "impact": "none"}
-    ],
-    "Australia": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病报告", "impact": "none"}
-    ],
-    "Egypt": [
-      {"player": "萨拉赫 (Mohamed Salah)", "status": "健康", "detail": "核心球员状态出色", "impact": "none"}
-    ],
-    "Cape Verde": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病", "impact": "none"}
-    ],
-    "Algeria": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
-    ],
-    "Ghana": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病报告", "impact": "none"}
-    ],
-    "Canada": [
-      {"player": "阿方索·戴维斯 (Alphonso Davies)", "status": "健康", "detail": "全员健康，主场作战", "impact": "none"}
-    ],
-    "South Africa": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
-    ],
-    "Bosnia and Herzegovina": [
-      {"player": "哲科 (Edin Džeko)", "status": "轻微不适", "detail": "老将体能需管理，不影响出战", "impact": "low"}
-    ],
-    "DR Congo": [
-      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病报告", "impact": "none"}
-    ]
+    "France": [{"player": "全员健康", "status": "阵容齐整", "detail": "姆巴佩领衔，全员健康", "impact": "none"}],
+    "Germany": [{"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病困扰", "impact": "none"}],
+    "Spain": [{"player": "全员健康", "status": "阵容齐整", "detail": "佩德里、亚马尔等全员健康", "impact": "none"}],
+    "Portugal": [{"player": "全员健康", "status": "阵容齐整", "detail": "C罗保持出色状态，无伤病", "impact": "none"}],
+    "Morocco": [{"player": "全员健康", "status": "阵容齐整", "detail": "阿什拉夫领衔，防线齐整", "impact": "none"}],
+    "Japan": [{"player": "全员健康", "status": "阵容齐整", "detail": "三笘薰状态出色", "impact": "none"}],
+    "Colombia": [{"player": "全员健康", "status": "阵容齐整", "detail": "路易斯·迪亚斯状态正佳", "impact": "none"}],
+    "United States": [{"player": "全员健康", "status": "阵容齐整", "detail": "普利西奇领衔，主场作战", "impact": "none"}],
+    "Norway": [{"player": "全员健康", "status": "阵容齐整", "detail": "哈兰德状态正佳", "impact": "none"}],
+    "Sweden": [{"player": "全员健康", "status": "阵容齐整", "detail": "伊萨克状态良好", "impact": "none"}],
+    "Canada": [{"player": "全员健康", "status": "阵容齐整", "detail": "阿方索·戴维斯领衔，主场作战", "impact": "none"}],
+    "Paraguay": [{"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病报告", "impact": "none"}],
+    "Ecuador": [{"player": "全员健康", "status": "阵容齐整", "detail": "年轻阵容无伤病", "impact": "none"}],
+    "Croatia": [{"player": "全员健康", "status": "阵容齐整", "detail": "莫德里奇状态良好", "impact": "none"}],
+    "Egypt": [{"player": "全员健康", "status": "阵容齐整", "detail": "萨拉赫状态出色", "impact": "none"}],
+    "Senegal": [{"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病", "impact": "none"}],
+    "Belgium": [{"player": "德布劳内", "status": "轻微不适", "detail": "小组赛轻微撞伤，不影响出战", "impact": "low"}],
+    "South Korea": [{"player": "全员健康", "status": "阵容齐整", "detail": "孙兴慜状态良好", "impact": "none"}],
+    "Australia": [{"player": "全员健康", "status": "阵容齐整", "detail": "无伤病报告", "impact": "none"}],
+    "Switzerland": [{"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}],
+    "Algeria": [{"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}],
+    "Cape Verde": [{"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病", "impact": "none"}],
+    "Ghana": [{"player": "全员健康", "status": "阵容齐整", "detail": "无伤病报告", "impact": "none"}],
+    "South Africa": [{"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}],
+    "Bosnia and Herzegovina": [{"player": "哲科", "status": "轻微不适", "detail": "老将体能需管理，不影响出战", "impact": "low"}],
+    "DR Congo": [{"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病报告", "impact": "none"}],
+    "Ivory Coast": [{"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}]
   },
   "suspensions": {
     "Argentina": [
-      {"player": "德保罗 (Rodrigo De Paul)", "match": "32强", "reason": "累积两张黄牌自动停赛", "cards": 2}
+      {"player": "德保罗 (Rodrigo De Paul)", "match": "R32", "reason": "小组赛末轮吃到第2张黄牌→R32自动停赛", "rule": "末轮第2黄不享受清零"}
     ],
     "Netherlands": [
-      {"player": "邓弗里斯 (Denzel Dumfries)", "match": "32强", "reason": "小组赛红牌，停赛一场", "cards": 1}
+      {"player": "邓弗里斯 (Denzel Dumfries)", "match": "R32", "reason": "小组赛末轮直接红牌→R32强制停赛", "rule": "红牌不清零"}
+    ],
+    "South Africa": [
+      {"player": "莫科纳 (Teboho Mokoena)", "match": "R32", "reason": "小组赛末轮两黄变一红→R32强制停赛", "rule": "红牌不清零"}
+    ],
+    "Paraguay": [
+      {"player": "阿尔米隆 (Miguel Almirón)", "match": "R32", "reason": "小组赛末轮吃到第2张黄牌→R32自动停赛", "rule": "末轮第2黄不享受清零"}
     ],
     "Brazil": [],
     "France": [],
@@ -134,7 +81,6 @@
     "Austria": [],
     "Switzerland": [],
     "Ecuador": [],
-    "Paraguay": [],
     "Sweden": [],
     "Ivory Coast": [],
     "Norway": [],
@@ -144,44 +90,50 @@
     "Algeria": [],
     "Ghana": [],
     "Canada": [],
-    "South Africa": [],
     "Bosnia and Herzegovina": [],
     "DR Congo": []
   },
   "card_counts": {
-    "Argentina": {"yellow": 6, "red": 0},
-    "Brazil": {"yellow": 4, "red": 0},
-    "France": {"yellow": 3, "red": 0},
-    "England": {"yellow": 3, "red": 0},
-    "Germany": {"yellow": 5, "red": 0},
-    "Spain": {"yellow": 2, "red": 0},
-    "Portugal": {"yellow": 4, "red": 0},
-    "Netherlands": {"yellow": 7, "red": 1},
-    "Belgium": {"yellow": 4, "red": 0},
-    "Croatia": {"yellow": 5, "red": 0},
-    "Uruguay": {"yellow": 6, "red": 0},
-    "Colombia": {"yellow": 4, "red": 0},
-    "Mexico": {"yellow": 5, "red": 0},
-    "United States": {"yellow": 3, "red": 0},
-    "Japan": {"yellow": 2, "red": 0},
-    "South Korea": {"yellow": 3, "red": 0},
-    "Morocco": {"yellow": 5, "red": 0},
-    "Senegal": {"yellow": 4, "red": 0},
-    "Austria": {"yellow": 3, "red": 0},
-    "Switzerland": {"yellow": 2, "red": 0},
-    "Ecuador": {"yellow": 4, "red": 0},
-    "Paraguay": {"yellow": 5, "red": 0},
-    "Sweden": {"yellow": 3, "red": 0},
-    "Ivory Coast": {"yellow": 4, "red": 0},
-    "Norway": {"yellow": 2, "red": 0},
-    "Australia": {"yellow": 3, "red": 0},
-    "Egypt": {"yellow": 2, "red": 0},
-    "Cape Verde": {"yellow": 3, "red": 0},
-    "Algeria": {"yellow": 4, "red": 0},
-    "Ghana": {"yellow": 5, "red": 0},
-    "Canada": {"yellow": 3, "red": 0},
-    "South Africa": {"yellow": 4, "red": 1},
-    "Bosnia and Herzegovina": {"yellow": 4, "red": 0},
-    "DR Congo": {"yellow": 3, "red": 0}
+    "Argentina": {"yellow": 6, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零，德保罗末轮第2黄停赛"},
+    "Brazil": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "France": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "England": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Germany": {"yellow": 5, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Spain": {"yellow": 2, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Portugal": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Netherlands": {"yellow": 7, "red": 1, "yellows_active": 0, "note": "黄牌已清零；邓弗里斯红牌R32停赛"},
+    "Belgium": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Croatia": {"yellow": 5, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Uruguay": {"yellow": 6, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Colombia": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Mexico": {"yellow": 5, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "United States": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Japan": {"yellow": 2, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "South Korea": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Morocco": {"yellow": 5, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Senegal": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Austria": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Switzerland": {"yellow": 2, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Ecuador": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Paraguay": {"yellow": 5, "red": 0, "yellows_active": 0, "note": "黄牌已清零；阿尔米隆末轮第2黄停赛"},
+    "Sweden": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Ivory Coast": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Norway": {"yellow": 2, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Australia": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Egypt": {"yellow": 2, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Cape Verde": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Algeria": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Ghana": {"yellow": 5, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "Canada": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "South Africa": {"yellow": 4, "red": 1, "yellows_active": 0, "note": "黄牌已清零；莫科纳红牌R32停赛"},
+    "Bosnia and Herzegovina": {"yellow": 4, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"},
+    "DR Congo": {"yellow": 3, "red": 0, "yellows_active": 0, "note": "小组赛黄牌已清零"}
+  },
+  "clear_rules": {
+    "group_stage_clear": "小组赛结束后，所有单张黄牌全部清零",
+    "knockout_accumulation": "R32 → R16 → QF 三轮中累计2张黄牌 → 停赛1场",
+    "pre_semi_clear": "¼决赛结束后，单张黄牌第二次清零，确保无人因累计黄牌缺席决赛",
+    "red_card_no_amnesty": "红牌（直接/两黄变红）不清零，不带入淘汰赛黄牌累计但须执行停赛",
+    "last_group_2nd_yellow": "小组赛末轮吃到第2张黄牌 → 不享受清零 → R32强制停赛"
   }
 }
