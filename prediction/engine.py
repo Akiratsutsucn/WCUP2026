@@ -50,10 +50,12 @@ TEAM_NAME_NORMALIZE = {
 
 # ── Elo 数据 ──────────────────────────────────────────
 def get_elo(team_name):
-    """获取球队 Elo 评分（2000 制）"""
+    """获取球队 Elo 评分"""
     for k, v in ELO_CACHE.items():
         if k.lower() == team_name.lower() or team_name.lower() in k.lower():
-            return v.get('elo', 1700)
+            if isinstance(v, dict):
+                return v.get('elo', 1700)
+            return float(v)
     return 1700
 
 def get_all_elos():
