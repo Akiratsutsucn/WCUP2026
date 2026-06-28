@@ -262,36 +262,44 @@ async function loadMysticDetail(){
 
 // ── 4. 对战预测 ──
 function renderH2H(){
-  var h = '<div class="card"><h3>⚔ 对战预测</h3>';
-  h += '<div class="btn-bar"><select id="h2h-a">';
-  for(var i=0; i<allTeams.length; i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
-  h += '</select><span style="color:#c9a84c;font-weight:bold;margin:0 6px;">对阵</span><select id="h2h-b">';
-  for(var i=0; i<allTeams.length; i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
-  h += '</select><button class="btn-sm" onclick="loadH2H()">⚡ 开始预测</button></div>';
-  h += '<div id="h2h-result" class="mt-8"></div>';
+  if(!matchData || !matchData.matches) return '<div class="card"><h3>⚔ 对战预测</h3><div class="loading">数据加载中...</div></div>';
+  var r32matches = matchData.matches.filter(function(m){ return m.round === 'R32'; }).sort(function(a,b){ return a.id.localeCompare(b.id); });
+  var h = '<div class="card"><h3>⚔ 32强对战预测</h3>';
+  h += '<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">点击任意对阵查看详细预测分析</p>';
+  h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">';
+  for(var i=0; i<r32matches.length; i++){
+    var m = r32matches[i];
+    var home = m.home || '待定', away = m.away || '待定';
+    h += '<div class="ranking-bar" onclick="loadH2H(\'' + home + '\',\'' + away + '\')" style="cursor:pointer;padding:6px 8px;font-size:.78em;" title="点击查看预测">';
+    h += '<span class="flag" style="font-size:1em;">' + getFlag(home) + '</span><span style="font-size:.8em;">' + cn(home) + '</span>';
+    h += '<span style="color:#c9a84c;font-size:.7em;margin:0 2px;">vs</span>';
+    h += '<span class="flag" style="font-size:1em;">' + getFlag(away) + '</span><span style="font-size:.8em;">' + cn(away) + '</span>';
+    h += '</div>';
+  }
+  h += '</div><div id="h2h-result" class="mt-8"></div>';
   return h + '</div>';
 }
-async function loadH2H(){
-  var a = document.getElementById('h2h-a');
-  var b = document.getElementById('h2h-b');
-  var ta = a ? a.value : allTeams[0];
-  var tb = b ? b.value : (allTeams[1] || allTeams[0]);
+async function loadH2H(ta, tb){
+  if(!ta || !tb){ document.getElementById('h2h-result').innerHTML=''; return; }
+  document.getElementById('h2h-result').innerHTML = '<div class="loading" style="padding:20px;">正在分析 ' + cn(ta) + ' vs ' + cn(tb) + '...</div>';
   try{
     var r = await fetch('/api/predict/h2h?team1=' + encodeURIComponent(ta) + '&team2=' + encodeURIComponent(tb));
     var d = await r.json();
     if(d.error){ document.getElementById('h2h-result').innerHTML = '<div class="error">请求失败：' + d.error + '</div>'; return; }
     document.getElementById('h2h-result').innerHTML =
+      '<div class="card" style="margin-top:10px;">' +
       '<div class="h2h-compare">' +
-        '<div class="h2h-team"><div class="flag">' + getFlag(d.team_a) + '</div><div class="name">' + d.team_a + '</div><div class="elo">Elo评分：' + (d.elo_a||'暂无') + '</div></div>' +
+        '<div class="h2h-team"><div class="flag">' + getFlag(d.team_a) + '</div><div class="name">' + cn(d.team_a) + '</div><div class="elo">Elo：' + (d.elo_a||'暂无') + '</div></div>' +
         '<div class="h2h-vs">对阵</div>' +
-        '<div class="h2h-team"><div class="flag">' + getFlag(d.team_b) + '</div><div class="name">' + d.team_b + '</div><div class="elo">Elo评分：' + (d.elo_b||'暂无') + '</div></div>' +
+        '<div class="h2h-team"><div class="flag">' + getFlag(d.team_b) + '</div><div class="name">' + cn(d.team_b) + '</div><div class="elo">Elo：' + (d.elo_b||'暂无') + '</div></div>' +
       '</div>' +
       '<div class="h2h-probs">' +
-        '<div><div class="p">' + ((d.win_prob_a||0).toFixed(1)) + '%</div><div class="l">' + d.team_a + ' 获胜</div></div>' +
+        '<div><div class="p">' + ((d.win_prob_a||0).toFixed(1)) + '%</div><div class="l">' + cn(d.team_a) + ' 胜</div></div>' +
         '<div><div class="p">' + ((d.draw_prob||0).toFixed(1)) + '%</div><div class="l">平局</div></div>' +
-        '<div><div class="p">' + ((d.win_prob_b||0).toFixed(1)) + '%</div><div class="l">' + d.team_b + ' 获胜</div></div>' +
+        '<div><div class="p">' + ((d.win_prob_b||0).toFixed(1)) + '%</div><div class="l">' + cn(d.team_b) + ' 胜</div></div>' +
       '</div>' +
-      '<div class="text-center mt-8" style="font-size:.75em;color:#7aa4c8;">预期进球：' + cn(d.team_a) + ' ' + (d.expected_goals_a||'暂无') + ' — ' + (d.expected_goals_b||'暂无') + ' ' + cn(d.team_b) + '</div>';
+      '<div class="text-center mt-8" style="font-size:.75em;color:#7aa4c8;">预期进球：' + cn(d.team_a) + ' ' + (d.expected_goals_a||'暂无') + ' — ' + (d.expected_goals_b||'暂无') + ' ' + cn(d.team_b) + '</div>' +
+      '</div>';
   }catch(e){
     document.getElementById('h2h-result').innerHTML = '<div class="error">预测失败：' + e.message + '</div>';
   }
