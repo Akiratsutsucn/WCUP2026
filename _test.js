@@ -1,126 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 世界杯冠军预测 · 淘汰赛对阵</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'PingFang SC','Microsoft YaHei','Segoe UI',sans-serif;background:#0a0f1a;color:#d0d8e8;min-height:100vh}
-.header{background:linear-gradient(135deg,#0d1f35,#162d50,#0d1f35);padding:12px 20px;text-align:center;border-bottom:2px solid #c9a84c;position:sticky;top:0;z-index:100}
-.header h1{font-size:1.5em;color:#f0d878;letter-spacing:2px}
-.header .sub{font-size:.78em;color:#7aa4c8;margin-top:2px}
-.nav{display:flex;gap:0;background:#0d1f35;position:sticky;top:64px;z-index:99;overflow-x:auto;scrollbar-width:none;padding:0 12px}
-.nav::-webkit-scrollbar{display:none}
-.nav-btn{padding:10px 16px;background:#122840;color:#7aa4c8;border:none;cursor:pointer;white-space:nowrap;font-size:.8em;transition:all .2s;border-radius:6px 6px 0 0;margin-right:1px}
-.nav-btn:hover{background:#1a3858;color:#a0c8e8}
-.nav-btn.active{background:#162d50;color:#f0d878;font-weight:bold}
-.container{max-width:1600px;margin:0 auto;padding:16px}
-.card{background:#0f1a2e;border:1px solid #1a3050;border-radius:10px;padding:16px;margin-bottom:14px}
-.card h3{color:#f0d878;font-size:.95em;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #1a3050}
-.ranking-bar{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;margin:3px 0;transition:all .2s;cursor:pointer}
-.ranking-bar:hover{background:rgba(201,168,76,.08)}
-.ranking-bar .rk{font-weight:bold;font-size:1.1em;min-width:28px;text-align:center;color:#c9a84c}
-.ranking-bar .flag{font-size:1.4em;min-width:32px}
-.ranking-bar .name{flex:1;font-size:.9em;font-weight:500}
-.ranking-bar .prob{font-weight:bold;color:#f0d878;font-size:.9em;min-width:55px;text-align:right}
-.ranking-bar .bar-wrap{flex:2;height:8px;background:#0d1f35;border-radius:4px;overflow:hidden}
-.ranking-bar .bar-fill{height:100%;background:linear-gradient(90deg,#c9a84c,#f0d878);border-radius:4px;transition:width .5s}
-.factor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
-.factor-tag{display:flex;justify-content:space-between;padding:5px 8px;border-radius:4px;background:rgba(201,168,76,.06);font-size:.8em}
-.factor-tag .val{color:#f0d878;font-weight:bold}
-.squad-list{max-height:500px;overflow-y:auto;font-size:.78em}
-.squad-list table{width:100%;border-collapse:collapse}
-.squad-list th{background:#0d1f35;padding:6px 8px;text-align:left;color:#7aa4c8;position:sticky;top:0;font-size:.85em}
-.squad-list td{padding:4px 8px;border-bottom:1px solid #0d1f35}
-.h2h-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;text-align:center;align-items:center}
-.h2h-team{background:#0d1f35;padding:16px;border-radius:8px}
-.h2h-team .flag{font-size:3em}
-.h2h-team .name{font-size:1.1em;font-weight:bold;color:#f0d878}
-.h2h-team .elo{font-size:.8em;color:#7aa4c8}
-.h2h-vs{font-size:1.5em;color:#c9a84c;font-weight:bold}
-.h2h-probs{margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center}
-.h2h-probs .p{font-size:1.3em;font-weight:bold;color:#f0d878}
-.h2h-probs .l{font-size:.7em;color:#7aa4c8}
-.bracket-wrap{overflow-x:auto;padding:20px 0}
-.bracket-tree{display:flex;min-width:1500px;justify-content:center}
-.bracket-col{display:flex;flex-direction:column;justify-content:space-around;min-width:175px}
-.bracket-col .col-title{text-align:center;color:#f0d878;font-weight:bold;padding:6px;font-size:.8em;background:#162d50;border-radius:4px;margin-bottom:4px}
-.bracket-match{background:#0f1a2e;border:1px solid #1a3050;border-radius:6px;margin:2px 6px;cursor:pointer;transition:all .2s}
-.bracket-match:hover{border-color:#c9a84c;box-shadow:0 0 12px rgba(201,168,76,.25)}
-.bracket-match .row{padding:5px 8px;font-size:.73em;display:flex;justify-content:space-between;align-items:center}
-.bracket-match .row.top{border-bottom:1px solid #1a3050}
-.bracket-match .row .sc{font-weight:bold;color:#f0d878;font-size:1em;margin-left:6px}
-.bracket-match .row.w{color:#f0d878;font-weight:bold}
-.bracket-match .row.tbd{color:#445;font-style:italic}
-.bracket-match.won{border-color:#2a5a30;background:#0a1a10}
-.bracket-arrow{display:flex;align-items:center;justify-content:center;min-width:32px}
-.bracket-arrow svg{overflow:visible}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;justify-content:center;align-items:center}
-.modal-overlay.show{display:flex}
-.modal{background:#0f1a2e;border:2px solid #1a3050;border-radius:12px;padding:20px;min-width:350px;max-width:460px}
-.modal h3{color:#f0d878;text-align:center;margin-bottom:12px}
-.modal .info{text-align:center;color:#7aa4c8;font-size:.8em;margin-bottom:10px}
-.modal .row{display:flex;align-items:center;gap:8px;margin:8px 0}
-.modal .row label{flex:1;color:#c0c8d8;font-weight:bold;font-size:.85em}
-.modal .row select,.modal .row input{background:#0d1f35;color:#d0d8e8;border:1px solid #1a3050;padding:7px 8px;border-radius:5px;font-size:.85em}
-.modal .row select{flex:2}
-.modal .row input{width:55px;text-align:center}
-.btn{padding:8px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.85em;font-weight:bold;transition:all .2s}
-.btn-save{background:#2a5a30;color:#f0d878}.btn-save:hover{background:#3a7a40}
-.btn-cancel{background:#2a2020;color:#999}.btn-cancel:hover{background:#4a3030}
-.btn-bar{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap}
-.btn-sm{font-size:.73em;padding:6px 12px;border-radius:4px;border:none;cursor:pointer;background:#162d50;color:#7aa4c8}
-.btn-sm:hover{background:#1a3858}
-select{max-width:220px}
-.badge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:.7em;font-weight:bold}
-.badge-red{background:#5a2020;color:#f88}
-.badge-yellow{background:#5a5020;color:#fc8}
-.badge-green{background:#205a20;color:#8f8}
-.text-center{text-align:center}
-.mt-8{margin-top:8px}
-.loading{text-align:center;padding:60px;color:#556}
-.error{text-align:center;padding:40px;color:#e88}
-.flex-between{display:flex;justify-content:space-between;align-items:center}
-</style>
-</head>
-<body>
 
-<div class="header">
-  <h1>🏆 2026 世界杯 · 冠军预测系统</h1>
-  <div class="sub">美国 · 加拿大 · 墨西哥 联合主办 ｜ 48支球队 · 32强淘汰赛</div>
-</div>
-
-<nav class="nav" id="nav">
-  <button class="nav-btn active" data-tab="predict">🏆 冠军预测</button>
-  <button class="nav-btn" data-tab="factor">🔬 因子分析</button>
-  <button class="nav-btn" data-tab="mystic">☯ 玄学分析</button>
-  <button class="nav-btn" data-tab="h2h">⚔ 对战预测</button>
-  <button class="nav-btn" data-tab="squad">👥 球员阵容</button>
-  <button class="nav-btn" data-tab="susp">🏥 伤病停赛</button>
-  <button class="nav-btn" data-tab="bracket">🏟 淘汰赛对阵</button>
-</nav>
-
-<div class="container" id="app">
-  <div class="loading">正在加载预测数据，请稍候...</div>
-</div>
-
-<div class="modal-overlay" id="modal">
-<div class="modal">
-<h3>⚽ 编辑比赛结果</h3>
-<div class="info" id="modal-info"></div>
-<div class="row"><label>主队</label><select id="m-home"><option value="">-- 请选择 --</option></select></div>
-<div class="row"><label>比分</label><input type="number" id="m-hs" min="0" value="0"> <span>-</span> <input type="number" id="m-as" min="0" value="0"></div>
-<div class="row"><label>客队</label><select id="m-away"><option value="">-- 请选择 --</option></select></div>
-<div class="row"><label>点球大战（可选）</label><input type="number" id="m-hp" min="0" placeholder="主队"> - <input type="number" id="m-ap" min="0" placeholder="客队"></div>
-<div class="flex-between mt-8">
-  <button class="btn btn-cancel" onclick="closeModal()">取消</button>
-  <button class="btn btn-save" onclick="saveMatch()">✅ 保存结果</button>
-</div>
-</div>
-</div>
-
-<script>
 // 轮次中文名称映射
 var ROUND_NAMES_CN = {
   R32: '32强淘汰赛', R16: '16强淘汰赛', QF: '四分之一决赛',
@@ -314,7 +192,7 @@ async function loadSquad(){
     if(!players.length){ document.getElementById('squad-result').innerHTML = '<div class="loading">该队暂无阵容数据</div>'; return; }
     var tbl = '<table><thead><tr><th>#</th><th>姓名</th><th>位置</th><th>年龄</th><th>国家队出场</th><th>国家队进球</th><th>俱乐部</th></tr></thead><tbody>';
     players.slice(0, 26).forEach(function(p, i){
-      tbl += '<tr><td>' + (i+1) + '</td><td>' + (p.name_cn || p.name || p.player_name || '未知') + '</td><td>' + (p.position || p.pos || '-') + '</td><td>' + (p.age || '-') + '</td><td>' + (p.caps || p.national_caps || '-') + '</td><td>' + (p.goals || p.national_goals || '-') + '</td><td>' + (p.club || '-') + '</td></tr>';
+      tbl += '<tr><td>' + (i+1) + '</td><td>' + (p.name || p.player_name || '未知') + '</td><td>' + (p.position || p.pos || '-') + '</td><td>' + (p.age || '-') + '</td><td>' + (p.caps || p.national_caps || '-') + '</td><td>' + (p.goals || p.national_goals || '-') + '</td><td>' + (p.club || '-') + '</td></tr>';
     });
     tbl += '</tbody></table>';
     document.getElementById('squad-result').innerHTML = tbl;
@@ -514,6 +392,3 @@ function cn(name){ return CN[name] || name; }
 document.getElementById('modal').addEventListener('click', function(e){ if(e.target === this) closeModal(); });
 
 init();
-</script>
-</body>
-</html>

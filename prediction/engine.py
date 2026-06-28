@@ -27,8 +27,10 @@ MATCH_CACHE = _load_json('match_cache.json')
 # 加载中文队名映射
 try:
     TEAM_NAMES_CN = _load_json('team_names_cn.json')
+    CN_PLAYERS = _load_json('cn_players_en.json')
 except:
     TEAM_NAMES_CN = {}
+    CN_PLAYERS = {}
 
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
@@ -424,7 +426,17 @@ class PredictionEngine:
     
     def get_squad(self, team):
         teams_data = PLAYERS_DATA.get('teams', {})
-        return teams_data.get(team, {'team': team, 'players': [], 'error': 'No data'})
+        result = teams_data.get(team, {'team': team, 'players': [], 'error': 'No data'})
+        # Add Chinese player names if available
+        try:
+            cn_names = CN_PLAYERS.get(team, [])
+        except:
+            cn_names = []
+        if isinstance(result, dict) and 'players' in result:
+            for i, p in enumerate(result['players']):
+                if i < len(cn_names):
+                    p['name_cn'] = cn_names[i]
+        return result
     
     def get_elo_data(self):
         return self._elo_data
