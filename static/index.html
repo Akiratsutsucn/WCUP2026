@@ -207,7 +207,7 @@ function renderFactor(){
   h += '<th style="padding:6px 8px;text-align:left;color:#7aa4c8;">排名</th>';
   h += '<th style="padding:6px 8px;text-align:left;color:#7aa4c8;">球队</th>';
   h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">实力评分</th>';
-  h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">球员</th>';
+  h += '';
   h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">平均年龄</th>';
   h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">综合得分</th>';
   h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">原始概率</th>';
@@ -222,7 +222,7 @@ function renderFactor(){
     h += '<td style="padding:5px 8px;color:#c9a84c;font-weight:bold;">' + (i+1) + '</td>';
     h += '<td style="padding:5px 8px;">' + cn(t.team) + '</td>';
     h += '<td style="padding:5px 8px;text-align:right;">' + (t.elo ? Math.round(t.elo) : '-') + '</td>';
-    h += '<td style="padding:5px 8px;text-align:right;">' + (t.player_count || '26') + '/26' + '</td>';
+    h += '<td style="padding:5px 8px;text-align:right;">' + '' + '</td>';
     h += '<td style="padding:5px 8px;text-align:right;">' + (t.avg_age || '-') + '</td>';
     h += '<td style="padding:5px 8px;text-align:right;color:#f0d878;">' + (t.total_score ? t.total_score.toFixed(3) : '-') + '</td>';
     h += '<td style="padding:5px 8px;text-align:right;">' + ((t.prob||0).toFixed(1)) + '%</td>';
