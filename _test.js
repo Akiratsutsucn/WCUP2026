@@ -81,27 +81,36 @@ var currentFactorTeam = null;
 function renderFactor(){
   if(!predictData || !predictData.rankings || !predictData.rankings.length)
     return '<div class="card"><h3>球队因子分析</h3><div class="loading">数据加载中...</div></div>';
-  if(!currentFactorTeam) currentFactorTeam = predictData.rankings[0].team;
-  var h = '<div class="card"><h3>球队评分因子构成</h3>';
-  h += '<div class="btn-bar"><select id="factor-team" onchange="currentFactorTeam=this.value;renderAll();">';
-  for(var i=0; i<Math.min(predictData.rankings.length, 20); i++){
-    var tn = predictData.rankings[i].team;
-    h += '<option value="' + tn + '"' + (tn === currentFactorTeam ? ' selected' : '') + '>' + cn(tn) + '</option>';
-  }
-  h += '</select></div>';
-  var t = predictData.rankings.find(function(x){ return x.team === currentFactorTeam; });
-  if(t){
-    h += '<div class="factor-grid">';
-    h += '<div class="factor-tag"><span>实力评分</span><span class="val">' + (t.elo || '暂无') + '</span></div>';
-    h += '<div class="factor-tag"><span>球员数量</span><span class="val">' + (t.player_count || '暂无') + '</span></div>';
-    h += '<div class="factor-tag"><span>平均年龄</span><span class="val">' + (t.avg_age || '暂无') + '</span></div>';
-    h += '<div class="factor-tag"><span>综合得分</span><span class="val">' + (t.total_score ? t.total_score.toFixed(3) : '暂无') + '</span></div>';
-    h += '<div class="factor-tag"><span>原始概率</span><span class="val">' + ((t.prob||0).toFixed(2)) + '%</span></div>';
+  var h = '<div class="card"><h3>球队评分因子构成（32强排名）</h3>';
+  h += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:.8em;">';
+  h += '<thead><tr style="background:#0d1f35;">';
+  h += '<th style="padding:6px 8px;text-align:left;color:#7aa4c8;">排名</th>';
+  h += '<th style="padding:6px 8px;text-align:left;color:#7aa4c8;">球队</th>';
+  h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">实力评分</th>';
+  h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">球员数</th>';
+  h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">平均年龄</th>';
+  h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">综合得分</th>';
+  h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">原始概率</th>';
+  h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">玄学修正</th>';
+  h += '<th style="padding:6px 8px;text-align:right;color:#7aa4c8;">调整概率</th>';
+  h += '</tr></thead><tbody>';
+  for(var i=0; i<predictData.rankings.length; i++){
+    var t = predictData.rankings[i];
     var adj = t.mystic_adjustment || 0;
-    h += '<div class="factor-tag"><span>玄学修正</span><span class="val">' + (adj>0?'+':'') + adj.toFixed(2) + '%</span></div>';
-    h += '<div class="factor-tag"><span>调整后概率</span><span class="val">' + ((t.adjusted_prob||0).toFixed(2)) + '%</span></div>';
-    h += '</div>';
+    var rowBg = (i%2===0) ? '#0f1a2e' : '#0a1525';
+    h += '<tr style="background:' + rowBg + ';">';
+    h += '<td style="padding:5px 8px;color:#c9a84c;font-weight:bold;">' + (i+1) + '</td>';
+    h += '<td style="padding:5px 8px;">' + cn(t.team) + '</td>';
+    h += '<td style="padding:5px 8px;text-align:right;">' + (t.elo ? Math.round(t.elo) : '-') + '</td>';
+    h += '<td style="padding:5px 8px;text-align:right;">' + (t.player_count || '-') + '</td>';
+    h += '<td style="padding:5px 8px;text-align:right;">' + (t.avg_age || '-') + '</td>';
+    h += '<td style="padding:5px 8px;text-align:right;color:#f0d878;">' + (t.total_score ? t.total_score.toFixed(3) : '-') + '</td>';
+    h += '<td style="padding:5px 8px;text-align:right;">' + ((t.prob||0).toFixed(1)) + '%</td>';
+    h += '<td style="padding:5px 8px;text-align:right;color:' + (adj>0?'#8f8':'#e88') + ';">' + (adj>0?'+':'') + adj.toFixed(1) + '%</td>';
+    h += '<td style="padding:5px 8px;text-align:right;color:#f0d878;font-weight:bold;">' + ((t.adjusted_prob||0).toFixed(1)) + '%</td>';
+    h += '</tr>';
   }
+  h += '</tbody></table></div>';
   return h + '</div>';
 }
 
