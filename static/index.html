@@ -3,402 +3,483 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 FIFA World Cup - Knockout Bracket</title>
+<title>2026 世界杯冠军预测 · 淘汰赛对阵</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a1628; color: #e0e0e0; min-height: 100vh; }
-.header { background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 50%, #1a3a5c 100%); padding: 14px 24px;
-  text-align: center; border-bottom: 3px solid #c9a84c; position: sticky; top: 0; z-index: 100; }
-.header h1 { font-size: 1.5em; color: #f0d878; letter-spacing: 2px; }
-.header .subtitle { font-size: 0.82em; color: #8ab4d8; margin-top: 2px; }
-.tabs { display: flex; gap: 2px; background: #0d2137; padding: 6px 24px 0; position: sticky; top: 68px; z-index: 99; }
-.tab { padding: 8px 20px; background: #152a40; color: #8ab4d8; border: none; cursor: pointer; border-radius: 6px 6px 0 0; font-size: 0.88em; }
-.tab.active { background: #1a3a5c; color: #f0d878; font-weight: bold; }
-.container { max-width: 1600px; margin: 0 auto; padding: 16px; }
-.section { display: none; }
-.section.active { display: block; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#0a0f1a;color:#d0d8e8;min-height:100vh}
+.header{background:linear-gradient(135deg,#0d1f35,#162d50,#0d1f35);padding:12px 20px;text-align:center;border-bottom:2px solid #c9a84c;position:sticky;top:0;z-index:100}
+.header h1{font-size:1.5em;color:#f0d878;letter-spacing:2px}
+.header .sub{font-size:.78em;color:#7aa4c8;margin-top:2px}
 
-/* Groups Grid */
-.groups-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-@media (max-width: 1200px) { .groups-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 900px) { .groups-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 550px) { .groups-grid { grid-template-columns: 1fr; } }
-.group-card { background: #112233; border-radius: 8px; overflow: hidden; border: 1px solid #1e3a50; }
-.group-card .group-header { background: #1a3a5c; padding: 7px 10px; font-weight: bold; color: #f0d878; font-size: 0.92em; }
-.group-card table { width: 100%; border-collapse: collapse; font-size: 0.75em; }
-.group-card th { background: #0d2137; padding: 4px 5px; text-align: left; color: #8ab4d8; font-weight: normal; font-size: 0.82em; }
-.group-card td { padding: 3px 5px; border-bottom: 1px solid #0d2137; }
-.group-card tr.advanced { background: rgba(201,168,76,0.15); }
-.group-card tr.advanced td:first-child { font-weight: bold; color: #f0d878; }
-.group-card .qual-note { font-size: 0.68em; color: #c9a84c; padding: 5px 8px; border-top: 1px solid #1e3a50; }
-.num { text-align: center; }
+/* Tabs */
+.nav{display:flex;gap:0;background:#0d1f35;position:sticky;top:64px;z-index:99;overflow-x:auto;scrollbar-width:none;padding:0 12px}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{padding:10px 16px;background:#122840;color:#7aa4c8;border:none;cursor:pointer;white-space:nowrap;font-size:.8em;transition:all .2s;border-radius:6px 6px 0 0;margin-right:1px}
+.nav-btn:hover{background:#1a3858;color:#a0c8e8}
+.nav-btn.active{background:#162d50;color:#f0d878;font-weight:bold}
+.container{max-width:1600px;margin:0 auto;padding:16px}
+.section{display:none}
+.section.active{display:block}
 
-/* Bracket */
-.bracket-container { overflow-x: auto; padding: 10px 0; }
-.bracket { display: flex; gap: 0; min-width: 1400px; justify-content: center; }
-.bracket-round { display: flex; flex-direction: column; justify-content: space-around; min-width: 175px; }
-.bracket-round .round-title { text-align: center; color: #f0d878; font-weight: bold; padding: 7px; font-size: 0.82em; background: #1a3a5c; border-radius: 4px; margin-bottom: 5px; }
-.bracket-match { background: #112233; border: 1px solid #1e3a50; border-radius: 6px; margin: 3px 6px; cursor: pointer; transition: all 0.2s; overflow: hidden; }
-.bracket-match:hover { border-color: #c9a84c; box-shadow: 0 0 12px rgba(201,168,76,0.25); }
-.bracket-match .team { padding: 5px 8px; font-size: 0.75em; white-space: nowrap; display: flex; justify-content: space-between; align-items: center; }
-.bracket-match .team.home { border-bottom: 1px solid #1e3a50; }
-.bracket-match .team .score { font-weight: bold; color: #f0d878; font-size: 1.05em; margin-left: 6px; min-width: 14px; text-align: center; }
-.bracket-match .team.winner { color: #f0d878; font-weight: bold; }
-.bracket-match .team.tbd { color: #555; font-style: italic; }
-.bracket-match .match-date { font-size: 0.62em; color: #555; text-align: center; padding: 1px 0; }
-.bracket-match .match-venue { font-size: 0.58em; color: #444; text-align: center; padding-bottom: 3px; }
-.bracket-match.has-winner { border-color: #2a5a30; background: #0d1a12; }
-.arrow-col { display: flex; align-items: center; justify-content: center; min-width: 24px; color: #333; font-size: 1.3em; }
+/* Cards */
+.card{background:#0f1a2e;border:1px solid #1a3050;border-radius:10px;padding:16px;margin-bottom:14px}
+.card h3{color:#f0d878;font-size:.95em;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #1a3050}
+
+/* Rankings */
+.ranking-bar{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;margin:3px 0;transition:all .2s;cursor:pointer}
+.ranking-bar:hover{background:rgba(201,168,76,.08)}
+.ranking-bar .rk{font-weight:bold;font-size:1.1em;min-width:28px;text-align:center;color:#c9a84c}
+.ranking-bar .flag{font-size:1.4em;min-width:32px}
+.ranking-bar .name{flex:1;font-size:.9em;font-weight:500}
+.ranking-bar .prob{font-weight:bold;color:#f0d878;font-size:.9em;min-width:55px;text-align:right}
+.ranking-bar .bar-wrap{flex:2;height:8px;background:#0d1f35;border-radius:4px;overflow:hidden}
+.ranking-bar .bar-fill{height:100%;background:linear-gradient(90deg,#c9a84c,#f0d878);border-radius:4px;transition:width .5s}
+
+/* Factor breakdown */
+.factor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.factor-tag{display:flex;justify-content:space-between;padding:5px 8px;border-radius:4px;background:rgba(201,168,76,.06);font-size:.8em}
+.factor-tag .val{color:#f0d878;font-weight:bold}
+
+/* Squads */
+.squad-list{max-height:500px;overflow-y:auto;font-size:.78em}
+.squad-list table{width:100%;border-collapse:collapse}
+.squad-list th{background:#0d1f35;padding:6px 8px;text-align:left;color:#7aa4c8;position:sticky;top:0;font-size:.85em}
+.squad-list td{padding:4px 8px;border-bottom:1px solid #0d1f35}
+
+/* H2H */
+.h2h-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;text-align:center;align-items:center}
+.h2h-team{background:#0d1f35;padding:16px;border-radius:8px}
+.h2h-team .flag{font-size:3em}
+.h2h-team .name{font-size:1.1em;font-weight:bold;color:#f0d878}
+.h2h-team .elo{font-size:.8em;color:#7aa4c8}
+.h2h-vs{font-size:1.5em;color:#c9a84c;font-weight:bold}
+.h2h-probs{margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center}
+.h2h-probs .p{font-size:1.3em;font-weight:bold;color:#f0d878}
+.h2h-probs .l{font-size:.7em;color:#7aa4c8}
+
+/* Bracket tree */
+.bracket-wrap{overflow-x:auto;padding:20px 0}
+.bracket-tree{display:flex;min-width:1500px;justify-content:center}
+.bracket-col{display:flex;flex-direction:column;justify-content:space-around;min-width:175px}
+.bracket-col .col-title{text-align:center;color:#f0d878;font-weight:bold;padding:6px;font-size:.8em;background:#162d50;border-radius:4px;margin-bottom:4px}
+.bracket-match{background:#0f1a2e;border:1px solid #1a3050;border-radius:6px;margin:2px 6px;cursor:pointer;transition:all .2s}
+.bracket-match:hover{border-color:#c9a84c;box-shadow:0 0 12px rgba(201,168,76,.25)}
+.bracket-match .row{padding:5px 8px;font-size:.73em;display:flex;justify-content:space-between;align-items:center}
+.bracket-match .row.top{border-bottom:1px solid #1a3050}
+.bracket-match .row .sc{font-weight:bold;color:#f0d878;font-size:1em;margin-left:6px}
+.bracket-match .row.w{color:#f0d878;font-weight:bold}
+.bracket-match .row.tbd{color:#445;font-style:italic}
+.bracket-match.won{border-color:#2a5a30;background:#0a1a10}
+.bracket-arrow{display:flex;align-items:center;justify-content:center;min-width:32px}
+.bracket-arrow svg{overflow:visible}
 
 /* Modal */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; justify-content: center; align-items: center; }
-.modal-overlay.show { display: flex; }
-.modal { background: #112233; border: 2px solid #1e3a50; border-radius: 12px; padding: 24px; min-width: 360px; max-width: 450px; }
-.modal h3 { color: #f0d878; margin-bottom: 14px; text-align: center; }
-.modal .match-info { text-align: center; color: #8ab4d8; font-size: 0.82em; margin-bottom: 10px; }
-.modal .fm-row { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
-.modal .fm-row label { flex: 1; color: #e0e0e0; font-weight: bold; font-size: 0.9em; }
-.modal .fm-row select { flex: 2; background: #0d2137; color: #e0e0e0; border: 1px solid #1e3a50; padding: 6px 8px; border-radius: 4px; font-size: 0.88em; }
-.modal .fm-row input { width: 60px; background: #0d2137; color: #f0d878; border: 1px solid #1e3a50; padding: 7px; border-radius: 4px; font-size: 1.1em; text-align: center; }
-.modal .pen-row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
-.modal .pen-row label { flex: 1; color: #8ab4d8; font-size: 0.76em; }
-.modal .pen-row input { width: 48px; background: #0d2137; color: #8ab4d8; border: 1px solid #1e3a50; padding: 4px; border-radius: 4px; text-align: center; font-size: 0.85em; }
-.modal .btn-row { display: flex; gap: 10px; margin-top: 18px; justify-content: center; }
-.btn { padding: 9px 22px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.88em; font-weight: bold; transition: all 0.2s; }
-.btn-save { background: #2a5a30; color: #f0d878; } .btn-save:hover { background: #3a7a40; }
-.btn-cancel { background: #3a2020; color: #aaa; } .btn-cancel:hover { background: #5a3030; }
-.btn-reset { background: #5a3030; color: #e88; font-size: 0.76em; padding: 6px 12px; }
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:#0f1a2e;border:2px solid #1a3050;border-radius:12px;padding:20px;min-width:350px;max-width:460px}
+.modal h3{color:#f0d878;text-align:center;margin-bottom:12px}
+.modal .info{text-align:center;color:#7aa4c8;font-size:.8em;margin-bottom:10px}
+.modal .row{display:flex;align-items:center;gap:8px;margin:8px 0}
+.modal .row label{flex:1;color:#c0c8d8;font-weight:bold;font-size:.85em}
+.modal .row select,.modal .row input{background:#0d1f35;color:#d0d8e8;border:1px solid #1a3050;padding:7px 8px;border-radius:5px;font-size:.85em}
+.modal .row select{flex:2}
+.modal .row input{width:55px;text-align:center}
+.btn{padding:8px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.85em;font-weight:bold;transition:all .2s}
+.btn-save{background:#2a5a30;color:#f0d878}.btn-save:hover{background:#3a7a40}
+.btn-cancel{background:#2a2020;color:#999}.btn-cancel:hover{background:#4a3030}
+.btn-bar{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap}
+.btn-sm{font-size:.73em;padding:6px 12px;border-radius:4px;border:none;cursor:pointer;background:#162d50;color:#7aa4c8}
+.btn-sm:hover{background:#1a3858}
 
-/* Toolbar */
-.toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-.toolbar .btn-auto { background: #1a3a5c; color: #8ab4d8; font-size: 0.76em; padding: 6px 12px; }
+/* Misc */
+select{max-width:220px}
+.badge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:.7em;font-weight:bold}
+.badge-red{background:#5a2020;color:#f88}
+.badge-yellow{background:#5a5020;color:#fc8}
+.badge-green{background:#205a20;color:#8f8}
+.text-center{text-align:center}
+.mt-8{margin-top:8px}
+.loading{text-align:center;padding:60px;color:#556}
+.error{text-align:center;padding:40px;color:#e88}
+.flex-between{display:flex;justify-content:space-between;align-items:center}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>🏆 2026 FIFA WORLD CUP</h1>
-  <div class="subtitle">United States · Canada · Mexico — 12 Groups → 32-Team Knockout</div>
+  <h1>🏆 2026 世界杯 · 冠军预测系统</h1>
+  <div class="sub">美国 · 加拿大 · 墨西哥 联合主办 | 48支球队 · 32强淘汰赛</div>
 </div>
 
-<div class="tabs">
-  <button class="tab active" onclick="switchTab('bracket')">🏟 淘汰赛对阵</button>
-  <button class="tab" onclick="switchTab('groups')">📊 小组赛积分</button>
+<nav class="nav" id="nav">
+  <button class="nav-btn active" data-tab="predict">🏆 冠军预测</button>
+  <button class="nav-btn" data-tab="factor">🔬 因子分析</button>
+  <button class="nav-btn" data-tab="mystic">☯ 玄学分析</button>
+  <button class="nav-btn" data-tab="h2h">⚔ H2H对战</button>
+  <button class="nav-btn" data-tab="squad">👥 球员阵容</button>
+  <button class="nav-btn" data-tab="susp">🏥 伤病停赛</button>
+  <button class="nav-btn" data-tab="bracket">🏟 淘汰赛对阵</button>
+</nav>
+
+<div class="container" id="app">
+<div class="loading">加载预测引擎中...</div>
 </div>
 
-<div class="container">
-  <div id="section-bracket" class="section active">
-    <div class="toolbar">
-      <button class="btn-auto" onclick="fillR32FromStandings()">🔄 从小组赛自动填R32队伍</button>
-      <button class="btn-reset" onclick="resetAll()">⚠ 重置淘汰赛</button>
-    </div>
-    <div class="bracket-container" id="bracket-container">
-      <div style="text-align:center;padding:60px;color:#555;">加载中...</div>
-    </div>
-  </div>
-
-  <div id="section-groups" class="section">
-    <div class="groups-grid" id="groups-container">
-      <div style="text-align:center;padding:60px;color:#555;">加载中...</div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
+<!-- Match Edit Modal -->
 <div class="modal-overlay" id="modal">
-  <div class="modal">
-    <h3>⚽ 编辑比赛结果</h3>
-    <div class="match-info" id="modal-info"></div>
-    <div class="fm-row">
-      <label>主队</label>
-      <select id="home-select"><option value="">-- 选择队伍 --</option></select>
-    </div>
-    <div class="fm-row">
-      <label>比分</label>
-      <input type="number" id="home-score" min="0" value="0" onfocus="this.select()">
-      <span style="font-size:1.4em;color:#555;">-</span>
-      <input type="number" id="away-score" min="0" value="0" onfocus="this.select()">
-    </div>
-    <div class="fm-row">
-      <label>客队</label>
-      <select id="away-select"><option value="">-- 选择队伍 --</option></select>
-    </div>
-    <div class="pen-row">
-      <label>⚡ 点球 (可选)</label>
-      <input type="number" id="home-pen" min="0" placeholder="主">
-      <span style="color:#555;">-</span>
-      <input type="number" id="away-pen" min="0" placeholder="客">
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-cancel" onclick="closeModal()">取消</button>
-      <button class="btn btn-save" onclick="saveMatch()">✅ 保存结果</button>
-    </div>
-  </div>
+<div class="modal">
+<h3>⚽ 编辑比赛</h3>
+<div class="info" id="modal-info"></div>
+<div class="row"><label>主队</label><select id="m-home"><option value="">-- 选择 --</option></select></div>
+<div class="row"><label>比分</label><input type="number" id="m-hs" min="0" value="0"> <span>-</span> <input type="number" id="m-as" min="0" value="0"></div>
+<div class="row"><label>客队</label><select id="m-away"><option value="">-- 选择 --</option></select></div>
+<div class="row"><label>点球(可选)</label><input type="number" id="m-hp" min="0" placeholder="主"> - <input type="number" id="m-ap" min="0" placeholder="客"></div>
+<div class="flex-between mt-8">
+  <button class="btn btn-cancel" onclick="closeModal()">取消</button>
+  <button class="btn btn-save" onclick="saveMatch()">✅ 保存</button>
+</div>
+</div>
 </div>
 
 <script>
-let matchData = null;
-let standingsData = null;
-let editingMatchId = null;
-let allTeamNames = [];
+// ── State ──
+let matchData=null,standingsData=null,predictData=null,editingMatchId=null,allTeams=[];
+let teamsData=null;
 
-async function init() {
-  try {
-    const r = await fetch('/api/all');
-    const d = await r.json();
-    matchData = d.matches;
-    standingsData = d.standings;
-    
-    // Build flat team list from standings
-    allTeamNames = [];
-    if (standingsData) {
-      for (const g of Object.keys(standingsData).sort()) {
-        for (const t of standingsData[g]) {
-          if (!allTeamNames.includes(t.team)) allTeamNames.push(t.team);
-        }
+// ── Init ──
+async function init(){
+  try{
+    const r=await fetch('/api/all');
+    const d=await r.json();
+    matchData=d.matches; standingsData=d.standings; teamsData=d.teams;
+    // Build team list
+    if(standingsData) for(let g in standingsData) for(let t of standingsData[g])
+      if(!allTeams.includes(t.team)) allTeams.push(t.team);
+    allTeams.sort();
+    // Load predictions if available
+    try{
+      const p=await fetch('/api/predict/all');
+      if(p.ok) predictData=await p.json();
+    }catch(e){console.log('Prediction engine not ready')}
+    renderAll();
+  }catch(e){
+    document.getElementById('app').innerHTML='<div class="error">加载失败: '+e.message+'</div>';
+  }
+}
+
+// ── Nav ──
+document.getElementById('nav').addEventListener('click',function(e){
+  if(!e.target.classList.contains('nav-btn'))return;
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  e.target.classList.add('active');
+  renderAll();
+});
+
+function activeTab(){
+  return document.querySelector('.nav-btn.active')?.dataset.tab||'predict';
+}
+
+// ── Render ──
+function renderAll(){
+  const tab=activeTab();
+  let html='';
+  switch(tab){
+    case 'predict': html=renderPredict(); break;
+    case 'factor': html=renderFactor(); break;
+    case 'mystic': html=renderMystic(); break;
+    case 'h2h': html=renderH2H(); break;
+    case 'squad': html=renderSquad(); break;
+    case 'susp': html=renderSuspensions(); break;
+    case 'bracket': html=renderBracketPage(); break;
+  }
+  document.getElementById('app').innerHTML=html;
+}
+
+// ── 1. Predict ──
+function renderPredict(){
+  if(!predictData||!predictData.rankings||!predictData.rankings.length)
+    return '<div class="card"><h3>🏆 冠军预测排行</h3><div class="loading">预测引擎加载中，请稍候...</div></div>';
+  const r=predictData.rankings;
+  const maxProb=Math.max(...r.map(t=>t.prob||t.adjusted_prob||0));
+  let h='<div class="card"><h3>🏆 冠军预测排行 — Monte Carlo模拟</h3>';
+  h+='<div class="btn-bar"><button class="btn-sm" onclick="location.reload()">🔄 刷新预测</button></div>';
+  for(let i=0;i<Math.min(r.length,20);i++){
+    const t=r[i];
+    const prob=t.adjusted_prob||t.prob||0;
+    const barW=(prob/maxProb*100);
+    const flag=getFlag(t.team);
+    h+=`<div class="ranking-bar">
+      <span class="rk">${i+1}</span><span class="flag">${flag}</span>
+      <span class="name">${t.team}</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:${barW}%"></div></div>
+      <span class="prob">${prob.toFixed(1)}%</span></div>`;
+  }
+  if(predictData.elo_data){
+    h+='<div class="mt-8" style="font-size:.75em;color:#7aa4c8;">基于: Elo评分 + 球员数据 + 球队因子 + 玄学修正</div>';
+  }
+  return h+'</div>';
+}
+
+// ── 2. Factor ──
+function renderFactor(){
+  if(!predictData||!predictData.rankings||!predictData.rankings.length)
+    return '<div class="card"><h3>🔬 球队因子分析</h3><div class="loading">数据加载中...</div></div>';
+  let h='<div class="card"><h3>🔬 球队评分因子构成</h3>';
+  h+='<div class="btn-bar"><select id="factor-team" onchange="renderAll()">';
+  for(let t of predictData.rankings.slice(0,20))
+    h+=`<option>${t.team}</option>`;
+  h+='</select></div>';
+  const sel=document.getElementById('factor-team')?.value||predictData.rankings[0].team;
+  const t=predictData.rankings.find(x=>x.team===sel);
+  if(t){
+    h+=`<div class="factor-grid">
+      <div class="factor-tag"><span>Elo评分</span><span class="val">${t.elo||'N/A'}</span></div>
+      <div class="factor-tag"><span>球员数</span><span class="val">${t.player_count||'N/A'}</span></div>
+      <div class="factor-tag"><span>平均年龄</span><span class="val">${t.avg_age||'N/A'}</span></div>
+      <div class="factor-tag"><span>综合得分</span><span class="val">${t.score||'N/A'}</span></div>
+      <div class="factor-tag"><span>原始概率</span><span class="val">${(t.raw_prob||0).toFixed(2)}%</span></div>
+      <div class="factor-tag"><span>玄学修正</span><span class="val">${(t.mystic_adjustment||0)>0?'+':''}${(t.mystic_adjustment||0).toFixed(2)}%</span></div>
+      <div class="factor-tag"><span>调整概率</span><span class="val">${(t.adjusted_prob||0).toFixed(2)}%</span></div>
+    </div>`;
+  }
+  // Also show UCL signals if available
+  if(predictData.ucl_signals){
+    h+='<div class="card mt-8"><h3>🎯 欧冠决赛心态信号</h3>';
+    const sigs=predictData.ucl_signals;
+    for(let k in sigs){
+      if(sigs[k]&&typeof sigs[k]==='object'){
+        h+=`<div class="factor-tag"><span>${k}</span><span class="val">${sigs[k].signal||sigs[k]}</span></div>`;
       }
     }
-    allTeamNames.sort();
-    
-    renderBracket();
-    renderGroups();
-  } catch(e) {
-    document.getElementById('bracket-container').innerHTML = 
-      '<div style="text-align:center;padding:60px;color:#e88;">加载失败: ' + e.message + '</div>';
+    h+='</div>';
   }
+  return h+'</div>';
 }
 
-function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const idx = tab === 'bracket' ? 1 : 2;
-  document.querySelector(`.tab:nth-child(${idx})`).classList.add('active');
-  document.getElementById('section-' + tab).classList.add('active');
+// ── 3. Mystic ──
+function renderMystic(){
+  if(!predictData||!predictData.mystic_summary)
+    return '<div class="card"><h3>☯ 玄学分析</h3><div class="loading">玄学数据加载中...</div></div>';
+  let h='<div class="card"><h3>☯ 玄学因子 — 悖论框架 · 道德经 · 易经</h3>';
+  h+='<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">三重境界：看山是山 → 看山不是山 → 看山还是山</p>';
+  h+='<div class="btn-bar"><select id="mystic-team" onchange="renderAll()">';
+  for(let t of allTeams.slice(0,30)) h+=`<option>${t}</option>`;
+  h+='</select><button class="btn-sm" onclick="loadMysticDetail()">查看详情</button></div>';
+  h+='<div id="mystic-detail" class="mt-8" style="font-size:.8em;color:#a0b8d0;"></div>';
+  return h+'</div>';
+}
+async function loadMysticDetail(){
+  const team=document.getElementById('mystic-team')?.value||allTeams[0];
+  const r=await fetch('/api/predict/mystic?team='+encodeURIComponent(team));
+  const d=await r.json();
+  document.getElementById('mystic-detail').innerHTML='<pre style="white-space:pre-wrap;font-size:.75em;">'+JSON.stringify(d,null,2)+'</pre>';
 }
 
-// ─── Groups ──────────────────────────────────────────────
-function renderGroups() {
-  if (!standingsData) return;
-  const groupOrder = 'ABCDEFGHIJKL'.split('');
-  let html = '';
-  for (const g of groupOrder) {
-    const rows = standingsData[g];
-    if (!rows) continue;
-    const top2 = rows.slice(0, 2).map(r => r.team);
-    html += '<div class="group-card">';
-    html += '<div class="group-header">Group ' + g + '</div>';
-    html += '<table><thead><tr><th>#</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">D</th><th class="num">L</th><th class="num">GF</th><th class="num">GA</th><th class="num">GD</th><th class="num">Pts</th></tr></thead><tbody>';
-    for (const t of rows) {
-      const adv = top2.includes(t.team);
-      const gdStr = t.gd > 0 ? '+' + t.gd : '' + t.gd;
-      html += '<tr class="' + (adv ? 'advanced' : '') + '">';
-      html += '<td>' + (adv ? '✓' : t.pos) + '</td>';
-      html += '<td>' + t.team + '</td>';
-      html += '<td class="num">' + t.p + '</td>';
-      html += '<td class="num">' + t.w + '</td>';
-      html += '<td class="num">' + t.d + '</td>';
-      html += '<td class="num">' + t.l + '</td>';
-      html += '<td class="num">' + t.gf + '</td>';
-      html += '<td class="num">' + t.ga + '</td>';
-      html += '<td class="num">' + gdStr + '</td>';
-      html += '<td class="num"><b>' + t.pts + '</b></td>';
-      html += '</tr>';
+// ── 4. H2H ──
+function renderH2H(){
+  let h='<div class="card"><h3>⚔ H2H 对战预测</h3>';
+  h+='<div class="btn-bar"><select id="h2h-a">';
+  for(let t of allTeams) h+=`<option>${t}</option>`;
+  h+='</select><span style="color:#c9a84c;font-weight:bold;">VS</span><select id="h2h-b">';
+  for(let t of allTeams) h+=`<option>${t}</option>`;
+  h+='</select><button class="btn-sm" onclick="loadH2H()">⚡ 预测</button></div>';
+  h+='<div id="h2h-result" class="mt-8"></div>';
+  return h+'</div>';
+}
+async function loadH2H(){
+  const a=document.getElementById('h2h-a')?.value||allTeams[0];
+  const b=document.getElementById('h2h-b')?.value||(allTeams[1]||allTeams[0]);
+  try{
+    const r=await fetch('/api/predict/h2h?team1='+encodeURIComponent(a)+'&team2='+encodeURIComponent(b));
+    const d=await r.json();
+    if(d.error){document.getElementById('h2h-result').innerHTML='<div class="error">'+d.error+'</div>';return;}
+    document.getElementById('h2h-result').innerHTML=`
+      <div class="h2h-compare">
+        <div class="h2h-team"><div class="flag">${getFlag(d.team_a)}</div><div class="name">${d.team_a}</div><div class="elo">Elo: ${d.elo_a||'N/A'}</div></div>
+        <div class="h2h-vs">VS</div>
+        <div class="h2h-team"><div class="flag">${getFlag(d.team_b)}</div><div class="name">${d.team_b}</div><div class="elo">Elo: ${d.elo_b||'N/A'}</div></div>
+      </div>
+      <div class="h2h-probs">
+        <div><div class="p">${(d.win_prob_a||0).toFixed(1)}%</div><div class="l">${d.team_a}胜</div></div>
+        <div><div class="p">${(d.draw_prob||0).toFixed(1)}%</div><div class="l">平局</div></div>
+        <div><div class="p">${(d.win_prob_b||0).toFixed(1)}%</div><div class="l">${d.team_b}胜</div></div>
+      </div>
+      <div class="text-center mt-8" style="font-size:.75em;color:#7aa4c8;">预期进球: ${d.team_a} ${d.expected_goals_a||'N/A'} - ${d.expected_goals_b||'N/A'} ${d.team_b}</div>`;
+  }catch(e){document.getElementById('h2h-result').innerHTML='<div class="error">预测失败: '+e.message+'</div>';}
+}
+
+// ── 5. Squad ──
+function renderSquad(){
+  let h='<div class="card"><h3>👥 球员阵容</h3>';
+  h+='<div class="btn-bar"><select id="squad-team" onchange="loadSquad()">';
+  for(let t of allTeams) h+=`<option>${t}</option>`;
+  h+='</select></div><div id="squad-result" class="squad-list"></div>';
+  h+='</div>';
+  setTimeout(loadSquad,100);
+  return h;
+}
+async function loadSquad(){
+  const team=document.getElementById('squad-team')?.value||allTeams[0];
+  try{
+    const r=await fetch('/api/predict/squad?team='+encodeURIComponent(team));
+    const d=await r.json();
+    if(d.error){document.getElementById('squad-result').innerHTML='<div class="error">'+d.error+'</div>';return;}
+    const players=d.players||[];
+    if(!players.length){document.getElementById('squad-result').innerHTML='<div class="loading">暂无阵容数据</div>';return;}
+    let tbl='<table><thead><tr><th>#</th><th>姓名</th><th>位置</th><th>年龄</th><th>出场</th><th>进球</th><th>俱乐部</th></tr></thead><tbody>';
+    players.slice(0,26).forEach((p,i)=>{
+      tbl+=`<tr><td>${i+1}</td><td>${p.name||p.player_name||'?'}</td><td>${p.position||p.pos||'-'}</td><td>${p.age||'-'}</td><td>${p.caps||p.national_caps||'-'}</td><td>${p.goals||p.national_goals||'-'}</td><td>${p.club||'-'}</td></tr>`;
+    });
+    tbl+='</tbody></table>';
+    document.getElementById('squad-result').innerHTML=tbl;
+  }catch(e){document.getElementById('squad-result').innerHTML='<div class="error">加载失败</div>';}
+}
+
+// ── 6. Suspensions ──
+function renderSuspensions(){
+  if(!predictData||!predictData.suspensions)
+    return '<div class="card"><h3>🏥 伤病 & 停赛</h3><div class="loading">数据加载中...</div></div>';
+  const s=predictData.suspensions;
+  let h='<div class="card"><h3>🏥 伤病与停赛追踪</h3>';
+  // Injuries
+  if(s.injuries){
+    h+='<h4 style="color:#e88;margin:10px 0 6px;">🤕 伤病情况</h4>';
+    for(let team in s.injuries){
+      if(!s.injuries[team].length)continue;
+      h+=`<div class="card" style="padding:10px;"><b>${getFlag(team)} ${team}</b><br>`;
+      for(let inj of s.injuries[team]){
+        const badge=inj.impact==='high'?'badge-red':inj.impact==='medium'?'badge-yellow':'badge-green';
+        h+=`<span class="badge ${badge}">${inj.status}</span> ${inj.player} — ${inj.detail}<br>`;
+      }
+      h+='</div>';
     }
-    html += '</tbody></table>';
-    html += '<div class="qual-note">晋级: ' + top2.join(', ') + '</div>';
-    html += '</div>';
   }
-  document.getElementById('groups-container').innerHTML = html;
-}
-
-// ─── Bracket ─────────────────────────────────────────────
-function renderBracket() {
-  if (!matchData || !matchData.matches) return;
-  const rounds = ['R32', 'R16', 'QF', 'SF', '3rd', 'F'];
-  const roundNames = { R32: 'Round of 32', R16: 'Round of 16', QF: 'Quarter-finals', SF: 'Semi-finals', '3rd': 'Third Place', F: '🏆 Final' };
-  
-  let html = '<div class="bracket">';
-  for (let ri = 0; ri < rounds.length; ri++) {
-    const round = rounds[ri];
-    const matches = matchData.matches.filter(m => m.round === round);
-    // Sort: final and 3rd place last
-    matches.sort((a,b) => a.id.localeCompare(b.id));
-    
-    const isFinal = round === 'F' || round === '3rd';
-    html += '<div class="bracket-round" style="min-width:' + (isFinal ? 200 : 170) + 'px;">';
-    html += '<div class="round-title">' + roundNames[round] + '</div>';
-    
-    const minH = Math.max(280, matches.length * 62);
-    html += '<div style="display:flex;flex-direction:column;justify-content:space-around;min-height:' + minH + 'px;">';
-    
-    for (const m of matches) {
-      const homeWon = m.winner === 'home';
-      const awayWon = m.winner === 'away';
-      const hasScore = m.home_score !== null && m.away_score !== null;
-      
-      html += '<div class="bracket-match' + (m.winner ? ' has-winner' : '') + '" onclick="openModal(\'' + m.id + '\')" title="Click to edit">';
-      html += '<div class="team home' + (homeWon ? ' winner' : '') + (!m.home ? ' tbd' : '') + '">';
-      html += '<span>' + (m.home || 'TBD') + '</span>';
-      html += '<span class="score">' + (hasScore ? m.home_score : '-') + '</span>';
-      html += '</div>';
-      html += '<div class="team away' + (awayWon ? ' winner' : '') + (!m.away ? ' tbd' : '') + '">';
-      html += '<span>' + (m.away || 'TBD') + '</span>';
-      html += '<span class="score">' + (hasScore ? m.away_score : '-') + '</span>';
-      html += '</div>';
-      if (m.date) html += '<div class="match-date">' + m.date + '</div>';
-      if (m.venue) html += '<div class="match-venue">' + m.venue + '</div>';
-      html += '</div>';
-    }
-    html += '</div></div>';
-    
-    if (ri < rounds.length - 1) {
-      html += '<div class="arrow-col">→</div>';
+  // Suspensions
+  if(s.suspensions){
+    h+='<h4 style="color:#fc8;margin:10px 0 6px;">🟨 停赛情况</h4>';
+    for(let team in s.suspensions){
+      if(!s.suspensions[team].length)continue;
+      h+=`<div class="card" style="padding:10px;"><b>${getFlag(team)} ${team}</b><br>`;
+      for(let sus of s.suspensions[team]){
+        h+=`<span class="badge badge-red">停赛</span> ${sus.player} — ${sus.reason} (${sus.match})<br>`;
+      }
+      h+='</div>';
     }
   }
-  html += '</div>';
-  document.getElementById('bracket-container').innerHTML = html;
+  // Card counts
+  if(s.card_counts){
+    h+='<h4 style="color:#7aa4c8;margin:10px 0 6px;">📊 红黄牌统计</h4>';
+    h+='<div class="factor-grid">';
+    for(let team in s.card_counts){
+      const c=s.card_counts[team];
+      h+=`<div class="factor-tag"><span>${getFlag(team)} ${team}</span><span>🟨${c.yellow} 🟥${c.red}</span></div>`;
+    }
+    h+='</div>';
+  }
+  return h+'</div>';
 }
 
-// ─── Modal ───────────────────────────────────────────────
-function openModal(matchId) {
-  editingMatchId = matchId;
-  const m = matchData.matches.find(x => x.id === matchId);
-  if (!m) return;
-  
-  document.getElementById('modal-info').innerHTML =
-    '<b>' + matchData.rounds[m.round].name + '</b> — ' + (m.date || '') + '<br>📍 ' + (m.venue || '');
-  
-  // Populate team selects
-  const opts = '<option value="">-- TBD --</option>' + allTeamNames.map(t => '<option value="' + t + '">' + t + '</option>').join('');
-  document.getElementById('home-select').innerHTML = opts;
-  document.getElementById('away-select').innerHTML = opts;
-  document.getElementById('home-select').value = m.home || '';
-  document.getElementById('away-select').value = m.away || '';
-  document.getElementById('home-score').value = m.home_score ?? '';
-  document.getElementById('away-score').value = m.away_score ?? '';
-  document.getElementById('home-pen').value = m.home_pen ?? '';
-  document.getElementById('away-pen').value = m.away_pen ?? '';
-  
+// ── 7. Bracket ──
+function renderBracketPage(){
+  let h='<div class="card"><h3>🏟 淘汰赛对阵图 — R32 → 决赛</h3>';
+  h+='<div class="btn-bar"><button class="btn-sm" onclick="fillR32()">🔄 自动填充R32</button><button class="btn-sm" onclick="resetBracket()" style="background:#5a3030;color:#e88;">⚠ 重置</button></div>';
+  h+=renderBracketTree();
+  return h+'</div>';
+}
+
+function renderBracketTree(){
+  if(!matchData||!matchData.matches)return'';
+  const rounds=['R32','R16','QF','SF','3rd','F'];
+  const labels={R32:'32强',R16:'16强',QF:'¼决赛',SF:'半决赛','3rd':'季军赛',F:'🏆 决赛'};
+  const counts={R32:16,R16:8,QF:4,SF:2,'3rd':1,F:1};
+  let h='<div class="bracket-wrap"><div class="bracket-tree">';
+  for(let ri=0;ri<rounds.length;ri++){
+    const rnd=rounds[ri];
+    const ms=matchData.matches.filter(m=>m.round===rnd).sort((a,b)=>a.id.localeCompare(b.id));
+    const isFinal=rnd==='F'||rnd==='3rd';
+    h+=`<div class="bracket-col" style="min-width:${isFinal?190:165}px">`;
+    h+=`<div class="col-title">${labels[rnd]}</div>`;
+    h+=`<div style="display:flex;flex-direction:column;justify-content:space-around;min-height:${Math.max(280,ms.length*60)}px">`;
+    for(let m of ms){
+      const hw=m.winner==='home',aw=m.winner==='away';
+      const hs=m.home_score!==null&&m.home_score!==undefined;
+      h+=`<div class="bracket-match${m.winner?' won':''}" onclick="openModal('${m.id}')" title="点击编辑">`;
+      h+=`<div class="row top${hw?' w':''}${!m.home?' tbd':''}"><span>${m.home||'待定'}</span><span class="sc">${hs?m.home_score:'-'}</span></div>`;
+      h+=`<div class="row${aw?' w':''}${!m.away?' tbd':''}"><span>${m.away||'待定'}</span><span class="sc">${hs?m.away_score:'-'}</span></div>`;
+      if(m.date)h+=`<div style="font-size:.6em;color:#445;text-align:center;padding:2px">${m.date} ${m.venue||''}</div>`;
+      h+='</div>';
+    }
+    h+='</div></div>';
+    if(ri<rounds.length-1){
+      h+=`<div class="bracket-arrow"><svg width="36" height="${Math.max(320,counts[rnd]*65)}"><g stroke="#1a3050" stroke-width="2" fill="none">`;
+      // Draw connection lines
+      const nMatches=ms.length;
+      for(let i=0;i<nMatches;i+=2){
+        if(i+1>=nMatches)break;
+        const y1=35+i*65,y2=y1+65,ym=(y1+y2)/2;
+        h+=`<path d="M0 ${y1} L18 ${y1} L18 ${ym} L36 ${ym}"/><path d="M0 ${y2} L18 ${y2} L18 ${ym}"/>`;
+      }
+      h+=`</g></svg></div>`;
+    }
+  }
+  return h+'</div></div>';
+}
+
+// ── Modal ──
+function openModal(id){
+  editingMatchId=id;
+  const m=matchData.matches.find(x=>x.id===id); if(!m)return;
+  document.getElementById('modal-info').innerHTML=`<b>${matchData.rounds[m.round].name}</b> — ${m.date||''}<br>📍${m.venue||''}`;
+  const opts='<option value="">-- 待定 --</option>'+allTeams.map(t=>`<option value="${t}">${t}</option>`).join('');
+  document.getElementById('m-home').innerHTML=opts;
+  document.getElementById('m-away').innerHTML=opts;
+  document.getElementById('m-home').value=m.home||'';
+  document.getElementById('m-away').value=m.away||'';
+  document.getElementById('m-hs').value=m.home_score??'';
+  document.getElementById('m-as').value=m.away_score??'';
+  document.getElementById('m-hp').value=m.home_pen??'';
+  document.getElementById('m-ap').value=m.away_pen??'';
   document.getElementById('modal').classList.add('show');
 }
-
-function closeModal() {
-  document.getElementById('modal').classList.remove('show');
-  editingMatchId = null;
+function closeModal(){document.getElementById('modal').classList.remove('show');editingMatchId=null;}
+async function saveMatch(){
+  const home=document.getElementById('m-home').value,away=document.getElementById('m-away').value;
+  const hs=document.getElementById('m-hs').value===''?null:parseInt(document.getElementById('m-hs').value);
+  const as=document.getElementById('m-as').value===''?null:parseInt(document.getElementById('m-as').value);
+  const hp=document.getElementById('m-hp').value===''?null:parseInt(document.getElementById('m-hp').value);
+  const ap=document.getElementById('m-ap').value===''?null:parseInt(document.getElementById('m-ap').value);
+  if(hs===null||as===null||isNaN(hs)||isNaN(as)){alert('请输入有效比分');return}
+  await fetch('/api/match/teams',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:editingMatchId,home:home||null,away:away||null})});
+  const r=await fetch('/api/match',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:editingMatchId,home_score:hs,away_score:as,home_pen:hp,away_pen:ap})});
+  if(r.ok){const rr=await fetch('/api/matches');matchData=await rr.json();renderAll();closeModal();}else alert('保存失败');
 }
-
-async function saveMatch() {
-  const home = document.getElementById('home-select').value;
-  const away = document.getElementById('away-select').value;
-  const hs = document.getElementById('home-score').value === '' ? null : parseInt(document.getElementById('home-score').value);
-  const as = document.getElementById('away-score').value === '' ? null : parseInt(document.getElementById('away-score').value);
-  const hpv = document.getElementById('home-pen').value;
-  const apv = document.getElementById('away-pen').value;
-  const hp = hpv === '' ? null : parseInt(hpv);
-  const ap = apv === '' ? null : parseInt(apv);
-
-  if (hs === null || as === null || isNaN(hs) || isNaN(as)) {
-    alert('请输入有效的比分数字！');
-    return;
-  }
-
-  // Update teams first
-  await fetch('/api/match/teams', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id: editingMatchId, home: home || null, away: away || null })
-  });
-
-  const res = await fetch('/api/match', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id: editingMatchId, home_score: hs, away_score: as, home_pen: hp, away_pen: ap })
-  });
-
-  if (res.ok) {
-    const resp = await fetch('/api/matches');
-    matchData = await resp.json();
-    renderBracket();
-    closeModal();
-  } else {
-    alert('保存失败！');
-  }
-}
-
-// ─── Auto-fill R32 from standings ────────────────────────
-async function fillR32FromStandings() {
-  if (!standingsData) return alert('No standings data');
-  
-  // Collect group winners and runners-up
-  const groupOrder = 'ABCDEFGHIJKL'.split('');
-  const winners = [];
-  const runnersUp = [];
-  for (const g of groupOrder) {
-    const rows = standingsData[g];
-    if (rows && rows.length >= 2) {
-      winners.push({ group: g, team: rows[0].team });
-      runnersUp.push({ group: g, team: rows[1].team });
+async function fillR32(){
+  if(!standingsData)return alert('无小组数据');
+  const gw=Object.entries(standingsData).map(([g,t])=>({group:g,team:t[0]?.team}));
+  const gr=Object.entries(standingsData).map(([g,t])=>({group:g,team:t[1]?.team}));
+  const pairs=[{id:'M1',home:gw[0]?.team},{id:'M3',home:gw[1]?.team},{id:'M5',home:gw[2]?.team},{id:'M6',home:gw[3]?.team},{id:'M7',home:gw[4]?.team},{id:'M9',home:gw[5]?.team},{id:'M10',home:gw[6]?.team},{id:'M11',home:gw[7]?.team},{id:'M13',home:gw[8]?.team},{id:'M15',home:gw[9]?.team}];
+  let cnt=0;
+  for(let p of pairs){
+    const m=matchData.matches.find(x=>x.id===p.id);
+    if(m&&p.home&&!m.home){
+      await fetch('/api/match/teams',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:p.id,home:p.home})});
+      cnt++;
     }
   }
-  
-  // FIFA 2026 bracket mapping for R32 (simplified, based on known pattern)
-  // Groups A-D: top half, E-H: middle, I-L: bottom half
-  // This is a simplified mapping. Exact FIFA bracket depends on 3rd place qualifiers.
-  const mapping = [
-    { id: 'M1',  home: winners[0].team },           // 1A
-    { id: 'M2',  home: runnersUp[2].team, away: runnersUp[3].team }, // 2C vs 2D
-    { id: 'M3',  home: winners[1].team },            // 1B
-    { id: 'M4',  home: runnersUp[0].team, away: runnersUp[1].team }, // 2A vs 2B
-    { id: 'M5',  home: winners[2].team },            // 1C
-    { id: 'M6',  home: winners[3].team },            // 1D
-    { id: 'M7',  home: winners[4].team },            // 1E
-    { id: 'M8',  home: runnersUp[4].team, away: runnersUp[5].team }, // 2E vs 2F
-    { id: 'M9',  home: winners[5].team },            // 1F
-    { id: 'M10', home: winners[6].team },            // 1G
-    { id: 'M11', home: winners[7].team },            // 1H
-    { id: 'M12', home: runnersUp[6].team, away: runnersUp[7].team }, // 2G vs 2H
-    { id: 'M13', home: winners[8].team },            // 1I
-    { id: 'M14', home: runnersUp[8].team, away: runnersUp[9].team }, // 2I vs 2J
-    { id: 'M15', home: winners[9].team },            // 1J
-    { id: 'M16', home: winners[10].team, away: winners[11].team }, // 1K vs 1L
-  ];
-  
-  let count = 0;
-  for (const m of mapping) {
-    const match = matchData.matches.find(x => x.id === m.id);
-    if (match) {
-      if (m.home && !match.home) {
-        await fetch('/api/match/teams', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: m.id, home: m.home, away: m.away || null })
-        });
-        count++;
-      }
-    }
-  }
-  
-  // Also set up the remaining R32 matches with runners-up
-  // The remaining 3rd-place slots need manual assignment
-  
-  // Refresh
-  const resp = await fetch('/api/matches');
-  matchData = await resp.json();
-  renderBracket();
-  alert('已填充 ' + count + ' 场比赛的已知队伍！\n\n剩余的"最佳第三名"对阵需要手动选择队伍。');
+  const rr=await fetch('/api/matches');matchData=await rr.json();renderAll();
+  alert('已填充'+cnt+'场R32比赛。剩余对阵请手动选择队伍。');
+}
+async function resetBracket(){
+  if(!confirm('确定重置所有淘汰赛？'))return;
+  await fetch('/api/reset',{method:'POST'});
+  const rr=await fetch('/api/matches');matchData=await rr.json();renderAll();
 }
 
-async function resetAll() {
-  if (!confirm('确定要重置所有淘汰赛比分吗？此操作不可撤销！')) return;
-  await fetch('/api/reset', { method: 'POST' });
-  const resp = await fetch('/api/matches');
-  matchData = await resp.json();
-  renderBracket();
-}
+// ── Helpers ──
+const FLAGS={Brazil:'🇧🇷',Argentina:'🇦🇷',France:'🇫🇷',England:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',Germany:'🇩🇪',Spain:'🇪🇸',Portugal:'🇵🇹',Netherlands:'🇳🇱',Belgium:'🇧🇪',Croatia:'🇭🇷',Switzerland:'🇨🇭',Uruguay:'🇺🇾',Colombia:'🇨🇴',Mexico:'🇲🇽','United States':'🇺🇸',USA:'🇺🇸',Japan:'🇯🇵','South Korea':'🇰🇷',Australia:'🇦🇺',Iran:'🇮🇷',Morocco:'🇲🇦',Senegal:'🇸🇳',Egypt:'🇪🇬',Austria:'🇦🇹','Czech Republic':'🇨🇿',Turkey:'🇹🇷',Sweden:'🇸🇪',Ecuador:'🇪🇨',Paraguay:'🇵🇾','Saudi Arabia':'🇸🇦',Qatar:'🇶🇦','Ivory Coast':'🇨🇮',Ghana:'🇬🇭',Tunisia:'🇹🇳',Algeria:'🇩🇿','DR Congo':'🇨🇩','Cape Verde':'🇨🇻',Uzbekistan:'🇺🇿',Jordan:'🇯🇴',Panama:'🇵🇦','Costa Rica':'🇨🇷',Jamaica:'🇯🇲',Haiti:'🇭🇹',Canada:'🇨🇦','New Zealand':'🇳🇿',Norway:'🇳🇴','South Africa':'🇿🇦',Iraq:'🇮🇶','Curaçao':'🇨🇼','Bosnia and Herzegovina':'🇧🇦',Scotland:'🏴󠁧󠁢󠁳󠁣󠁴󠁿'};
+function getFlag(team){return FLAGS[team]||'🌍'}
 
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
 init();
 </script>

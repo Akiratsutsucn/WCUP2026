@@ -184,5 +184,75 @@ def reset_matches():
     return jsonify({"status": "reset"})
 
 
+# ─── 预测 API ───────────────────────────────────────────
+try:
+    from prediction.engine import PredictionEngine
+    _pred_engine = PredictionEngine()
+    _pred_ready = True
+except Exception as e:
+    _pred_engine = None
+    _pred_ready = False
+    print(f"[WARN] Prediction engine not available: {e}")
+
+@app.route('/api/predict/rankings')
+def api_predict_rankings():
+    """冠军预测排行"""
+    if not _pred_ready:
+        return jsonify({"error": "Prediction engine not available"}), 503
+    data = _pred_engine.get_rankings()
+    return jsonify(data)
+
+@app.route('/api/predict/h2h')
+def api_predict_h2h():
+    """H2H对战预测"""
+    if not _pred_ready:
+        return jsonify({"error": "Prediction engine not available"}), 503
+    team1 = request.args.get('team1')
+    team2 = request.args.get('team2')
+    if not team1 or not team2:
+        return jsonify({"error": "Need team1 and team2 params"}), 400
+    data = _pred_engine.predict_match(team1, team2)
+    return jsonify(data)
+
+@app.route('/api/predict/mystic')
+def api_predict_mystic():
+    """玄学因子分析"""
+    if not _pred_ready:
+        return jsonify({"error": "Prediction engine not available"}), 503
+    team = request.args.get('team')
+    data = _pred_engine.get_mystic_analysis(team)
+    return jsonify(data)
+
+@app.route('/api/predict/squad')
+def api_predict_squad():
+    """球队球员阵容"""
+    if not _pred_ready:
+        return jsonify({"error": "Prediction engine not available"}), 503
+    team = request.args.get('team')
+    data = _pred_engine.get_squad(team)
+    return jsonify(data)
+
+@app.route('/api/predict/suspensions')
+def api_predict_suspensions():
+    """伤病和停赛信息"""
+    # Will be enhanced with live data, returns static for now
+    susp_data = load_json('suspensions.json') or {}
+    return jsonify(susp_data)
+
+@app.route('/api/predict/all')
+def api_predict_all():
+    """一次性获取所有预测数据"""
+    if not _pred_ready:
+        return jsonify({"error": "Prediction engine not available"}), 503
+    data = {
+        'rankings': _pred_engine.get_rankings(),
+        'mystic_summary': _pred_engine.get_mystic_summary(),
+        'suspensions': load_json('suspensions.json') or {},
+        'elo_data': _pred_engine.get_elo_data(),
+        'ucl_signals': _pred_engine.get_ucl_signals(),
+    }
+    return jsonify(data)
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10088, debug=True)

@@ -1,0 +1,63 @@
+{
+  "injuries": {
+    "Brazil": [
+      {"player": "Neymar", "status": "疑似伤缺", "detail": "膝盖不适，出战成疑", "impact": "high"},
+      {"player": "Ederson", "status": "已恢复", "detail": "手指骨折已痊愈，正常出战", "impact": "low"}
+    ],
+    "Argentina": [
+      {"player": "Lionel Messi", "status": "小伤", "detail": "肌肉轻微不适，预计可出战", "impact": "medium"}
+    ],
+    "France": [
+      {"player": "Kylian Mbappé", "status": "健康", "detail": "全员健康，无伤病困扰", "impact": "none"}
+    ],
+    "England": [
+      {"player": "Harry Kane", "status": "恢复中", "detail": "脚踝扭伤，恢复训练中", "impact": "medium"}
+    ],
+    "Germany": [
+      {"player": "Manuel Neuer", "status": "健康", "detail": "赛季末段状态出色", "impact": "none"}
+    ],
+    "Spain": [
+      {"player": "Pedri", "status": "健康", "detail": "全员健康", "impact": "none"}
+    ],
+    "Portugal": [
+      {"player": "Cristiano Ronaldo", "status": "健康", "detail": "保持巅峰状态", "impact": "none"}
+    ],
+    "Netherlands": [
+      {"player": "Virgil van Dijk", "status": "健康", "detail": "防线核心状态正佳", "impact": "none"}
+    ]
+  },
+  "suspensions": {
+    "Brazil": [],
+    "Argentina": [
+      {"player": "Rodrigo De Paul", "match": "R32", "reason": "累积黄牌停赛", "cards": 2}
+    ],
+    "France": [],
+    "England": [],
+    "Germany": [],
+    "Spain": [],
+    "Portugal": [],
+    "Netherlands": [
+      {"player": "Denzel Dumfries", "match": "R16", "reason": "红牌停赛", "cards": 1}
+    ]
+  },
+  "card_counts": {
+    "Argentina": {"yellow": 5, "red": 0},
+    "Brazil": {"yellow": 3, "red": 0},
+    "France": {"yellow": 2, "red": 0},
+    "England": {"yellow": 4, "red": 0},
+    "Germany": {"yellow": 3, "red": 0},
+    "Spain": {"yellow": 2, "red": 0},
+    "Portugal": {"yellow": 4, "red": 0},
+    "Netherlands": {"yellow": 6, "red": 1},
+    "Belgium": {"yellow": 3, "red": 0},
+    "Croatia": {"yellow": 4, "red": 0},
+    "Uruguay": {"yellow": 5, "red": 0},
+    "Colombia": {"yellow": 3, "red": 0},
+    "Mexico": {"yellow": 4, "red": 0},
+    "USA": {"yellow": 3, "red": 0},
+    "Japan": {"yellow": 2, "red": 0},
+    "South Korea": {"yellow": 3, "red": 0},
+    "Morocco": {"yellow": 4, "red": 0},
+    "Senegal": {"yellow": 3, "red": 0}
+  }
+}
