@@ -216,64 +216,48 @@ async function loadSquad(){
     if(d.error){ document.getElementById('squad-result').innerHTML = '<div class="error">请求失败：' + d.error + '</div>'; return; }
     var players = d.players || [];
     if(!players.length){ document.getElementById('squad-result').innerHTML = '<div class="loading">该队暂无阵容数据</div>'; return; }
-    var tbl = '<table><thead><tr><th>#</th><th>姓名</th><th>位置</th><th>年龄</th><th>国家队出场</th><th>国家队进球</th><th>俱乐部</th></tr></thead><tbody>';
+    // Get injury/suspension data
+    var susp = (predictData && predictData.suspensions) ? predictData.suspensions : {};
+    var injured = [];
+    var suspended = [];
+    if(susp.injuries && susp.injuries[team]) injured = susp.injuries[team].map(function(x){ return x.player; });
+    if(susp.suspensions && susp.suspensions[team]) suspended = susp.suspensions[team].map(function(x){ return x.player; });
+    var tbl = '<table><thead><tr><th>#</th><th>姓名</th><th>位置</th><th>年龄</th><th>出场</th><th>进球</th><th>状态</th><th>俱乐部</th></tr></thead><tbody>';
     players.slice(0, 26).forEach(function(p, i){
-      tbl += '<tr><td>' + (i+1) + '</td><td>' + (p.name_cn || p.name || p.player_name || '未知') + '</td><td>' + (p.position || p.pos || '-') + '</td><td>' + (p.age || '-') + '</td><td>' + (p.caps || p.national_caps || '-') + '</td><td>' + (p.goals || p.national_goals || '-') + '</td><td>' + (p.club || '-') + '</td></tr>';
+      var name = p.name_cn || p.name || p.player_name || '未知';
+      var status = '健康';
+      var stClass = '';
+      if(injured.some(function(x){ return name.indexOf(x) >= 0 || x.indexOf(name) >= 0; })){ status = '伤病'; stClass = 'color:#e88;'; }
+      if(suspended.some(function(x){ return name.indexOf(x) >= 0 || x.indexOf(name) >= 0; })){ status = '停赛'; stClass = 'color:#fc8;'; }
+      tbl += '<tr><td>' + (i+1) + '</td><td>' + name + '</td><td>' + (p.position || p.pos || '-') + '</td><td>' + (p.age || '-') + '</td><td>' + (p.caps || p.national_caps || '-') + '</td><td>' + (p.goals || p.national_goals || '-') + '</td><td style="' + stClass + '">' + status + '</td><td>' + (p.club || '-') + '</td></tr>';
     });
     tbl += '</tbody></table>';
+    // Show injury/suspension detail below table
+    if(susp.injuries && susp.injuries[team] && susp.injuries[team].length){
+      tbl += '<div style="margin-top:10px;font-size:.8em;">';
+      for(var k=0; k<susp.injuries[team].length; k++){
+        var inj = susp.injuries[team][k];
+        tbl += '<div style="color:#e88;">[伤病] ' + inj.player + ' — ' + inj.detail + '</div>';
+      }
+      tbl += '</div>';
+    }
+    if(susp.suspensions && susp.suspensions[team] && susp.suspensions[team].length){
+      tbl += '<div style="margin-top:6px;font-size:.8em;">';
+      for(var k=0; k<susp.suspensions[team].length; k++){
+        var sus = susp.suspensions[team][k];
+        tbl += '<div style="color:#fc8;">[停赛] ' + sus.player + ' — ' + sus.reason + '</div>';
+      }
+      tbl += '</div>';
+    }
     document.getElementById('squad-result').innerHTML = tbl;
   }catch(e){
     document.getElementById('squad-result').innerHTML = '<div class="error">加载失败：' + e.message + '</div>';
   }
 }
 
-// ── 6. 伤病停赛 ──
+// ── 6. 伤病停赛（已合并至球员阵容） ──
 function renderSuspensions(){
-  if(!predictData || !predictData.suspensions)
-    return '<div class="card"><h3> 伤病与停赛追踪</h3><div class="loading">数据加载中...</div></div>';
-  var s = predictData.suspensions;
-  var h = '<div class="card"><h3> 伤病与停赛追踪</h3>';
-  if(s.injuries){
-    h += '<h4 style="color:#e88;margin:10px 0 6px;"> 伤病情况</h4>';
-    var hasInj = false;
-    for(var team in s.injuries){
-      if(!s.injuries[team].length) continue;
-      hasInj = true;
-      h += '<div class="card" style="padding:10px;"><b>' + getFlag(team) + ' ' + cn(team) + '</b><br>';
-      for(var i=0; i<s.injuries[team].length; i++){
-        var inj = s.injuries[team][i];
-        var badge = inj.impact === 'high' ? 'badge-red' : (inj.impact === 'medium' ? 'badge-yellow' : 'badge-green');
-        h += '<span class="badge ' + badge + '">' + inj.status + '</span> ' + inj.player + ' — ' + inj.detail + '<br>';
-      }
-      h += '</div>';
-    }
-    if(!hasInj) h += '<div style="font-size:.75em;color:#556;">暂无伤病报告</div>';
-  }
-  if(s.suspensions){
-    h += '<h4 style="color:#fc8;margin:10px 0 6px;"> 停赛情况</h4>';
-    var hasSus = false;
-    for(var team in s.suspensions){
-      if(!s.suspensions[team].length) continue;
-      hasSus = true;
-      h += '<div class="card" style="padding:10px;"><b>' + getFlag(team) + ' ' + cn(team) + '</b><br>';
-      for(var i=0; i<s.suspensions[team].length; i++){
-        var sus = s.suspensions[team][i];
-        h += '<span class="badge badge-red">停赛</span> ' + sus.player + ' — ' + sus.reason + '（' + sus.match + '）<br>';
-      }
-      h += '</div>';
-    }
-    if(!hasSus) h += '<div style="font-size:.75em;color:#556;">暂无停赛球员</div>';
-  }
-  if(s.card_counts){
-    h += '<h4 style="color:#7aa4c8;margin:10px 0 6px;"> 红黄牌统计</h4>';
-    h += '<div class="factor-grid">';
-    for(var team in s.card_counts){
-      var c = s.card_counts[team];
-      h += '<div class="factor-tag"><span>' + getFlag(team) + ' ' + team + '</span><span> ' + (c.yellow||0) + ' 张 &nbsp;  ' + (c.red||0) + ' 张</span></div>';
-    }
-    h += '</div>';
-  }
-  return h + '</div>';
+  return renderSquad();
 }
 
 // ── 7. 淘汰赛对阵 ──
@@ -293,7 +277,7 @@ function drawBracketSVG(){
   
   var rounds = ['R32','R16','QF','SF','F','3rd'];
   var labels = ['32强','16强','1/4决赛','半决赛',' 决赛','季军赛'];
-  var BOX_W = 155, BOX_H = 47, GAP_Y = 56;
+  var BOX_W = 155, BOX_H = 50, GAP_Y = 72;
   var X = [10, 215, 420, 625, 830, 1035];
   
   // Build position map
@@ -331,7 +315,7 @@ function drawBracketSVG(){
   }
   if(tpm) pos[tpm.id] = {x:X[5], y: pos[fm.id] ? pos[fm.id].y : 400};
   
-  var maxY = 25 + 15*GAP_Y + BOX_H + 30;
+  var maxY = 25 + 15*GAP_Y + BOX_H + 40;
   var svgW = X[5] + BOX_W + 20;
   
   var svg = '<svg width="' + svgW + '" height="' + maxY + '" style="background:#0a0f1a;font-family:system-ui,sans-serif;">';
@@ -376,7 +360,7 @@ function drawBracketSVG(){
     svg += '<text x="' + (p.x+6) + '" y="' + (p.y+18) + '" fill="' + (hw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (hw?'bold':'normal') + '">' + home.substring(0,14) + '</text>';
     svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+18) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + hs + '</text>';
     svg += '<line x1="' + (p.x+4) + '" y1="' + (p.y+BOX_H/2) + '" x2="' + (p.x+BOX_W-4) + '" y2="' + (p.y+BOX_H/2) + '" stroke="#1a3050" stroke-width="1"/>';
-    if(m.date) svg += '<text x="' + (p.x+BOX_W/2) + '" y="' + (p.y+BOX_H+10) + '" fill="#7aa4c8" font-size="8" text-anchor="middle">' + m.date + '</text>';
+    if(m.date) svg += '<text x="' + (p.x+BOX_W/2) + '" y="' + (p.y+BOX_H+14) + '" fill="#7aa4c8" font-size="8" text-anchor="middle">' + m.date + '</text>';
     svg += '<text x="' + (p.x+6) + '" y="' + (p.y+40) + '" fill="' + (aw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (aw?'bold':'normal') + '">' + away.substring(0,14) + '</text>';
     svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+40) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + as + '</text>';
     svg += '</g>';
