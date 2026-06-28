@@ -399,36 +399,48 @@ def predict_h2h(team_a, team_b):
     score_b = compute_team_score(team_b)
     elo_a = score_a.get("elo", 1700) if isinstance(score_a, dict) else 1700
     elo_b = score_b.get("elo", 1700) if isinstance(score_b, dict) else 1700
-    score_val_a = score_a.get("total_score", 0.6) if isinstance(score_a, dict) else 0.6
-    score_val_b = score_b.get("total_score", 0.6) if isinstance(score_b, dict) else 0.6
     elo_diff = elo_a - elo_b
+    abs_diff = abs(elo_diff)
     
     # Win/draw/loss probabilities
     expected_a = 1.0 / (1.0 + math.pow(10, -elo_diff / 400.0))
-    abs_diff = abs(elo_diff)
-    draw_prob = max(0.08, min(0.30, 0.28 * math.exp(-abs_diff / 600.0)))
-    p_a = (1.0 - draw_prob) * expected_a
-    p_b = (1.0 - draw_prob) * (1.0 - expected_a)
+    draw_prob = max(0.10, min(0.28, 0.26 * math.exp(-abs_diff / 500.0)))
+    p_a = round((1.0 - draw_prob) * expected_a * 100, 1)
+    p_b = round((1.0 - draw_prob) * (1.0 - expected_a) * 100, 1)
+    draw_pct = round(draw_prob * 100, 1)
     
-    # Realistic goal prediction for knockout football (avg 2.3 total goals)
-    total_goals = 2.3
-    share_a = expected_a  # stronger team gets more goals
-    share_b = 1.0 - expected_a
-    lambda_a = total_goals * share_a * (0.9 + 0.2 * (score_val_a / 0.7))
-    lambda_b = total_goals * share_b * (0.9 + 0.2 * (score_val_b / 0.7))
-    lambda_a = max(0.3, min(3.5, lambda_a))
-    lambda_b = max(0.3, min(3.5, lambda_b))
+    # Elo-calibrated expected goals (World Cup knockout data)
+    # Each 100 Elo points ≈ 0.22 goals advantage
+    adj_diff = elo_diff
+    # Injury adjustment: each high-impact injury ≈ -60 Elo
+    injuries = load_injuries_suspensions()
+    inj_a = injuries.get('injuries', {}).get(team_a, [])
+    inj_b = injuries.get('injuries', {}).get(team_b, [])
+    high_a = sum(1 for i in inj_a if i.get('impact') == 'high')
+    high_b = sum(1 for i in inj_b if i.get('impact') == 'high')
+    adj_diff = elo_diff - (high_a * 60) + (high_b * 60)
     
-    # Score: use Poisson most-likely value with tiny noise for ties
-    rng = random.Random(hash(team_a + team_b) % 100000)
-    noise = rng.uniform(-0.1, 0.1)
-    pred_home = max(0, int(lambda_a + noise + 0.5))
-    pred_away = max(0, int(lambda_b - noise + 0.5))
+    # Expected goals: base 1.05 per team + Elo adjustment
+    base = 1.05
+    rate = 0.22  # goals per 100 Elo
+    lambda_a = base + (adj_diff / 100.0) * rate
+    lambda_b = base - (adj_diff / 100.0) * rate
+    lambda_a = max(0.15, min(3.5, lambda_a))
+    lambda_b = max(0.15, min(3.5, lambda_b))
+    
+    # Most likely score: Poisson mode for each team
+    # P(X=k) = e^(-λ) * λ^k / k! — mode = floor(λ)
+    pred_home = int(lambda_a)  # floor
+    pred_away = int(lambda_b)
+    # Adjust: if fractional part > 0.6, round up
+    if lambda_a - pred_home > 0.6: pred_home += 1
+    if lambda_b - pred_away > 0.6: pred_away += 1
+    pred_home = max(0, pred_home)
+    pred_away = max(0, pred_away)
     
     return {"team_a":team_a,"team_b":team_b,"elo_a":round(elo_a),"elo_b":round(elo_b),
-            "elo_diff":round(elo_diff),"win_prob_a":round(p_a*100,1),
-            "draw_prob":round(draw_prob*100,1),"win_prob_b":round(p_b*100,1),
-            "expected_goals_a":round(lambda_a,2),"expected_goals_b":round(lambda_b,2),
+            "elo_diff":round(elo_diff),"win_prob_a":p_a,"draw_prob":draw_pct,"win_prob_b":p_b,
+            "expected_goals_a":lambda_a,"expected_goals_b":lambda_b,
             "predicted_score":str(pred_home)+"-"+str(pred_away)}
 
 
