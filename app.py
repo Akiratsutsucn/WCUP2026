@@ -184,6 +184,10 @@ def reset_matches():
     return jsonify({"status": "reset"})
 
 
+@app.route('/api/wc_goals')
+def api_wc_goals():
+    return jsonify(load_json('wc_goalscorers.json') or {})
+    
 # ─── 预测 API ───────────────────────────────────────────
 try:
     from prediction.engine import PredictionEngine

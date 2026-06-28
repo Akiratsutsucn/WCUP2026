@@ -138,6 +138,7 @@ async function init(){
     if(standingsData) for(var g in standingsData) for(var i=0; i<standingsData[g].length; i++)
       if(allTeams.indexOf(standingsData[g][i].team) < 0) allTeams.push(standingsData[g][i].team);
     allTeams.sort();
+    try{ var gr = await fetch('/api/wc_goals'); if(gr.ok) window.wcGoals = await gr.json(); }catch(e){}
     // Build R32-only team list from match data
     window.r32Teams = [];
     if(matchData && matchData.matches){
@@ -355,14 +356,14 @@ async function loadSquad(){
     var suspended = [];
     if(susp.injuries && susp.injuries[team]) injured = susp.injuries[team].map(function(x){ return x.player; });
     if(susp.suspensions && susp.suspensions[team]) suspended = susp.suspensions[team].map(function(x){ return x.player; });
-    var tbl = '<table><thead><tr><th>#</th><th>姓名</th><th>位置</th><th>年龄</th><th>出场</th><th>进球</th><th>状态</th><th>俱乐部</th></tr></thead><tbody>';
+    var tbl = '<table><thead><tr><th>#</th><th>姓名</th><th>位置</th><th>年龄</th><th>出场</th><th>生涯进球</th><th>本届进球</th><th>状态</th><th>俱乐部</th></tr></thead><tbody>';
     players.slice(0, 26).forEach(function(p, i){
       var name = p.name_cn || p.name || p.player_name || '未知';
       var status = '健康';
       var stClass = '';
       if(injured.some(function(x){ return name.indexOf(x) >= 0 || x.indexOf(name) >= 0; })){ status = '伤病'; stClass = 'color:#e88;'; }
       if(suspended.some(function(x){ return name.indexOf(x) >= 0 || x.indexOf(name) >= 0; })){ status = '停赛'; stClass = 'color:#fc8;'; }
-      tbl += '<tr><td>' + (i+1) + '</td><td>' + name + '</td><td>' + (p.position || p.pos || '-') + '</td><td>' + (p.age || '-') + '</td><td>' + (p.caps || p.national_caps || '-') + '</td><td>' + (p.goals || p.national_goals || '-') + '</td><td style="' + stClass + '">' + status + '</td><td>' + (p.club || '-') + '</td></tr>';
+      tbl += '<tr><td>' + (i+1) + '</td><td>' + name + '</td><td>' + (p.position || p.pos || '-') + '</td><td>' + (p.age || '-') + '</td><td>' + (p.caps || p.national_caps || '-') + '</td><td>' + (p.goals || p.national_goals || '-') + '</td><td>' + (window.wcGoals && p.name && window.wcGoals[p.name] ? window.wcGoals[p.name] : '-') + '</td><td style="' + stClass + '">' + status + '</td><td>' + (p.club || '-') + '</td></tr>';
     });
     tbl += '</tbody></table>';
     // Show injury/suspension detail below table
