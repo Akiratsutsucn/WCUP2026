@@ -64,7 +64,7 @@ function renderPredict(){
   if(maxProb <= 0) maxProb = 20;
   var h = '<div class="card"><h3> 冠军预测排行 — 蒙特卡洛模拟</h3>';
   h += '<div class="btn-bar"><button class="btn-sm" onclick="location.reload()">刷新 刷新预测</button></div>';
-  for(var i=0; i<Math.min(r.length, 20); i++){
+  for(var i=0; i<Math.min(r.length, 32); i++){
     var t = r[i], prob = t.adjusted_prob || 0;
     var barW = prob / maxProb * 100;
     h += '<div class="ranking-bar"><span class="rk">' + (i+1) + '</span><span class="flag">' + getFlag(t.team) + '</span>';
@@ -190,7 +190,7 @@ async function loadH2H(ta, tb){
         '<div><div class="p">' + ((d.draw_prob||0).toFixed(1)) + '%</div><div class="l">平局</div></div>' +
         '<div><div class="p">' + ((d.win_prob_b||0).toFixed(1)) + '%</div><div class="l">' + cn(d.team_b) + ' 胜</div></div>' +
       '</div>' +
-      '<div class="text-center mt-8" style="font-size:.75em;color:#7aa4c8;">预期进球：' + cn(d.team_a) + ' ' + (d.expected_goals_a||'?').toFixed(1) + ' — ' + (d.expected_goals_b||'?').toFixed(1) + ' ' + cn(d.team_b) + '<br>预测比分：' + cn(d.team_a) + ' ' + Math.round(d.expected_goals_a||0) + ' - ' + Math.round(d.expected_goals_b||0) + ' ' + cn(d.team_b) + '</div>' +
+      '<div class="text-center mt-8" style="font-size:.75em;color:#7aa4c8;">预期进球：' + cn(d.team_a) + ' ' + (d.expected_goals_a||'?').toFixed(1) + ' — ' + (d.expected_goals_b||'?').toFixed(1) + ' ' + cn(d.team_b) + '<br>预测比分（90分钟常规时间）：' + cn(d.team_a) + ' ' + (d.predicted_score||'?-?') + ' ' + cn(d.team_b) + '</div>' +
       '</div>';
   }catch(e){
     document.getElementById('h2h-result').innerHTML = '<div class="error">预测失败：' + e.message + '</div>';

@@ -1,5 +1,5 @@
 """
-WCUP2026 预测引擎 — 整合球员评分、球队评分、Elo、蒙特卡洛、玄学、UCL信号
+WCUP2026 预测引擎 — 整合球员评分、球队评分、实力、蒙特卡洛、玄学、UCL信号
 从 reference_project 移植，适配 Flask 后端
 """
 import json
@@ -48,9 +48,9 @@ TEAM_NAME_NORMALIZE = {
     'Bosnia and Herzegovina': 'Bosnia and Herzegovina',
 }
 
-# ── Elo 数据 ──────────────────────────────────────────
+# ── 实力 数据 ──────────────────────────────────────────
 def get_elo(team_name):
-    """获取球队 Elo 评分"""
+    """获取球队 实力 评分"""
     for k, v in ELO_CACHE.items():
         if k.lower() == team_name.lower() or team_name.lower() in k.lower():
             if isinstance(v, dict):
@@ -151,7 +151,7 @@ def compute_team_score(team_name):
     exp_ratio = experienced / max(1, player_count)
     experience_score = min(1.0, exp_ratio * 2.5)
 
-    # 综合评分（Elo锚点主导）
+    # 综合评分（实力锚点主导）
     normalized_elo = (elo - 1500) / 700  # ~0到1
     normalized_elo = max(0, min(1, normalized_elo))
 
@@ -197,7 +197,7 @@ def compute_mystic_factor(team_name, elo=None):
     if elo is None:
         elo = get_elo(team_name)
 
-    # 强势方诅咒（Elo越高压力越大）
+    # 强势方诅咒（实力越高压力越大）
     favorite_curse = -0.03 * (elo - 1750) / 400 if elo > 1750 else 0
 
     # 东道主优势
@@ -242,12 +242,12 @@ def compute_team_mystic(team_name):
         is_defending = team_name == 'Argentina'
         
         # Stage 1: varied based on actual score
-        if logical_prob > 0.85: s1 = cn(team_name)+"综合实力顶级，是本届冠军最有力争夺者之一。Elo评分"+str(round(elo))+"，阵容深度与球星个人能力兼备。"
-        elif logical_prob > 0.75: s1 = cn(team_name)+"整体实力强劲，具备冲击四强的资本。Elo评分"+str(round(elo))+"，攻防体系成熟。"
-        elif logical_prob > 0.65: s1 = cn(team_name)+"战力处于中上游，淘汰赛签运将很大程度决定能走多远。Elo"+str(round(elo))+"。"
-        elif logical_prob > 0.55: s1 = cn(team_name)+"属于中游球队，需要在关键比赛超常发挥才能突破。Elo"+str(round(elo))+"。"
-        elif logical_prob > 0.45: s1 = cn(team_name)+"实力偏弱，但世界杯历史上从不缺少黑马。Elo"+str(round(elo))+"。"
-        else: s1 = cn(team_name)+"纸面实力不占优，但不被看好反而可能成为最大优势。Elo"+str(round(elo))+"。"
+        if logical_prob > 0.85: s1 = cn(team_name)+"综合实力顶级，是本届冠军最有力争夺者之一。实力评分"+str(round(elo))+"，阵容深度与球星个人能力兼备。"
+        elif logical_prob > 0.75: s1 = cn(team_name)+"整体实力强劲，具备冲击四强的资本。实力评分"+str(round(elo))+"，攻防体系成熟。"
+        elif logical_prob > 0.65: s1 = cn(team_name)+"战力处于中上游，淘汰赛签运将很大程度决定能走多远。实力"+str(round(elo))+"。"
+        elif logical_prob > 0.55: s1 = cn(team_name)+"属于中游球队，需要在关键比赛超常发挥才能突破。实力"+str(round(elo))+"。"
+        elif logical_prob > 0.45: s1 = cn(team_name)+"实力偏弱，但世界杯历史上从不缺少黑马。实力"+str(round(elo))+"。"
+        else: s1 = cn(team_name)+"纸面实力不占优，但不被看好反而可能成为最大优势。实力"+str(round(elo))+"。"
         
         # Stage 2: actual biases
         biases = []
@@ -309,7 +309,7 @@ def compute_all_mystic():
 
 # ── 冠军概率预测 ──────────────────────────────────────
 def predict_champion_probabilities():
-    """基于Elo的冠军概率预测（简化蒙特卡洛）"""
+    """基于实力的冠军概率预测（简化蒙特卡洛）"""
     scores = compute_all_team_scores()
     total = sum(s['total_score'] for s in scores if 'total_score' in s)
     
