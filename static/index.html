@@ -228,13 +228,18 @@ function renderFactor(){
 }
 
 // ── 3. 玄学分析 ──
+var currentMysticTeam = null;
 function renderMystic(){
+  if(!currentMysticTeam) currentMysticTeam = allTeams[0];
   if(!predictData)
     return '<div class="card"><h3> 玄学分析</h3><div class="loading">玄学数据加载中...</div></div>';
   var h = '<div class="card"><h3> 玄学因子 — 悖论框架 · 道德经 · 易经</h3>';
   h += '<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">三重境界：看山是山 → 看山不是山 → 看山还是山</p>';
-  h += '<div class="btn-bar"><select id="mystic-team" onchange="renderAll();setTimeout(loadMysticDetail,200);">';
-  for(var i=0; i<Math.min(allTeams.length, 30); i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
+  h += '<div class="btn-bar"><select id="mystic-team" onchange="currentMysticTeam=this.value;renderAll();">';
+  for(var i=0; i<Math.min(allTeams.length, 30); i++){
+    var mt = allTeams[i];
+    h += '<option value="' + mt + '"' + (mt === currentMysticTeam ? ' selected' : '') + '>' + cn(mt) + '</option>';
+  }
   h += '</select><button class="btn-sm" onclick="loadMysticDetail()">查看详情</button></div>';
   h += '<div id="mystic-detail" class="mt-8" style="font-size:.8em;color:#a0b8d0;"></div>';
   h += '</div>';
@@ -242,8 +247,8 @@ function renderMystic(){
   return h;
 }
 async function loadMysticDetail(){
-  var sel = document.getElementById('mystic-team');
-  var team = (sel && sel.value) ? sel.value : allTeams[0];
+  
+  var team = currentMysticTeam || allTeams[0];
   var r = await fetch('/api/predict/mystic?team=' + encodeURIComponent(team));
   var d = await r.json();
     var h = '';
@@ -317,7 +322,7 @@ function renderSquad(){
 }
 async function loadSquad(){
   var sel = document.getElementById('squad-team');
-  var team = (sel && sel.value) ? sel.value : allTeams[0];
+  var team = currentMysticTeam || allTeams[0];
   try{
     var r = await fetch('/api/predict/squad?team=' + encodeURIComponent(team));
     var d = await r.json();
