@@ -243,7 +243,7 @@ function renderMystic(){
   var h = '<div class="card"><h3>☯ 玄学因子 — 悖论框架 · 道德经 · 易经</h3>';
   h += '<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">三重境界：看山是山 → 看山不是山 → 看山还是山</p>';
   h += '<div class="btn-bar"><select id="mystic-team" onchange="renderAll()">';
-  for(var i=0; i<Math.min(allTeams.length, 30); i++) h += '<option>' + allTeams[i] + '</option>';
+  for(var i=0; i<Math.min(allTeams.length, 30); i++) h += '<option value=\"' + allTeams[i] + '\">' + cn(allTeams[i]) + '</option>';
   h += '</select><button class="btn-sm" onclick="loadMysticDetail()">查看详情</button></div>';
   h += '<div id="mystic-detail" class="mt-8" style="font-size:.8em;color:#a0b8d0;"></div>';
   return h + '</div>';
@@ -260,9 +260,9 @@ async function loadMysticDetail(){
 function renderH2H(){
   var h = '<div class="card"><h3>⚔ 对战预测</h3>';
   h += '<div class="btn-bar"><select id="h2h-a">';
-  for(var i=0; i<allTeams.length; i++) h += '<option>' + allTeams[i] + '</option>';
+  for(var i=0; i<allTeams.length; i++) h += '<option value=\"' + allTeams[i] + '\">' + cn(allTeams[i]) + '</option>';
   h += '</select><span style="color:#c9a84c;font-weight:bold;margin:0 6px;">对阵</span><select id="h2h-b">';
-  for(var i=0; i<allTeams.length; i++) h += '<option>' + allTeams[i] + '</option>';
+  for(var i=0; i<allTeams.length; i++) h += '<option value=\"' + allTeams[i] + '\">' + cn(allTeams[i]) + '</option>';
   h += '</select><button class="btn-sm" onclick="loadH2H()">⚡ 开始预测</button></div>';
   h += '<div id="h2h-result" class="mt-8"></div>';
   return h + '</div>';
@@ -297,7 +297,7 @@ async function loadH2H(){
 function renderSquad(){
   var h = '<div class="card"><h3>👥 球员阵容</h3>';
   h += '<div class="btn-bar"><select id="squad-team" onchange="loadSquad()">';
-  for(var i=0; i<allTeams.length; i++) h += '<option>' + allTeams[i] + '</option>';
+  for(var i=0; i<allTeams.length; i++) h += '<option value=\"' + allTeams[i] + '\">' + cn(allTeams[i]) + '</option>';
   h += '</select></div><div id="squad-result" class="squad-list"></div>';
   h += '</div>';
   setTimeout(loadSquad, 100);
@@ -397,14 +397,14 @@ function renderBracketTree(){
       var hw = m.winner === 'home', aw = m.winner === 'away';
       var hs = m.home_score !== null && m.home_score !== undefined;
       h += '<div class="bracket-match' + (m.winner?' won':'') + '" onclick="openModal(\'' + m.id + '\')" title="点击编辑比分">';
-      h += '<div class="row top' + (hw?' w':'') + (!m.home?' tbd':'') + '"><span>' + (cn(cn(m.home||'待定'))) + '</span><span class="sc">' + (hs?m.home_score:'-') + '</span></div>';
-      h += '<div class="row' + (aw?' w':'') + (!m.away?' tbd':'') + '"><span>' + (cn(cn(m.away||'待定'))) + '</span><span class="sc">' + (hs?m.away_score:'-') + '</span></div>';
-      if(m.date) h += '<div style="font-size:.6em;color:#445;text-align:center;padding:2px">' + m.date + ' ' + (m.venue||'') + '</div>';
+      h += '<div class="row top' + (hw?' w':'') + (!m.home?' tbd':'') + '"><span>' + (m.home ? cn(m.home) : '待定') + '</span><span class="sc">' + (hs?m.home_score:'-') + '</span></div>';
+      h += '<div class="row' + (aw?' w':'') + (!m.away?' tbd':'') + '"><span>' + (m.away ? cn(m.away) : '待定') + '</span><span class="sc">' + (hs?m.away_score:'-') + '</span></div>';
+      if(m.date) h += '<div style="font-size:.6em;color:#7aa4c8;text-align:center;padding:2px">📅 ' + m.date + ' 📍 ' + (m.venue||'') + '</div>';
       h += '</div>';
     }
     h += '</div></div>';
     if(ri < rounds.length - 1){
-      h += '<div class="bracket-arrow"><svg width="36" height="' + Math.max(320, counts[rnd]*65) + '"><g stroke="#1a3050" stroke-width="2" fill="none">';
+      h += '<div class="bracket-arrow"><svg width="40" height="' + Math.max(320, counts[rnd]*65) + '"><g stroke="#c9a84c" stroke-width="2.5" fill="none">';
       for(var i=0; i<ms.length; i+=2){
         if(i+1 >= ms.length) break;
         var y1 = 35 + i*65, y2 = y1 + 65, ym = (y1+y2)/2;
@@ -424,7 +424,7 @@ function openModal(id){
   var rn = ROUND_NAMES_CN[m.round] || (matchData.rounds[m.round] ? matchData.rounds[m.round].name : m.round);
   document.getElementById('modal-info').innerHTML = '<b>' + rn + '</b> — ' + (m.date||'') + '<br>📍 ' + (m.venue||'');
   var opts = '<option value="">-- 请选择 --</option>';
-  for(var i=0; i<allTeams.length; i++) opts += '<option value="' + allTeams[i] + '">' + allTeams[i] + '</option>';
+  for(var i=0; i<allTeams.length; i++) opts += \'<option value=\"\' + allTeams[i] + \'\">\' + cn(allTeams[i]) + \'</option>\';
   document.getElementById('m-home').innerHTML = opts;
   document.getElementById('m-away').innerHTML = opts;
   document.getElementById('m-home').value = m.home || '';
