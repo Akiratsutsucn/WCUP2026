@@ -121,7 +121,7 @@ def compute_team_score(team_name):
     """计算球队综合评分"""
     elo = get_elo(team_name)
     players = get_team_players(team_name)
-    player_count = len(players)
+    player_count = min(26, len(players))
 
     # 年龄结构评分（简化）
     if players:
@@ -422,7 +422,7 @@ def predict_h2h(team_a, team_b):
     
     # Expected goals: base 1.05 per team + Elo adjustment
     base = 1.10
-    rate = 0.22  # goals per 100 Elo
+    rate = 0.32  # goals per 100 Elo
     lambda_a = base + (adj_diff / 100.0) * rate
     lambda_b = base - (adj_diff / 100.0) * rate
     lambda_a = max(0.15, min(3.5, lambda_a))

@@ -1,0 +1,482 @@
+{
+  "Mexico": {
+    "attack": 1.34,
+    "defense": 0.0,
+    "pts_per_game": 3.0,
+    "gd_per_game": 2.0,
+    "gf": 6,
+    "ga": 0,
+    "pts": 9,
+    "gd": 6
+  },
+  "South Africa": {
+    "attack": 0.45,
+    "defense": 0.67,
+    "pts_per_game": 1.33,
+    "gd_per_game": -0.33,
+    "gf": 2,
+    "ga": 3,
+    "pts": 4,
+    "gd": -1
+  },
+  "South Korea": {
+    "attack": 0.45,
+    "defense": 0.67,
+    "pts_per_game": 1.0,
+    "gd_per_game": -0.33,
+    "gf": 2,
+    "ga": 3,
+    "pts": 3,
+    "gd": -1
+  },
+  "Czech Republic": {
+    "attack": 0.45,
+    "defense": 1.34,
+    "pts_per_game": 0.33,
+    "gd_per_game": -1.33,
+    "gf": 2,
+    "ga": 6,
+    "pts": 1,
+    "gd": -4
+  },
+  "Switzerland": {
+    "attack": 1.56,
+    "defense": 0.67,
+    "pts_per_game": 2.33,
+    "gd_per_game": 1.33,
+    "gf": 7,
+    "ga": 3,
+    "pts": 7,
+    "gd": 4
+  },
+  "Canada": {
+    "attack": 1.79,
+    "defense": 0.67,
+    "pts_per_game": 1.33,
+    "gd_per_game": 1.67,
+    "gf": 8,
+    "ga": 3,
+    "pts": 4,
+    "gd": 5
+  },
+  "Bosnia and Herzegovina": {
+    "attack": 1.12,
+    "defense": 1.34,
+    "pts_per_game": 1.33,
+    "gd_per_game": -0.33,
+    "gf": 5,
+    "ga": 6,
+    "pts": 4,
+    "gd": -1
+  },
+  "Qatar": {
+    "attack": 0.45,
+    "defense": 2.23,
+    "pts_per_game": 0.33,
+    "gd_per_game": -2.67,
+    "gf": 2,
+    "ga": 10,
+    "pts": 1,
+    "gd": -8
+  },
+  "Brazil": {
+    "attack": 1.56,
+    "defense": 0.22,
+    "pts_per_game": 2.33,
+    "gd_per_game": 2.0,
+    "gf": 7,
+    "ga": 1,
+    "pts": 7,
+    "gd": 6
+  },
+  "Morocco": {
+    "attack": 1.34,
+    "defense": 0.67,
+    "pts_per_game": 2.33,
+    "gd_per_game": 1.0,
+    "gf": 6,
+    "ga": 3,
+    "pts": 7,
+    "gd": 3
+  },
+  "Scotland": {
+    "attack": 0.22,
+    "defense": 0.89,
+    "pts_per_game": 1.0,
+    "gd_per_game": -1.0,
+    "gf": 1,
+    "ga": 4,
+    "pts": 3,
+    "gd": -3
+  },
+  "Haiti": {
+    "attack": 0.45,
+    "defense": 1.79,
+    "pts_per_game": 0.0,
+    "gd_per_game": -2.0,
+    "gf": 2,
+    "ga": 8,
+    "pts": 0,
+    "gd": -6
+  },
+  "United States": {
+    "attack": 1.79,
+    "defense": 0.89,
+    "pts_per_game": 2.0,
+    "gd_per_game": 1.33,
+    "gf": 8,
+    "ga": 4,
+    "pts": 6,
+    "gd": 4
+  },
+  "Australia": {
+    "attack": 0.45,
+    "defense": 0.45,
+    "pts_per_game": 1.33,
+    "gd_per_game": 0.0,
+    "gf": 2,
+    "ga": 2,
+    "pts": 4,
+    "gd": 0
+  },
+  "Paraguay": {
+    "attack": 0.45,
+    "defense": 0.89,
+    "pts_per_game": 1.33,
+    "gd_per_game": -0.67,
+    "gf": 2,
+    "ga": 4,
+    "pts": 4,
+    "gd": -2
+  },
+  "Turkey": {
+    "attack": 0.67,
+    "defense": 1.12,
+    "pts_per_game": 1.0,
+    "gd_per_game": -0.67,
+    "gf": 3,
+    "ga": 5,
+    "pts": 3,
+    "gd": -2
+  },
+  "Germany": {
+    "attack": 2.23,
+    "defense": 0.89,
+    "pts_per_game": 2.0,
+    "gd_per_game": 2.0,
+    "gf": 10,
+    "ga": 4,
+    "pts": 6,
+    "gd": 6
+  },
+  "Ivory Coast": {
+    "attack": 0.89,
+    "defense": 0.45,
+    "pts_per_game": 2.0,
+    "gd_per_game": 0.67,
+    "gf": 4,
+    "ga": 2,
+    "pts": 6,
+    "gd": 2
+  },
+  "Ecuador": {
+    "attack": 0.45,
+    "defense": 0.45,
+    "pts_per_game": 1.33,
+    "gd_per_game": 0.0,
+    "gf": 2,
+    "ga": 2,
+    "pts": 4,
+    "gd": 0
+  },
+  "Curaçao": {
+    "attack": 0.22,
+    "defense": 2.01,
+    "pts_per_game": 0.33,
+    "gd_per_game": -2.67,
+    "gf": 1,
+    "ga": 9,
+    "pts": 1,
+    "gd": -8
+  },
+  "Netherlands": {
+    "attack": 2.23,
+    "defense": 0.89,
+    "pts_per_game": 2.33,
+    "gd_per_game": 2.0,
+    "gf": 10,
+    "ga": 4,
+    "pts": 7,
+    "gd": 6
+  },
+  "Japan": {
+    "attack": 1.56,
+    "defense": 0.67,
+    "pts_per_game": 1.67,
+    "gd_per_game": 1.33,
+    "gf": 7,
+    "ga": 3,
+    "pts": 5,
+    "gd": 4
+  },
+  "Sweden": {
+    "attack": 1.56,
+    "defense": 1.56,
+    "pts_per_game": 1.33,
+    "gd_per_game": 0.0,
+    "gf": 7,
+    "ga": 7,
+    "pts": 4,
+    "gd": 0
+  },
+  "Tunisia": {
+    "attack": 0.45,
+    "defense": 2.68,
+    "pts_per_game": 0.0,
+    "gd_per_game": -3.33,
+    "gf": 2,
+    "ga": 12,
+    "pts": 0,
+    "gd": -10
+  },
+  "Belgium": {
+    "attack": 1.34,
+    "defense": 0.45,
+    "pts_per_game": 1.67,
+    "gd_per_game": 1.33,
+    "gf": 6,
+    "ga": 2,
+    "pts": 5,
+    "gd": 4
+  },
+  "Egypt": {
+    "attack": 1.12,
+    "defense": 0.67,
+    "pts_per_game": 1.67,
+    "gd_per_game": 0.67,
+    "gf": 5,
+    "ga": 3,
+    "pts": 5,
+    "gd": 2
+  },
+  "Iran": {
+    "attack": 0.67,
+    "defense": 0.67,
+    "pts_per_game": 1.0,
+    "gd_per_game": 0.0,
+    "gf": 3,
+    "ga": 3,
+    "pts": 3,
+    "gd": 0
+  },
+  "New Zealand": {
+    "attack": 0.89,
+    "defense": 2.23,
+    "pts_per_game": 0.33,
+    "gd_per_game": -2.0,
+    "gf": 4,
+    "ga": 10,
+    "pts": 1,
+    "gd": -6
+  },
+  "Spain": {
+    "attack": 1.12,
+    "defense": 0.0,
+    "pts_per_game": 2.33,
+    "gd_per_game": 1.67,
+    "gf": 5,
+    "ga": 0,
+    "pts": 7,
+    "gd": 5
+  },
+  "Cape Verde": {
+    "attack": 0.45,
+    "defense": 0.45,
+    "pts_per_game": 1.0,
+    "gd_per_game": 0.0,
+    "gf": 2,
+    "ga": 2,
+    "pts": 3,
+    "gd": 0
+  },
+  "Uruguay": {
+    "attack": 0.67,
+    "defense": 0.89,
+    "pts_per_game": 0.67,
+    "gd_per_game": -0.33,
+    "gf": 3,
+    "ga": 4,
+    "pts": 2,
+    "gd": -1
+  },
+  "Saudi Arabia": {
+    "attack": 0.22,
+    "defense": 1.12,
+    "pts_per_game": 0.67,
+    "gd_per_game": -1.33,
+    "gf": 1,
+    "ga": 5,
+    "pts": 2,
+    "gd": -4
+  },
+  "France": {
+    "attack": 2.23,
+    "defense": 0.45,
+    "pts_per_game": 3.0,
+    "gd_per_game": 2.67,
+    "gf": 10,
+    "ga": 2,
+    "pts": 9,
+    "gd": 8
+  },
+  "Norway": {
+    "attack": 1.79,
+    "defense": 1.56,
+    "pts_per_game": 2.0,
+    "gd_per_game": 0.33,
+    "gf": 8,
+    "ga": 7,
+    "pts": 6,
+    "gd": 1
+  },
+  "Senegal": {
+    "attack": 1.79,
+    "defense": 1.34,
+    "pts_per_game": 1.0,
+    "gd_per_game": 0.67,
+    "gf": 8,
+    "ga": 6,
+    "pts": 3,
+    "gd": 2
+  },
+  "Iraq": {
+    "attack": 0.22,
+    "defense": 2.68,
+    "pts_per_game": 0.0,
+    "gd_per_game": -3.67,
+    "gf": 1,
+    "ga": 12,
+    "pts": 0,
+    "gd": -11
+  },
+  "Argentina": {
+    "attack": 1.79,
+    "defense": 0.22,
+    "pts_per_game": 3.0,
+    "gd_per_game": 2.33,
+    "gf": 8,
+    "ga": 1,
+    "pts": 9,
+    "gd": 7
+  },
+  "Austria": {
+    "attack": 1.34,
+    "defense": 1.34,
+    "pts_per_game": 1.33,
+    "gd_per_game": 0.0,
+    "gf": 6,
+    "ga": 6,
+    "pts": 4,
+    "gd": 0
+  },
+  "Algeria": {
+    "attack": 1.12,
+    "defense": 1.56,
+    "pts_per_game": 1.33,
+    "gd_per_game": -0.67,
+    "gf": 5,
+    "ga": 7,
+    "pts": 4,
+    "gd": -2
+  },
+  "Jordan": {
+    "attack": 0.67,
+    "defense": 1.79,
+    "pts_per_game": 0.0,
+    "gd_per_game": -1.67,
+    "gf": 3,
+    "ga": 8,
+    "pts": 0,
+    "gd": -5
+  },
+  "Colombia": {
+    "attack": 0.89,
+    "defense": 0.22,
+    "pts_per_game": 2.33,
+    "gd_per_game": 1.0,
+    "gf": 4,
+    "ga": 1,
+    "pts": 7,
+    "gd": 3
+  },
+  "Portugal": {
+    "attack": 1.34,
+    "defense": 0.22,
+    "pts_per_game": 1.67,
+    "gd_per_game": 1.67,
+    "gf": 6,
+    "ga": 1,
+    "pts": 5,
+    "gd": 5
+  },
+  "DR Congo": {
+    "attack": 0.89,
+    "defense": 0.67,
+    "pts_per_game": 1.33,
+    "gd_per_game": 0.33,
+    "gf": 4,
+    "ga": 3,
+    "pts": 4,
+    "gd": 1
+  },
+  "Uzbekistan": {
+    "attack": 0.45,
+    "defense": 2.46,
+    "pts_per_game": 0.0,
+    "gd_per_game": -3.0,
+    "gf": 2,
+    "ga": 11,
+    "pts": 0,
+    "gd": -9
+  },
+  "England": {
+    "attack": 1.34,
+    "defense": 0.45,
+    "pts_per_game": 2.33,
+    "gd_per_game": 1.33,
+    "gf": 6,
+    "ga": 2,
+    "pts": 7,
+    "gd": 4
+  },
+  "Croatia": {
+    "attack": 1.12,
+    "defense": 1.12,
+    "pts_per_game": 2.0,
+    "gd_per_game": 0.0,
+    "gf": 5,
+    "ga": 5,
+    "pts": 6,
+    "gd": 0
+  },
+  "Ghana": {
+    "attack": 0.45,
+    "defense": 0.45,
+    "pts_per_game": 1.33,
+    "gd_per_game": 0.0,
+    "gf": 2,
+    "ga": 2,
+    "pts": 4,
+    "gd": 0
+  },
+  "Panama": {
+    "attack": 0.0,
+    "defense": 0.89,
+    "pts_per_game": 0.0,
+    "gd_per_game": -1.33,
+    "gf": 0,
+    "ga": 4,
+    "pts": 0,
+    "gd": -4
+  }
+}
