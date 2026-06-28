@@ -80,37 +80,26 @@ var currentFactorTeam = null;
 // ── 2. 因子分析 ──
 function renderFactor(){
   if(!predictData || !predictData.rankings || !predictData.rankings.length)
-    return '<div class="card"><h3> 球队因子分析</h3><div class="loading">数据加载中...</div></div>';
-  var h = '<div class="card"><h3> 球队评分因子构成</h3>';
+    return '<div class="card"><h3>球队因子分析</h3><div class="loading">数据加载中...</div></div>';
+  if(!currentFactorTeam) currentFactorTeam = predictData.rankings[0].team;
+  var h = '<div class="card"><h3>球队评分因子构成</h3>';
   h += '<div class="btn-bar"><select id="factor-team" onchange="currentFactorTeam=this.value;renderAll();">';
-  for(var i=0; i<Math.min(predictData.rankings.length, 20); i++)
-    var tn = predictData.rankings[i].team; h += '<option value="' + tn + '"' + (tn === currentFactorTeam ? ' selected' : '') + '>' + cn(tn) + '</option>';
+  for(var i=0; i<Math.min(predictData.rankings.length, 20); i++){
+    var tn = predictData.rankings[i].team;
+    h += '<option value="' + tn + '"' + (tn === currentFactorTeam ? ' selected' : '') + '>' + cn(tn) + '</option>';
+  }
   h += '</select></div>';
   var t = predictData.rankings.find(function(x){ return x.team === currentFactorTeam; });
-  var t = predictData.rankings.find(function(x){ return x.team === sel; });
   if(t){
     h += '<div class="factor-grid">';
     h += '<div class="factor-tag"><span>实力评分</span><span class="val">' + (t.elo || '暂无') + '</span></div>';
     h += '<div class="factor-tag"><span>球员数量</span><span class="val">' + (t.player_count || '暂无') + '</span></div>';
     h += '<div class="factor-tag"><span>平均年龄</span><span class="val">' + (t.avg_age || '暂无') + '</span></div>';
-    h += '<div class="factor-tag"><span>综合得分</span><span class="val">' + (t.total_score || t.score || '暂无') + '</span></div>';
-    h += '<div class="factor-tag"><span>原始概率</span><span class="val">' + ((t.raw_prob||0).toFixed(2)) + '%</span></div>';
+    h += '<div class="factor-tag"><span>综合得分</span><span class="val">' + (t.total_score ? t.total_score.toFixed(3) : '暂无') + '</span></div>';
+    h += '<div class="factor-tag"><span>原始概率</span><span class="val">' + ((t.prob||0).toFixed(2)) + '%</span></div>';
     var adj = t.mystic_adjustment || 0;
     h += '<div class="factor-tag"><span>玄学修正</span><span class="val">' + (adj>0?'+':'') + adj.toFixed(2) + '%</span></div>';
     h += '<div class="factor-tag"><span>调整后概率</span><span class="val">' + ((t.adjusted_prob||0).toFixed(2)) + '%</span></div>';
-    h += '</div>';
-  }
-  if(predictData.ucl_signals){
-    h += '<div class="card mt-8"><h3> 欧冠决赛心态信号</h3>';
-    var sigs = predictData.ucl_signals;
-    var count = 0;
-    for(var k in sigs){
-      if(sigs[k] && typeof sigs[k] === 'object' && count < 15){
-        h += '<div class="factor-tag"><span>' + k + '</span><span class="val">' + JSON.stringify(sigs[k]).slice(0,60) + '</span></div>';
-        count++;
-      }
-    }
-    if(count === 0) h += '<div style="font-size:.75em;color:#556;">暂无欧冠决赛相关心态信号数据</div>';
     h += '</div>';
   }
   return h + '</div>';
