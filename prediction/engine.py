@@ -421,7 +421,7 @@ def predict_h2h(team_a, team_b):
     adj_diff = elo_diff - (high_a * 60) + (high_b * 60)
     
     # Expected goals: base 1.05 per team + Elo adjustment
-    base = 1.05
+    base = 1.10
     rate = 0.22  # goals per 100 Elo
     lambda_a = base + (adj_diff / 100.0) * rate
     lambda_b = base - (adj_diff / 100.0) * rate
@@ -433,8 +433,8 @@ def predict_h2h(team_a, team_b):
     pred_home = int(lambda_a)  # floor
     pred_away = int(lambda_b)
     # Adjust: if fractional part > 0.6, round up
-    if lambda_a - pred_home > 0.6: pred_home += 1
-    if lambda_b - pred_away > 0.6: pred_away += 1
+    if lambda_a - pred_home > 0.35: pred_home += 1
+    if lambda_b - pred_away > 0.35: pred_away += 1
     pred_home = max(0, pred_home)
     pred_away = max(0, pred_away)
     
