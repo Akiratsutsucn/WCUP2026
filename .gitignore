@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+wiki_2026.html
+pots_*.html
+pots_*.txt
+group_*.txt
+group_*.html
+knockout_*.txt
+bracket_html.txt
+round32_teams.txt
+teams_found.txt
+format_*.txt
+group_stage_section.txt
+extract_teams.py
+*.pem
+groupA_table_raw.html
+groups_data.txt

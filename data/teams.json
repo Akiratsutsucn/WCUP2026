@@ -1,0 +1,157 @@
+{
+  "tournament": "2026 FIFA World Cup",
+  "hosts": ["United States", "Canada", "Mexico"],
+  "format": {
+    "group_stage": "12 groups of 4 teams",
+    "advancement": "Top 2 from each group + 8 best 3rd place teams = 32 teams",
+    "knockout": ["Round of 32", "Round of 16", "Quarter-finals", "Semi-finals", "Third place", "Final"]
+  },
+  "groups": {
+    "A": [
+      {"team": "Mexico", "flag": "🇲🇽", "confederation": "CONCACAF", "fifa_rank": 15, "pot": 1},
+      {"team": "South Africa", "flag": "🇿🇦", "confederation": "CAF", "fifa_rank": 61, "pot": 3},
+      {"team": "South Korea", "flag": "🇰🇷", "confederation": "AFC", "fifa_rank": 22, "pot": 2},
+      {"team": "Czech Republic", "flag": "🇨🇿", "confederation": "UEFA", "fifa_rank": null, "pot": 4}
+    ],
+    "B": [
+      {"team": "Switzerland", "flag": "🇨🇭", "confederation": "UEFA", "fifa_rank": 17, "pot": 2},
+      {"team": "Canada", "flag": "🇨🇦", "confederation": "CONCACAF", "fifa_rank": 27, "pot": 1},
+      {"team": "Bosnia and Herzegovina", "flag": "🇧🇦", "confederation": "UEFA", "fifa_rank": null, "pot": 4},
+      {"team": "Qatar", "flag": "🇶🇦", "confederation": "AFC", "fifa_rank": 51, "pot": 3}
+    ],
+    "C": [
+      {"team": "Brazil", "flag": "🇧🇷", "confederation": "CONMEBOL", "fifa_rank": 5, "pot": 1},
+      {"team": "Morocco", "flag": "🇲🇦", "confederation": "CAF", "fifa_rank": 11, "pot": 1},
+      {"team": "Scotland", "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "confederation": "UEFA", "fifa_rank": 36, "pot": 3},
+      {"team": "Haiti", "flag": "🇭🇹", "confederation": "CONCACAF", "fifa_rank": 84, "pot": 4}
+    ],
+    "D": [
+      {"team": "United States", "flag": "🇺🇸", "confederation": "CONCACAF", "fifa_rank": 14, "pot": 1},
+      {"team": "Australia", "flag": "🇦🇺", "confederation": "AFC", "fifa_rank": 26, "pot": 2},
+      {"team": "Paraguay", "flag": "🇵🇾", "confederation": "CONMEBOL", "fifa_rank": 39, "pot": 3},
+      {"team": "Turkey", "flag": "🇹🇷", "confederation": "UEFA", "fifa_rank": null, "pot": 4}
+    ],
+    "E": [
+      {"team": "Germany", "flag": "🇩🇪", "confederation": "UEFA", "fifa_rank": 9, "pot": 1},
+      {"team": "Ivory Coast", "flag": "🇨🇮", "confederation": "CAF", "fifa_rank": 42, "pot": 3},
+      {"team": "Ecuador", "flag": "🇪🇨", "confederation": "CONMEBOL", "fifa_rank": 23, "pot": 2},
+      {"team": "Curaçao", "flag": "🇨🇼", "confederation": "CONCACAF", "fifa_rank": 82, "pot": 4}
+    ],
+    "F": [
+      {"team": "Netherlands", "flag": "🇳🇱", "confederation": "UEFA", "fifa_rank": 7, "pot": 1},
+      {"team": "Japan", "flag": "🇯🇵", "confederation": "AFC", "fifa_rank": 18, "pot": 2},
+      {"team": "Sweden", "flag": "🇸🇪", "confederation": "UEFA", "fifa_rank": null, "pot": 4},
+      {"team": "Tunisia", "flag": "🇹🇳", "confederation": "CAF", "fifa_rank": 40, "pot": 3}
+    ],
+    "G": [
+      {"team": "Belgium", "flag": "🇧🇪", "confederation": "UEFA", "fifa_rank": 8, "pot": 1},
+      {"team": "Egypt", "flag": "🇪🇬", "confederation": "CAF", "fifa_rank": 34, "pot": 3},
+      {"team": "Iran", "flag": "🇮🇷", "confederation": "AFC", "fifa_rank": 20, "pot": 2},
+      {"team": "New Zealand", "flag": "🇳🇿", "confederation": "OFC", "fifa_rank": 86, "pot": 4}
+    ],
+    "H": [
+      {"team": "Spain", "flag": "🇪🇸", "confederation": "UEFA", "fifa_rank": 1, "pot": 1},
+      {"team": "Cape Verde", "flag": "🇨🇻", "confederation": "CAF", "fifa_rank": 68, "pot": 4},
+      {"team": "Uruguay", "flag": "🇺🇾", "confederation": "CONMEBOL", "fifa_rank": 16, "pot": 2},
+      {"team": "Saudi Arabia", "flag": "🇸🇦", "confederation": "AFC", "fifa_rank": 60, "pot": 3}
+    ],
+    "I": [
+      {"team": "France", "flag": "🇫🇷", "confederation": "UEFA", "fifa_rank": 3, "pot": 1},
+      {"team": "Norway", "flag": "🇳🇴", "confederation": "UEFA", "fifa_rank": 29, "pot": 3},
+      {"team": "Senegal", "flag": "🇸🇳", "confederation": "CAF", "fifa_rank": 19, "pot": 2},
+      {"team": "Iraq", "flag": "🇮🇶", "confederation": "AFC", "fifa_rank": null, "pot": 4}
+    ],
+    "J": [
+      {"team": "Argentina", "flag": "🇦🇷", "confederation": "CONMEBOL", "fifa_rank": 2, "pot": 1},
+      {"team": "Austria", "flag": "🇦🇹", "confederation": "UEFA", "fifa_rank": 24, "pot": 2},
+      {"team": "Algeria", "flag": "🇩🇿", "confederation": "CAF", "fifa_rank": 35, "pot": 3},
+      {"team": "Jordan", "flag": "🇯🇴", "confederation": "AFC", "fifa_rank": 66, "pot": 4}
+    ],
+    "K": [
+      {"team": "Colombia", "flag": "🇨🇴", "confederation": "CONMEBOL", "fifa_rank": 13, "pot": 1},
+      {"team": "Portugal", "flag": "🇵🇹", "confederation": "UEFA", "fifa_rank": 6, "pot": 1},
+      {"team": "DR Congo", "flag": "🇨🇩", "confederation": "CAF", "fifa_rank": null, "pot": 4},
+      {"team": "Uzbekistan", "flag": "🇺🇿", "confederation": "AFC", "fifa_rank": 50, "pot": 3}
+    ],
+    "L": [
+      {"team": "England", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "confederation": "UEFA", "fifa_rank": 4, "pot": 1},
+      {"team": "Croatia", "flag": "🇭🇷", "confederation": "UEFA", "fifa_rank": 10, "pot": 1},
+      {"team": "Ghana", "flag": "🇬🇭", "confederation": "CAF", "fifa_rank": 72, "pot": 4},
+      {"team": "Panama", "flag": "🇵🇦", "confederation": "CONCACAF", "fifa_rank": 30, "pot": 3}
+    ]
+  },
+  "group_standings": {
+    "A": [
+      {"pos": 1, "team": "Mexico", "pld": 3, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "gd": 0, "pts": 0},
+      {"pos": 2, "team": "South Africa", "pld": 3, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "gd": 0, "pts": 0},
+      {"pos": 3, "team": "South Korea", "pld": 3, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "gd": 0, "pts": 0},
+      {"pos": 4, "team": "Czech Republic", "pld": 3, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "gd": 0, "pts": 0}
+    ],
+    "B": [
+      {"pos": 1, "team": "Switzerland", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 7, "ga": 3, "gd": 4, "pts": 7},
+      {"pos": 2, "team": "Canada", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 8, "ga": 3, "gd": 5, "pts": 4},
+      {"pos": 3, "team": "Bosnia and Herzegovina", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 5, "ga": 6, "gd": -1, "pts": 4},
+      {"pos": 4, "team": "Qatar", "pld": 3, "w": 0, "d": 1, "l": 2, "gf": 2, "ga": 10, "gd": -8, "pts": 1}
+    ],
+    "C": [
+      {"pos": 1, "team": "Brazil", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 7, "ga": 1, "gd": 6, "pts": 7},
+      {"pos": 2, "team": "Morocco", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 6, "ga": 3, "gd": 3, "pts": 7},
+      {"pos": 3, "team": "Scotland", "pld": 3, "w": 1, "d": 0, "l": 2, "gf": 1, "ga": 4, "gd": -3, "pts": 3},
+      {"pos": 4, "team": "Haiti", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 2, "ga": 8, "gd": -6, "pts": 0}
+    ],
+    "D": [
+      {"pos": 1, "team": "United States", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 8, "ga": 4, "gd": 4, "pts": 6},
+      {"pos": 2, "team": "Australia", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4},
+      {"pos": 3, "team": "Paraguay", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 4, "gd": -2, "pts": 4},
+      {"pos": 4, "team": "Turkey", "pld": 3, "w": 1, "d": 0, "l": 2, "gf": 3, "ga": 5, "gd": -2, "pts": 3}
+    ],
+    "E": [
+      {"pos": 1, "team": "Germany", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 10, "ga": 4, "gd": 6, "pts": 6},
+      {"pos": 2, "team": "Ivory Coast", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 4, "ga": 2, "gd": 2, "pts": 6},
+      {"pos": 3, "team": "Ecuador", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4},
+      {"pos": 4, "team": "Curaçao", "pld": 3, "w": 0, "d": 1, "l": 2, "gf": 1, "ga": 9, "gd": -8, "pts": 1}
+    ],
+    "F": [
+      {"pos": 1, "team": "Netherlands", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 10, "ga": 4, "gd": 6, "pts": 7},
+      {"pos": 2, "team": "Japan", "pld": 3, "w": 1, "d": 2, "l": 0, "gf": 7, "ga": 3, "gd": 4, "pts": 5},
+      {"pos": 3, "team": "Sweden", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 7, "ga": 7, "gd": 0, "pts": 4},
+      {"pos": 4, "team": "Tunisia", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 2, "ga": 12, "gd": -10, "pts": 0}
+    ],
+    "G": [
+      {"pos": 1, "team": "Belgium", "pld": 3, "w": 1, "d": 2, "l": 0, "gf": 6, "ga": 2, "gd": 4, "pts": 5},
+      {"pos": 2, "team": "Egypt", "pld": 3, "w": 1, "d": 2, "l": 0, "gf": 5, "ga": 3, "gd": 2, "pts": 5},
+      {"pos": 3, "team": "Iran", "pld": 3, "w": 0, "d": 3, "l": 0, "gf": 3, "ga": 3, "gd": 0, "pts": 3},
+      {"pos": 4, "team": "New Zealand", "pld": 3, "w": 0, "d": 1, "l": 2, "gf": 4, "ga": 10, "gd": -6, "pts": 1}
+    ],
+    "H": [
+      {"pos": 1, "team": "Spain", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 5, "ga": 0, "gd": 5, "pts": 7},
+      {"pos": 2, "team": "Cape Verde", "pld": 3, "w": 0, "d": 3, "l": 0, "gf": 2, "ga": 2, "gd": 0, "pts": 3},
+      {"pos": 3, "team": "Uruguay", "pld": 3, "w": 0, "d": 2, "l": 1, "gf": 3, "ga": 4, "gd": -1, "pts": 2},
+      {"pos": 4, "team": "Saudi Arabia", "pld": 3, "w": 0, "d": 2, "l": 1, "gf": 1, "ga": 5, "gd": -4, "pts": 2}
+    ],
+    "I": [
+      {"pos": 1, "team": "France", "pld": 3, "w": 3, "d": 0, "l": 0, "gf": 10, "ga": 2, "gd": 8, "pts": 9},
+      {"pos": 2, "team": "Norway", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 8, "ga": 7, "gd": 1, "pts": 6},
+      {"pos": 3, "team": "Senegal", "pld": 3, "w": 1, "d": 0, "l": 2, "gf": 8, "ga": 6, "gd": 2, "pts": 3},
+      {"pos": 4, "team": "Iraq", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 1, "ga": 12, "gd": -11, "pts": 0}
+    ],
+    "J": [
+      {"pos": 1, "team": "Argentina", "pld": 3, "w": 3, "d": 0, "l": 0, "gf": 8, "ga": 1, "gd": 7, "pts": 9},
+      {"pos": 2, "team": "Austria", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 6, "ga": 6, "gd": 0, "pts": 4},
+      {"pos": 3, "team": "Algeria", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 5, "ga": 7, "gd": -2, "pts": 4},
+      {"pos": 4, "team": "Jordan", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 3, "ga": 8, "gd": -5, "pts": 0}
+    ],
+    "K": [
+      {"pos": 1, "team": "Colombia", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 4, "ga": 1, "gd": 3, "pts": 7},
+      {"pos": 2, "team": "Portugal", "pld": 3, "w": 1, "d": 2, "l": 0, "gf": 6, "ga": 1, "gd": 5, "pts": 5},
+      {"pos": 3, "team": "DR Congo", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 4, "ga": 3, "gd": 1, "pts": 4},
+      {"pos": 4, "team": "Uzbekistan", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 2, "ga": 11, "gd": -9, "pts": 0}
+    ],
+    "L": [
+      {"pos": 1, "team": "England", "pld": 3, "w": 2, "d": 1, "l": 0, "gf": 6, "ga": 2, "gd": 4, "pts": 7},
+      {"pos": 2, "team": "Croatia", "pld": 3, "w": 2, "d": 0, "l": 1, "gf": 5, "ga": 5, "gd": 0, "pts": 6},
+      {"pos": 3, "team": "Ghana", "pld": 3, "w": 1, "d": 1, "l": 1, "gf": 2, "ga": 2, "gd": 0, "pts": 4},
+      {"pos": 4, "team": "Panama", "pld": 3, "w": 0, "d": 0, "l": 3, "gf": 0, "ga": 4, "gd": -4, "pts": 0}
+    ]
+  }
+}
