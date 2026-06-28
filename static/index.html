@@ -415,7 +415,7 @@ function drawBracketSVG(){
   
   var rounds = ['R32','R16','QF','SF','F','3rd'];
   var labels = ['32强','16强','1/4决赛','半决赛',' 决赛','季军赛'];
-  var BOX_W = 155, BOX_H = 47, GAP_Y = 56;
+  var BOX_W = 155, BOX_H = 50, GAP_Y = 72;
   var X = [10, 215, 420, 625, 830, 1035];
   
   // Build position map
@@ -453,7 +453,7 @@ function drawBracketSVG(){
   }
   if(tpm) pos[tpm.id] = {x:X[5], y: pos[fm.id] ? pos[fm.id].y : 400};
   
-  var maxY = 25 + 15*GAP_Y + BOX_H + 30;
+  var maxY = 25 + 15*GAP_Y + BOX_H + 40;
   var svgW = X[5] + BOX_W + 20;
   
   var svg = '<svg width="' + svgW + '" height="' + maxY + '" style="background:#0a0f1a;font-family:system-ui,sans-serif;">';
@@ -498,7 +498,7 @@ function drawBracketSVG(){
     svg += '<text x="' + (p.x+6) + '" y="' + (p.y+18) + '" fill="' + (hw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (hw?'bold':'normal') + '">' + home.substring(0,14) + '</text>';
     svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+18) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + hs + '</text>';
     svg += '<line x1="' + (p.x+4) + '" y1="' + (p.y+BOX_H/2) + '" x2="' + (p.x+BOX_W-4) + '" y2="' + (p.y+BOX_H/2) + '" stroke="#1a3050" stroke-width="1"/>';
-    if(m.date) svg += '<text x="' + (p.x+BOX_W/2) + '" y="' + (p.y+BOX_H+10) + '" fill="#7aa4c8" font-size="8" text-anchor="middle">' + m.date + '</text>';
+    if(m.date) svg += '<text x="' + (p.x+BOX_W/2) + '" y="' + (p.y+BOX_H+14) + '" fill="#7aa4c8" font-size="8" text-anchor="middle">' + m.date + '</text>';
     svg += '<text x="' + (p.x+6) + '" y="' + (p.y+40) + '" fill="' + (aw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (aw?'bold':'normal') + '">' + away.substring(0,14) + '</text>';
     svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+40) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + as + '</text>';
     svg += '</g>';
