@@ -138,6 +138,19 @@ async function init(){
     if(standingsData) for(var g in standingsData) for(var i=0; i<standingsData[g].length; i++)
       if(allTeams.indexOf(standingsData[g][i].team) < 0) allTeams.push(standingsData[g][i].team);
     allTeams.sort();
+    // Build R32-only team list from match data
+    window.r32Teams = [];
+    if(matchData && matchData.matches){
+      var seen = {};
+      for(var i=0; i<matchData.matches.length; i++){
+        var m = matchData.matches[i];
+        if(m.round === 'R32'){
+          if(m.home && !seen[m.home]){ window.r32Teams.push(m.home); seen[m.home]=true; }
+          if(m.away && !seen[m.away]){ window.r32Teams.push(m.away); seen[m.away]=true; }
+        }
+      }
+      window.r32Teams.sort();
+    }
     try{
       var p = await fetch('/api/predict/all');
       if(p.ok) predictData = await p.json();
@@ -237,14 +250,14 @@ function renderFactor(){
 // ── 3. 玄学分析 ──
 var currentMysticTeam = null;
 function renderMystic(){
-  if(!currentMysticTeam) currentMysticTeam = allTeams[0];
+  if(!currentMysticTeam && window.r32Teams && window.r32Teams.length > 0) currentMysticTeam = window.r32Teams[0];
   if(!predictData)
     return '<div class="card"><h3> 玄学分析</h3><div class="loading">玄学数据加载中...</div></div>';
   var h = '<div class="card"><h3> 玄学因子 — 悖论框架 · 道德经 · 易经</h3>';
   h += '<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">三重境界：看山是山 → 看山不是山 → 看山还是山</p>';
   h += '<div class="btn-bar"><select id="mystic-team" onchange="currentMysticTeam=this.value;renderAll();">';
-  for(var i=0; i<Math.min(allTeams.length, 30); i++){
-    var mt = allTeams[i];
+  var teams = (window.r32Teams && window.r32Teams.length > 0) ? window.r32Teams : allTeams; for(var i=0; i<Math.min(teams.length, 32); i++){
+    var mt = teams[i];
     h += '<option value="' + mt + '"' + (mt === currentMysticTeam ? ' selected' : '') + '>' + cn(mt) + '</option>';
   }
   h += '</select></div>';
@@ -321,7 +334,7 @@ async function loadH2H(ta, tb){
 function renderSquad(){
   var h = '<div class="card"><h3> 球员阵容</h3>';
   h += '<div class="btn-bar"><select id="squad-team" onchange="loadSquad()">';
-  for(var i=0; i<allTeams.length; i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
+  var sqTeams = (window.r32Teams && window.r32Teams.length > 0) ? window.r32Teams : allTeams; for(var i=0; i<sqTeams.length; i++) h += '<option value="' + sqTeams[i] + '">' + cn(sqTeams[i]) + '</option>';
   h += '</select></div><div id="squad-result" class="squad-list"></div>';
   h += '</div>';
   setTimeout(loadSquad, 100);
