@@ -24,10 +24,19 @@ def _load_json(name):
 PLAYERS_DATA = _load_json('wc2026_players_processed.json')
 ELO_CACHE = _load_json('elo_cache_2026.json')
 MATCH_CACHE = _load_json('match_cache.json')
+# 加载中文队名映射
+try:
+    TEAM_NAMES_CN = _load_json('team_names_cn.json')
+except:
+    TEAM_NAMES_CN = {}
 
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
+
+def cn(team_name):
+    """返回球队中文名，如果没有映射则返回英文原名"""
+    return TEAM_NAMES_CN.get(team_name, team_name)
 
 # ── 球队名称标准化 ─────────────────────────────────────
 TEAM_NAME_NORMALIZE = {

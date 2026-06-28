@@ -189,7 +189,7 @@ function renderPredict(){
     var t = r[i], prob = t.adjusted_prob || 0;
     var barW = prob / maxProb * 100;
     h += '<div class="ranking-bar"><span class="rk">' + (i+1) + '</span><span class="flag">' + getFlag(t.team) + '</span>';
-    h += '<span class="name">' + t.team + '</span>';
+    h += '<span class="name">' + cn(t.team) + '</span>';
     h += '<div class="bar-wrap"><div class="bar-fill" style="width:' + barW + '%"></div></div>';
     h += '<span class="prob">' + prob.toFixed(1) + '%</span></div>';
   }
@@ -204,7 +204,7 @@ function renderFactor(){
   var h = '<div class="card"><h3>🔬 球队评分因子构成</h3>';
   h += '<div class="btn-bar"><select id="factor-team" onchange="renderAll()">';
   for(var i=0; i<Math.min(predictData.rankings.length, 20); i++)
-    h += '<option>' + predictData.rankings[i].team + '</option>';
+    h += '<option>' + cn(predictData.rankings[i].team) + '</option>';
   h += '</select></div>';
   var sel = (document.getElementById('factor-team') && document.getElementById('factor-team').value) || predictData.rankings[0].team;
   var t = predictData.rankings.find(function(x){ return x.team === sel; });
@@ -287,7 +287,7 @@ async function loadH2H(){
         '<div><div class="p">' + ((d.draw_prob||0).toFixed(1)) + '%</div><div class="l">平局</div></div>' +
         '<div><div class="p">' + ((d.win_prob_b||0).toFixed(1)) + '%</div><div class="l">' + d.team_b + ' 获胜</div></div>' +
       '</div>' +
-      '<div class="text-center mt-8" style="font-size:.75em;color:#7aa4c8;">预期进球：' + d.team_a + ' ' + (d.expected_goals_a||'暂无') + ' — ' + (d.expected_goals_b||'暂无') + ' ' + d.team_b + '</div>';
+      '<div class="text-center mt-8" style="font-size:.75em;color:#7aa4c8;">预期进球：' + cn(d.team_a) + ' ' + (d.expected_goals_a||'暂无') + ' — ' + (d.expected_goals_b||'暂无') + ' ' + cn(d.team_b) + '</div>';
   }catch(e){
     document.getElementById('h2h-result').innerHTML = '<div class="error">预测失败：' + e.message + '</div>';
   }
@@ -335,7 +335,7 @@ function renderSuspensions(){
     for(var team in s.injuries){
       if(!s.injuries[team].length) continue;
       hasInj = true;
-      h += '<div class="card" style="padding:10px;"><b>' + getFlag(team) + ' ' + team + '</b><br>';
+      h += '<div class="card" style="padding:10px;"><b>' + getFlag(team) + ' ' + cn(team) + '</b><br>';
       for(var i=0; i<s.injuries[team].length; i++){
         var inj = s.injuries[team][i];
         var badge = inj.impact === 'high' ? 'badge-red' : (inj.impact === 'medium' ? 'badge-yellow' : 'badge-green');
@@ -351,7 +351,7 @@ function renderSuspensions(){
     for(var team in s.suspensions){
       if(!s.suspensions[team].length) continue;
       hasSus = true;
-      h += '<div class="card" style="padding:10px;"><b>' + getFlag(team) + ' ' + team + '</b><br>';
+      h += '<div class="card" style="padding:10px;"><b>' + getFlag(team) + ' ' + cn(team) + '</b><br>';
       for(var i=0; i<s.suspensions[team].length; i++){
         var sus = s.suspensions[team][i];
         h += '<span class="badge badge-red">停赛</span> ' + sus.player + ' — ' + sus.reason + '（' + sus.match + '）<br>';
@@ -397,8 +397,8 @@ function renderBracketTree(){
       var hw = m.winner === 'home', aw = m.winner === 'away';
       var hs = m.home_score !== null && m.home_score !== undefined;
       h += '<div class="bracket-match' + (m.winner?' won':'') + '" onclick="openModal(\'' + m.id + '\')" title="点击编辑比分">';
-      h += '<div class="row top' + (hw?' w':'') + (!m.home?' tbd':'') + '"><span>' + (m.home||'待定') + '</span><span class="sc">' + (hs?m.home_score:'-') + '</span></div>';
-      h += '<div class="row' + (aw?' w':'') + (!m.away?' tbd':'') + '"><span>' + (m.away||'待定') + '</span><span class="sc">' + (hs?m.away_score:'-') + '</span></div>';
+      h += '<div class="row top' + (hw?' w':'') + (!m.home?' tbd':'') + '"><span>' + (cn(cn(m.home||'待定'))) + '</span><span class="sc">' + (hs?m.home_score:'-') + '</span></div>';
+      h += '<div class="row' + (aw?' w':'') + (!m.away?' tbd':'') + '"><span>' + (cn(cn(m.away||'待定'))) + '</span><span class="sc">' + (hs?m.away_score:'-') + '</span></div>';
       if(m.date) h += '<div style="font-size:.6em;color:#445;text-align:center;padding:2px">' + m.date + ' ' + (m.venue||'') + '</div>';
       h += '</div>';
     }
@@ -495,6 +495,21 @@ var FLAGS = {
   Iraq:'🇮🇶','Curaçao':'🇨🇼','Bosnia and Herzegovina':'🇧🇦',Scotland:'🏴󠁧󠁢󠁳󠁣󠁴󠁿'
 };
 function getFlag(team){ return FLAGS[team] || '🌍'; }
+
+// ── 中文队名 ──
+var CN = {
+  Brazil:'巴西',Argentina:'阿根廷',France:'法国',England:'英格兰',Germany:'德国',Spain:'西班牙',
+  Portugal:'葡萄牙',Netherlands:'荷兰',Belgium:'比利时',Croatia:'克罗地亚',Switzerland:'瑞士',
+  Uruguay:'乌拉圭',Colombia:'哥伦比亚',Mexico:'墨西哥','United States':'美国',USA:'美国',
+  Japan:'日本','South Korea':'韩国',Australia:'澳大利亚',Iran:'伊朗',Morocco:'摩洛哥',
+  Senegal:'塞内加尔',Egypt:'埃及',Austria:'奥地利','Czech Republic':'捷克',Turkey:'土耳其',
+  Sweden:'瑞典',Ecuador:'厄瓜多尔',Paraguay:'巴拉圭','Saudi Arabia':'沙特',Qatar:'卡塔尔',
+  'Ivory Coast':'科特迪瓦',Ghana:'加纳',Tunisia:'突尼斯',Algeria:'阿尔及利亚','DR Congo':'刚果(金)',
+  'Cape Verde':'佛得角',Uzbekistan:'乌兹别克',Jordan:'约旦',Panama:'巴拿马',Haiti:'海地',
+  Canada:'加拿大','New Zealand':'新西兰',Norway:'挪威','South Africa':'南非',Iraq:'伊拉克',
+  'Curaçao':'库拉索','Bosnia and Herzegovina':'波黑',Scotland:'苏格兰'
+};
+function cn(name){ return CN[name] || name; }
 
 document.getElementById('modal').addEventListener('click', function(e){ if(e.target === this) closeModal(); });
 
