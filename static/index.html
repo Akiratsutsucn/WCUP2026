@@ -386,9 +386,9 @@ function renderSuspensions(){
 
 // ── 7. 淘汰赛对阵 ──
 function renderBracketPage(){
-  var h = '<div class=\"card\"><h3>🏟 淘汰赛对阵图 — 32强 → 决赛</h3>';
-  h += '<div class=\"btn-bar\"><button class=\"btn-sm\" onclick=\"fillR32()\">🔄 自动填充32强</button><button class=\"btn-sm\" onclick=\"resetBracket()\" style=\"background:#5a3030;color:#e88;\">⚠ 重置全部比赛</button></div>';
-  h += '<div id=\"bracket-svg-container\" style=\"overflow-x:auto;\"></div>';
+  var h = '<div class="card"><h3>🏟 淘汰赛对阵图 — 32强 → 决赛</h3>';
+  h += '<div class="btn-bar"><button class="btn-sm" onclick="fillR32()">🔄 自动填充32强</button><button class="btn-sm" onclick="resetBracket()" style="background:#5a3030;color:#e88;">⚠ 重置全部比赛</button></div>';
+  h += '<div id="bracket-svg-container" style="overflow-x:auto;"></div>';
   h += '</div>';
   setTimeout(function(){ drawBracketSVG(); }, 150);
   return h;
@@ -442,17 +442,17 @@ function drawBracketSVG(){
   var maxY = 25 + 15*GAP_Y + BOX_H + 20;
   var svgW = X[5] + BOX_W + 20;
   
-  var svg = '<svg width=\"' + svgW + '\" height=\"' + maxY + '\" style=\"background:#0a0f1a;font-family:system-ui,sans-serif;\">';
+  var svg = '<svg width="' + svgW + '" height="' + maxY + '" style="background:#0a0f1a;font-family:system-ui,sans-serif;">';
   
   // Connector lines
-  svg += '<g stroke=\"#c9a84c\" stroke-width=\"2\" fill=\"none\" opacity=\"0.6\">';
+  svg += '<g stroke="#c9a84c" stroke-width="2" fill="none" opacity="0.6">';
   for(var mid in pos){
     var m = matchById[mid]; if(!m || !m.next) continue;
     var p1 = pos[mid], p2 = pos[m.next]; if(!p1 || !p2) continue;
     var x1 = p1.x + BOX_W, y1 = p1.y + BOX_H/2;
     var x2 = p2.x, y2 = p2.y + BOX_H/2;
     var mx = (x1 + x2) / 2;
-    svg += '<path d=\"M' + x1 + ',' + y1 + ' L' + mx + ',' + y1 + ' L' + mx + ',' + y2 + ' L' + x2 + ',' + y2 + '\"/>';
+    svg += '<path d="M' + x1 + ',' + y1 + ' L' + mx + ',' + y1 + ' L' + mx + ',' + y2 + ' L' + x2 + ',' + y2 + '"/>';
   }
   // 3rd place dashed lines from SF losers
   if(tpm && sf.length>=2){
@@ -460,15 +460,15 @@ function drawBracketSVG(){
       var sx = pos[sf[i].id].x + BOX_W, sy = pos[sf[i].id].y + BOX_H*0.75;
       var tx = pos[tpm.id].x, ty = pos[tpm.id].y + BOX_H/2;
       var mx2 = sx + 25;
-      svg += '<path d=\"M' + sx + ',' + sy + ' L' + mx2 + ',' + sy + ' L' + mx2 + ',' + ty + ' L' + tx + ',' + ty + '\" stroke=\"#a08040\" stroke-dasharray=\"5,3\"/>';
+      svg += '<path d="M' + sx + ',' + sy + ' L' + mx2 + ',' + sy + ' L' + mx2 + ',' + ty + ' L' + tx + ',' + ty + '" stroke="#a08040" stroke-dasharray="5,3"/>';
     }
   }
   svg += '</g>';
   
   // Round titles
-  svg += '<g fill=\"#f0d878\" font-size=\"12\" font-weight=\"bold\" text-anchor=\"middle\">';
+  svg += '<g fill="#f0d878" font-size="12" font-weight="bold" text-anchor="middle">';
   for(var i=0; i<rounds.length; i++)
-    svg += '<text x=\"' + (X[i] + BOX_W/2) + '\" y=\"14\">' + labels[i] + '</text>';
+    svg += '<text x="' + (X[i] + BOX_W/2) + '" y="14">' + labels[i] + '</text>';
   svg += '</g>';
   
   // Match boxes
@@ -479,13 +479,13 @@ function drawBracketSVG(){
     var hw = m.winner==='home', aw = m.winner==='away';
     var fill = m.winner ? '#0a1a10' : '#0f1a2e', border = m.winner ? '#2a5a30' : '#1a3050';
     
-    svg += '<g onclick=\"openModal(\\'' + mid + '\\')\" style=\"cursor:pointer\">';
-    svg += '<rect x=\"' + p.x + '\" y=\"' + p.y + '\" width=\"' + BOX_W + '\" height=\"' + BOX_H + '\" rx=\"6\" fill=\"' + fill + '\" stroke=\"' + border + '\" stroke-width=\"1.5\"/>';
-    svg += '<text x=\"' + (p.x+6) + '\" y=\"' + (p.y+18) + '\" fill=\"' + (hw?'#f0d878':'#c0c8d8') + '\" font-size=\"11\" font-weight=\"' + (hw?'bold':'normal') + '\">' + home.substring(0,14) + '</text>';
-    svg += '<text x=\"' + (p.x+BOX_W-6) + '\" y=\"' + (p.y+18) + '\" fill=\"#f0d878\" font-size=\"11\" font-weight=\"bold\" text-anchor=\"end\">' + hs + '</text>';
-    svg += '<line x1=\"' + (p.x+4) + '\" y1=\"' + (p.y+BOX_H/2) + '\" x2=\"' + (p.x+BOX_W-4) + '\" y2=\"' + (p.y+BOX_H/2) + '\" stroke=\"#1a3050\" stroke-width=\"1\"/>';
-    svg += '<text x=\"' + (p.x+6) + '\" y=\"' + (p.y+40) + '\" fill=\"' + (aw?'#f0d878':'#c0c8d8') + '\" font-size=\"11\" font-weight=\"' + (aw?'bold':'normal') + '\">' + away.substring(0,14) + '</text>';
-    svg += '<text x=\"' + (p.x+BOX_W-6) + '\" y=\"' + (p.y+40) + '\" fill=\"#f0d878\" font-size=\"11\" font-weight=\"bold\" text-anchor=\"end\">' + as + '</text>';
+    svg += '<g onclick="openModal(\'' + mid + '\')" style="cursor:pointer">';
+    svg += '<rect x="' + p.x + '" y="' + p.y + '" width="' + BOX_W + '" height="' + BOX_H + '" rx="6" fill="' + fill + '" stroke="' + border + '" stroke-width="1.5"/>';
+    svg += '<text x="' + (p.x+6) + '" y="' + (p.y+18) + '" fill="' + (hw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (hw?'bold':'normal') + '">' + home.substring(0,14) + '</text>';
+    svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+18) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + hs + '</text>';
+    svg += '<line x1="' + (p.x+4) + '" y1="' + (p.y+BOX_H/2) + '" x2="' + (p.x+BOX_W-4) + '" y2="' + (p.y+BOX_H/2) + '" stroke="#1a3050" stroke-width="1"/>';
+    svg += '<text x="' + (p.x+6) + '" y="' + (p.y+40) + '" fill="' + (aw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (aw?'bold':'normal') + '">' + away.substring(0,14) + '</text>';
+    svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+40) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + as + '</text>';
     svg += '</g>';
   }
   
@@ -501,7 +501,7 @@ function openModal(id){
   var rn = ROUND_NAMES_CN[m.round] || (matchData.rounds[m.round] ? matchData.rounds[m.round].name : m.round);
   document.getElementById('modal-info').innerHTML = '<b>' + rn + '</b> — ' + (m.date||'') + '<br>📍 ' + (m.venue||'');
   var opts = '<option value="">-- 请选择 --</option>';
-  for(var i=0; i<allTeams.length; i++) opts += '<option value=\"\' + allTeams[i] + \'\">\' + cn(allTeams[i]) + \'</option>';
+  for(var i=0; i<allTeams.length; i++) opts += '<option value="\' + allTeams[i] + \'">\' + cn(allTeams[i]) + \'</option>';
   document.getElementById('m-home').innerHTML = opts;
   document.getElementById('m-away').innerHTML = opts;
   document.getElementById('m-home').value = m.home || '';
