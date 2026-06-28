@@ -186,7 +186,7 @@ function renderPredict(){
   if(maxProb <= 0) maxProb = 20;
   var h = '<div class="card"><h3> 冠军预测排行 — 蒙特卡洛模拟</h3>';
   h += '<div class="btn-bar"><button class="btn-sm" onclick="location.reload()">刷新 刷新预测</button></div>';
-  for(var i=0; i<Math.min(r.length, 20); i++){
+  for(var i=0; i<Math.min(r.length, 32); i++){
     var t = r[i], prob = t.adjusted_prob || 0;
     var barW = prob / maxProb * 100;
     h += '<div class="ranking-bar"><span class="rk">' + (i+1) + '</span><span class="flag">' + getFlag(t.team) + '</span>';
