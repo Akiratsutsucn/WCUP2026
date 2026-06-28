@@ -209,7 +209,7 @@ function renderSquad(){
 }
 async function loadSquad(){
   var sel = document.getElementById('squad-team');
-  var team = currentMysticTeam || allTeams[0];
+  var team = (sel && sel.value) ? sel.value : allTeams[0];
   try{
     var r = await fetch('/api/predict/squad?team=' + encodeURIComponent(team));
     var d = await r.json();
@@ -376,6 +376,7 @@ function drawBracketSVG(){
     svg += '<text x="' + (p.x+6) + '" y="' + (p.y+18) + '" fill="' + (hw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (hw?'bold':'normal') + '">' + home.substring(0,14) + '</text>';
     svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+18) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + hs + '</text>';
     svg += '<line x1="' + (p.x+4) + '" y1="' + (p.y+BOX_H/2) + '" x2="' + (p.x+BOX_W-4) + '" y2="' + (p.y+BOX_H/2) + '" stroke="#1a3050" stroke-width="1"/>';
+    if(m.date) svg += '<text x="' + (p.x+BOX_W/2) + '" y="' + (p.y+BOX_H+10) + '" fill="#7aa4c8" font-size="8" text-anchor="middle">' + m.date + '</text>';
     svg += '<text x="' + (p.x+6) + '" y="' + (p.y+40) + '" fill="' + (aw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (aw?'bold':'normal') + '">' + away.substring(0,14) + '</text>';
     svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+40) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + as + '</text>';
     svg += '</g>';
