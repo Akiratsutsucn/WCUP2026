@@ -461,7 +461,31 @@ class PredictionEngine:
     def get_rankings(self):
         if not self._rankings:
             self._rankings = compute_all_team_scores()
-        return self._rankings[:20]
+        # Add probability calculations
+        results = []
+        total = sum(s.get('total_score', 0) for s in self._rankings if isinstance(s, dict))
+        for s in self._rankings:
+            if not isinstance(s, dict): continue
+            score = s.get('total_score', 0)
+            raw_prob = (score / total * 100) if total > 0 else 0
+            mystic = compute_mystic_factor(s['team'], s.get('elo', 1700))
+            adj = raw_prob * (1 + mystic.get('total_mystic', 0))
+            results.append({
+                'team': s['team'],
+                'elo': s.get('elo', 1700),
+                'player_count': s.get('player_count', 0),
+                'avg_age': s.get('avg_age'),
+                'total_score': score,
+                'prob': round(raw_prob, 2),
+                'mystic_adjustment': round(mystic.get('total_mystic', 0) * 100, 2),
+                'adjusted_prob': round(adj, 1),
+            })
+        # Normalize
+        total_adj = sum(r['adjusted_prob'] for r in results)
+        for r in results:
+            r['adjusted_prob'] = round(r['adjusted_prob'] / total_adj * 100, 1) if total_adj > 0 else 0
+        results.sort(key=lambda x: x['adjusted_prob'], reverse=True)
+        return results[:20]
     
     def get_mystic_analysis(self, team=None):
         if team:

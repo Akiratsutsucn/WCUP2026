@@ -2,7 +2,7 @@
 // 轮次中文名称映射
 var ROUND_NAMES_CN = {
   R32: '32强淘汰赛', R16: '16强淘汰赛', QF: '四分之一决赛',
-  SF: '半决赛', '3rd': '季军争夺赛', F: '&diams; 冠军决赛'
+  SF: '半决赛', '3rd': '季军争夺赛', F: ' 冠军决赛'
 };
 
 var matchData = null, standingsData = null, predictData = null, editingMatchId = null, allTeams = [], teamsData = null;
@@ -57,13 +57,13 @@ function renderAll(){
 function renderPredict(){
   if(!currentFactorTeam && predictData && predictData.rankings && predictData.rankings.length) currentFactorTeam = predictData.rankings[0].team;
   if(!predictData || !predictData.rankings || !predictData.rankings.length)
-    return '<div class="card"><h3>&diams; 冠军预测排行</h3><div class="loading">预测引擎正在启动，请稍候...</div></div>';
+    return '<div class="card"><h3> 冠军预测排行</h3><div class="loading">预测引擎正在启动，请稍候...</div></div>';
   var r = predictData.rankings;
   var maxProb = 0;
   for(var i=0; i<r.length; i++){ var prob = r[i].adjusted_prob || 0; if(prob > maxProb) maxProb = prob; }
   if(maxProb <= 0) maxProb = 20;
-  var h = '<div class="card"><h3>&diams; 冠军预测排行 — 蒙特卡洛模拟</h3>';
-  h += '<div class="btn-bar"><button class="btn-sm" onclick="location.reload()">[刷新] 刷新预测</button></div>';
+  var h = '<div class="card"><h3> 冠军预测排行 — 蒙特卡洛模拟</h3>';
+  h += '<div class="btn-bar"><button class="btn-sm" onclick="location.reload()">刷新 刷新预测</button></div>';
   for(var i=0; i<Math.min(r.length, 20); i++){
     var t = r[i], prob = t.adjusted_prob || 0;
     var barW = prob / maxProb * 100;
@@ -80,8 +80,8 @@ var currentFactorTeam = null;
 // ── 2. 因子分析 ──
 function renderFactor(){
   if(!predictData || !predictData.rankings || !predictData.rankings.length)
-    return '<div class="card"><h3>&diams; 球队因子分析</h3><div class="loading">数据加载中...</div></div>';
-  var h = '<div class="card"><h3>&diams; 球队评分因子构成</h3>';
+    return '<div class="card"><h3> 球队因子分析</h3><div class="loading">数据加载中...</div></div>';
+  var h = '<div class="card"><h3> 球队评分因子构成</h3>';
   h += '<div class="btn-bar"><select id="factor-team" onchange="currentFactorTeam=this.value;renderAll();">';
   for(var i=0; i<Math.min(predictData.rankings.length, 20); i++)
     var tn = predictData.rankings[i].team; h += '<option value="' + tn + '"' + (tn === currentFactorTeam ? ' selected' : '') + '>' + cn(tn) + '</option>';
@@ -119,8 +119,8 @@ function renderFactor(){
 // ── 3. 玄学分析 ──
 function renderMystic(){
   if(!predictData)
-    return '<div class="card"><h3>&diams; 玄学分析</h3><div class="loading">玄学数据加载中...</div></div>';
-  var h = '<div class="card"><h3>&diams; 玄学因子 — 悖论框架 · 道德经 · 易经</h3>';
+    return '<div class="card"><h3> 玄学分析</h3><div class="loading">玄学数据加载中...</div></div>';
+  var h = '<div class="card"><h3> 玄学因子 — 悖论框架 · 道德经 · 易经</h3>';
   h += '<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">三重境界：看山是山 → 看山不是山 → 看山还是山</p>';
   h += '<div class="btn-bar"><select id="mystic-team" onchange="renderAll();setTimeout(loadMysticDetail,200);">';
   for(var i=0; i<Math.min(allTeams.length, 30); i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
@@ -140,9 +140,9 @@ async function loadMysticDetail(){
 
 // ── 4. 对战预测 ──
 function renderH2H(){
-  if(!matchData || !matchData.matches) return '<div class="card"><h3>&diams; 对战预测</h3><div class="loading">数据加载中...</div></div>';
+  if(!matchData || !matchData.matches) return '<div class="card"><h3> 对战预测</h3><div class="loading">数据加载中...</div></div>';
   var r32matches = matchData.matches.filter(function(m){ return m.round === 'R32'; }).sort(function(a,b){ return a.id.localeCompare(b.id); });
-  var h = '<div class="card"><h3>&diams; 32强对战预测</h3>';
+  var h = '<div class="card"><h3> 32强对战预测</h3>';
   h += '<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">点击任意对阵查看详细预测分析</p>';
   h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">';
   for(var i=0; i<r32matches.length; i++){
@@ -185,7 +185,7 @@ async function loadH2H(ta, tb){
 
 // ── 5. 球员阵容 ──
 function renderSquad(){
-  var h = '<div class="card"><h3>&diams; 球员阵容</h3>';
+  var h = '<div class="card"><h3> 球员阵容</h3>';
   h += '<div class="btn-bar"><select id="squad-team" onchange="loadSquad()">';
   for(var i=0; i<allTeams.length; i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
   h += '</select></div><div id="squad-result" class="squad-list"></div>';
@@ -216,9 +216,9 @@ async function loadSquad(){
 // ── 6. 伤病停赛 ──
 function renderSuspensions(){
   if(!predictData || !predictData.suspensions)
-    return '<div class="card"><h3>&diams; 伤病与停赛追踪</h3><div class="loading">数据加载中...</div></div>';
+    return '<div class="card"><h3> 伤病与停赛追踪</h3><div class="loading">数据加载中...</div></div>';
   var s = predictData.suspensions;
-  var h = '<div class="card"><h3>&diams; 伤病与停赛追踪</h3>';
+  var h = '<div class="card"><h3> 伤病与停赛追踪</h3>';
   if(s.injuries){
     h += '<h4 style="color:#e88;margin:10px 0 6px;"> 伤病情况</h4>';
     var hasInj = false;
@@ -264,8 +264,8 @@ function renderSuspensions(){
 
 // ── 7. 淘汰赛对阵 ──
 function renderBracketPage(){
-  var h = '<div class="card"><h3>&diams; 淘汰赛对阵图 — 32强 → 决赛</h3>';
-  h += '<div class="btn-bar"><button class="btn-sm" onclick="fillR32()">[刷新] 自动填充32强</button><button class="btn-sm" onclick="resetBracket()" style="background:#5a3030;color:#e88;">[!] 重置全部比赛</button></div>';
+  var h = '<div class="card"><h3> 淘汰赛对阵图 — 32强 → 决赛</h3>';
+  h += '<div class="btn-bar"><button class="btn-sm" onclick="fillR32()">刷新 自动填充32强</button><button class="btn-sm" onclick="resetBracket()" style="background:#5a3030;color:#e88;">! 重置全部比赛</button></div>';
   h += '<div id="bracket-svg-container" style="overflow-x:auto;"></div>';
   h += '</div>';
   setTimeout(function(){ drawBracketSVG(); }, 150);
@@ -278,7 +278,7 @@ function drawBracketSVG(){
   var matchById = {}; ms.forEach(function(m){ matchById[m.id] = m; });
   
   var rounds = ['R32','R16','QF','SF','F','3rd'];
-  var labels = ['32强','16强','\\u00bc决赛','半决赛','&diams; 决赛','季军赛'];
+  var labels = ['32强','16强','\\u00bc决赛','半决赛',' 决赛','季军赛'];
   var BOX_W = 155, BOX_H = 47, GAP_Y = 56;
   var X = [10, 215, 420, 625, 830, 1035];
   
