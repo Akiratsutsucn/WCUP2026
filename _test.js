@@ -289,7 +289,7 @@ function drawBracketSVG(){
   var matchById = {}; ms.forEach(function(m){ matchById[m.id] = m; });
   
   var rounds = ['R32','R16','QF','SF','F','3rd'];
-  var labels = ['32强','16强','\\u00bc决赛','半决赛',' 决赛','季军赛'];
+  var labels = ['32强','16强','1/4决赛','半决赛',' 决赛','季军赛'];
   var BOX_W = 155, BOX_H = 47, GAP_Y = 56;
   var X = [10, 215, 420, 625, 830, 1035];
   
