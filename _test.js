@@ -331,7 +331,7 @@ function drawBracketSVG(){
   }
   if(tpm) pos[tpm.id] = {x:X[5], y: pos[fm.id] ? pos[fm.id].y : 400};
   
-  var maxY = 25 + 15*GAP_Y + BOX_H + 20;
+  var maxY = 25 + 15*GAP_Y + BOX_H + 30;
   var svgW = X[5] + BOX_W + 20;
   
   var svg = '<svg width="' + svgW + '" height="' + maxY + '" style="background:#0a0f1a;font-family:system-ui,sans-serif;">';
@@ -371,7 +371,7 @@ function drawBracketSVG(){
     var hw = m.winner==='home', aw = m.winner==='away';
     var fill = m.winner ? '#0a1a10' : '#0f1a2e', border = m.winner ? '#2a5a30' : '#1a3050';
     
-    svg += '<g onclick="openModal(\'' + mid + '\')" style="cursor:pointer">';
+    svg += '<g>';
     svg += '<rect x="' + p.x + '" y="' + p.y + '" width="' + BOX_W + '" height="' + BOX_H + '" rx="6" fill="' + fill + '" stroke="' + border + '" stroke-width="1.5"/>';
     svg += '<text x="' + (p.x+6) + '" y="' + (p.y+18) + '" fill="' + (hw?'#f0d878':'#c0c8d8') + '" font-size="11" font-weight="' + (hw?'bold':'normal') + '">' + home.substring(0,14) + '</text>';
     svg += '<text x="' + (p.x+BOX_W-6) + '" y="' + (p.y+18) + '" fill="#f0d878" font-size="11" font-weight="bold" text-anchor="end">' + hs + '</text>';
