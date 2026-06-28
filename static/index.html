@@ -244,11 +244,13 @@ function renderMystic(){
     return '<div class="card"><h3>☯ 玄学分析</h3><div class="loading">玄学数据加载中...</div></div>';
   var h = '<div class="card"><h3>☯ 玄学因子 — 悖论框架 · 道德经 · 易经</h3>';
   h += '<p style="font-size:.78em;color:#7aa4c8;margin-bottom:10px;">三重境界：看山是山 → 看山不是山 → 看山还是山</p>';
-  h += '<div class="btn-bar"><select id="mystic-team" onchange="renderAll();">';
+  h += '<div class="btn-bar"><select id="mystic-team" onchange="renderAll();setTimeout(loadMysticDetail,200);">';
   for(var i=0; i<Math.min(allTeams.length, 30); i++) h += '<option value="' + allTeams[i] + '">' + cn(allTeams[i]) + '</option>';
   h += '</select><button class="btn-sm" onclick="loadMysticDetail()">查看详情</button></div>';
   h += '<div id="mystic-detail" class="mt-8" style="font-size:.8em;color:#a0b8d0;"></div>';
-  return h + '</div>';
+  h += '</div>';
+  setTimeout(loadMysticDetail, 300);
+  return h;
 }
 async function loadMysticDetail(){
   var sel = document.getElementById('mystic-team');
