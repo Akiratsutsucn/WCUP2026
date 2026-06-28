@@ -508,7 +508,7 @@ class PredictionEngine:
         for r in results:
             r['adjusted_prob'] = round(r['adjusted_prob'] / total_adj * 100, 1) if total_adj > 0 else 0
         results.sort(key=lambda x: x['adjusted_prob'], reverse=True)
-        return results[:20]
+        return results
     
     def get_mystic_analysis(self, team=None):
         if team:
