@@ -249,7 +249,7 @@ function renderMystic(){
     var mt = allTeams[i];
     h += '<option value="' + mt + '"' + (mt === currentMysticTeam ? ' selected' : '') + '>' + cn(mt) + '</option>';
   }
-  h += '</select><button class="btn-sm" onclick="loadMysticDetail()">查看详情</button></div>';
+  h += '</select></div>';
   h += '<div id="mystic-detail" class="mt-8" style="font-size:.8em;color:#a0b8d0;"></div>';
   h += '</div>';
   setTimeout(loadMysticDetail, 300);
