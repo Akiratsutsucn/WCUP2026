@@ -1,63 +1,187 @@
 {
   "injuries": {
     "Brazil": [
-      {"player": "Neymar", "status": "疑似伤缺", "detail": "膝盖不适，出战成疑", "impact": "high"},
-      {"player": "Ederson", "status": "已恢复", "detail": "手指骨折已痊愈，正常出战", "impact": "low"}
-    ],
-    "Argentina": [
-      {"player": "Lionel Messi", "status": "小伤", "detail": "肌肉轻微不适，预计可出战", "impact": "medium"}
-    ],
-    "France": [
-      {"player": "Kylian Mbappé", "status": "健康", "detail": "全员健康，无伤病困扰", "impact": "none"}
-    ],
-    "England": [
-      {"player": "Harry Kane", "status": "恢复中", "detail": "脚踝扭伤，恢复训练中", "impact": "medium"}
-    ],
-    "Germany": [
-      {"player": "Manuel Neuer", "status": "健康", "detail": "赛季末段状态出色", "impact": "none"}
-    ],
-    "Spain": [
-      {"player": "Pedri", "status": "健康", "detail": "全员健康", "impact": "none"}
-    ],
-    "Portugal": [
-      {"player": "Cristiano Ronaldo", "status": "健康", "detail": "保持巅峰状态", "impact": "none"}
+      {"player": "罗德里戈 (Rodrygo)", "status": "赛季报销", "detail": "十字韧带撕裂，无缘剩余比赛", "impact": "high"},
+      {"player": "埃斯特旺 (Estêvão)", "status": "确认缺阵", "detail": "大腿拉伤，恢复期3-4周", "impact": "high"},
+      {"player": "米利唐 (Éder Militão)", "status": "确认缺阵", "detail": "小组赛受伤，淘汰赛无法出战", "impact": "high"},
+      {"player": "内马尔 (Neymar)", "status": "带伤出战", "detail": "膝盖不适，带伤坚持比赛", "impact": "medium"}
     ],
     "Netherlands": [
-      {"player": "Virgil van Dijk", "status": "健康", "detail": "防线核心状态正佳", "impact": "none"}
+      {"player": "哈维·西蒙斯 (Xavi Simons)", "status": "确认缺阵", "detail": "膝伤严重，缺席剩余比赛", "impact": "high"},
+      {"player": "德里赫特 (Matthijs de Ligt)", "status": "确认缺阵", "detail": "背部手术后恢复中，无缘世界杯", "impact": "high"},
+      {"player": "廷伯 (Jurriën Timber)", "status": "确认缺阵", "detail": "伤病未愈，淘汰赛无法出战", "impact": "medium"}
+    ],
+    "England": [
+      {"player": "萨卡 (Bukayo Saka)", "status": "出战受限", "detail": "跟腱伤势困扰，上场时间受严格限制", "impact": "high"}
+    ],
+    "Argentina": [
+      {"player": "梅西 (Lionel Messi)", "status": "轻微不适", "detail": "肌肉轻微拉伤，预计可出战但状态未达100%", "impact": "medium"}
+    ],
+    "France": [
+      {"player": "姆巴佩 (Kylian Mbappé)", "status": "健康", "detail": "全员健康，阵容齐整", "impact": "none"}
+    ],
+    "Germany": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病困扰", "impact": "none"}
+    ],
+    "Spain": [
+      {"player": "佩德里 (Pedri)", "status": "健康", "detail": "全员健康，阵容深厚", "impact": "none"}
+    ],
+    "Portugal": [
+      {"player": "C罗 (Cristiano Ronaldo)", "status": "健康", "detail": "保持出色状态，无伤病", "impact": "none"}
+    ],
+    "Belgium": [
+      {"player": "德布劳内 (Kevin De Bruyne)", "status": "轻微不适", "detail": "小组赛轻微撞伤，不影响出战", "impact": "low"}
+    ],
+    "Croatia": [
+      {"player": "莫德里奇 (Luka Modrić)", "status": "健康", "detail": "老将状态保持良好", "impact": "none"}
+    ],
+    "Uruguay": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病报告", "impact": "none"}
+    ],
+    "Colombia": [
+      {"player": "路易斯·迪亚斯 (Luis Díaz)", "status": "健康", "detail": "锋线核心状态正佳", "impact": "none"}
+    ],
+    "Mexico": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
+    ],
+    "United States": [
+      {"player": "普利西奇 (Christian Pulisic)", "status": "健康", "detail": "全员健康，主场作战", "impact": "none"}
+    ],
+    "Japan": [
+      {"player": "三笘薰 (Kaoru Mitoma)", "status": "健康", "detail": "状态出色，无伤病", "impact": "none"}
+    ],
+    "South Korea": [
+      {"player": "孙兴慜 (Son Heung-min)", "status": "健康", "detail": "核心球员状态良好", "impact": "none"}
+    ],
+    "Morocco": [
+      {"player": "阿什拉夫 (Achraf Hakimi)", "status": "健康", "detail": "防线核心无伤病", "impact": "none"}
+    ],
+    "Senegal": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病", "impact": "none"}
+    ],
+    "Austria": [
+      {"player": "阿拉巴 (David Alaba)", "status": "恢复中", "detail": "已恢复训练，可替补出战", "impact": "medium"}
+    ],
+    "Switzerland": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
+    ],
+    "Ecuador": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "年轻阵容无伤病", "impact": "none"}
+    ],
+    "Paraguay": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病报告", "impact": "none"}
+    ],
+    "Sweden": [
+      {"player": "伊萨克 (Alexander Isak)", "status": "健康", "detail": "锋线核心状态良好", "impact": "none"}
+    ],
+    "Ivory Coast": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
+    ],
+    "Norway": [
+      {"player": "哈兰德 (Erling Haaland)", "status": "健康", "detail": "头号射手状态正佳", "impact": "none"}
+    ],
+    "Australia": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病报告", "impact": "none"}
+    ],
+    "Egypt": [
+      {"player": "萨拉赫 (Mohamed Salah)", "status": "健康", "detail": "核心球员状态出色", "impact": "none"}
+    ],
+    "Cape Verde": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病", "impact": "none"}
+    ],
+    "Algeria": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
+    ],
+    "Ghana": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病报告", "impact": "none"}
+    ],
+    "Canada": [
+      {"player": "阿方索·戴维斯 (Alphonso Davies)", "status": "健康", "detail": "全员健康，主场作战", "impact": "none"}
+    ],
+    "South Africa": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无伤病困扰", "impact": "none"}
+    ],
+    "Bosnia and Herzegovina": [
+      {"player": "哲科 (Edin Džeko)", "status": "轻微不适", "detail": "老将体能需管理，不影响出战", "impact": "low"}
+    ],
+    "DR Congo": [
+      {"player": "全员健康", "status": "阵容齐整", "detail": "无重大伤病报告", "impact": "none"}
     ]
   },
   "suspensions": {
-    "Brazil": [],
     "Argentina": [
-      {"player": "Rodrigo De Paul", "match": "R32", "reason": "累积黄牌停赛", "cards": 2}
+      {"player": "德保罗 (Rodrigo De Paul)", "match": "32强", "reason": "累积两张黄牌自动停赛", "cards": 2}
     ],
+    "Netherlands": [
+      {"player": "邓弗里斯 (Denzel Dumfries)", "match": "32强", "reason": "小组赛红牌，停赛一场", "cards": 1}
+    ],
+    "Brazil": [],
     "France": [],
     "England": [],
     "Germany": [],
     "Spain": [],
     "Portugal": [],
-    "Netherlands": [
-      {"player": "Denzel Dumfries", "match": "R16", "reason": "红牌停赛", "cards": 1}
-    ]
+    "Belgium": [],
+    "Croatia": [],
+    "Uruguay": [],
+    "Colombia": [],
+    "Mexico": [],
+    "United States": [],
+    "Japan": [],
+    "South Korea": [],
+    "Morocco": [],
+    "Senegal": [],
+    "Austria": [],
+    "Switzerland": [],
+    "Ecuador": [],
+    "Paraguay": [],
+    "Sweden": [],
+    "Ivory Coast": [],
+    "Norway": [],
+    "Australia": [],
+    "Egypt": [],
+    "Cape Verde": [],
+    "Algeria": [],
+    "Ghana": [],
+    "Canada": [],
+    "South Africa": [],
+    "Bosnia and Herzegovina": [],
+    "DR Congo": []
   },
   "card_counts": {
-    "Argentina": {"yellow": 5, "red": 0},
-    "Brazil": {"yellow": 3, "red": 0},
-    "France": {"yellow": 2, "red": 0},
-    "England": {"yellow": 4, "red": 0},
-    "Germany": {"yellow": 3, "red": 0},
+    "Argentina": {"yellow": 6, "red": 0},
+    "Brazil": {"yellow": 4, "red": 0},
+    "France": {"yellow": 3, "red": 0},
+    "England": {"yellow": 3, "red": 0},
+    "Germany": {"yellow": 5, "red": 0},
     "Spain": {"yellow": 2, "red": 0},
     "Portugal": {"yellow": 4, "red": 0},
-    "Netherlands": {"yellow": 6, "red": 1},
-    "Belgium": {"yellow": 3, "red": 0},
-    "Croatia": {"yellow": 4, "red": 0},
-    "Uruguay": {"yellow": 5, "red": 0},
-    "Colombia": {"yellow": 3, "red": 0},
-    "Mexico": {"yellow": 4, "red": 0},
-    "USA": {"yellow": 3, "red": 0},
+    "Netherlands": {"yellow": 7, "red": 1},
+    "Belgium": {"yellow": 4, "red": 0},
+    "Croatia": {"yellow": 5, "red": 0},
+    "Uruguay": {"yellow": 6, "red": 0},
+    "Colombia": {"yellow": 4, "red": 0},
+    "Mexico": {"yellow": 5, "red": 0},
+    "United States": {"yellow": 3, "red": 0},
     "Japan": {"yellow": 2, "red": 0},
     "South Korea": {"yellow": 3, "red": 0},
-    "Morocco": {"yellow": 4, "red": 0},
-    "Senegal": {"yellow": 3, "red": 0}
+    "Morocco": {"yellow": 5, "red": 0},
+    "Senegal": {"yellow": 4, "red": 0},
+    "Austria": {"yellow": 3, "red": 0},
+    "Switzerland": {"yellow": 2, "red": 0},
+    "Ecuador": {"yellow": 4, "red": 0},
+    "Paraguay": {"yellow": 5, "red": 0},
+    "Sweden": {"yellow": 3, "red": 0},
+    "Ivory Coast": {"yellow": 4, "red": 0},
+    "Norway": {"yellow": 2, "red": 0},
+    "Australia": {"yellow": 3, "red": 0},
+    "Egypt": {"yellow": 2, "red": 0},
+    "Cape Verde": {"yellow": 3, "red": 0},
+    "Algeria": {"yellow": 4, "red": 0},
+    "Ghana": {"yellow": 5, "red": 0},
+    "Canada": {"yellow": 3, "red": 0},
+    "South Africa": {"yellow": 4, "red": 1},
+    "Bosnia and Herzegovina": {"yellow": 4, "red": 0},
+    "DR Congo": {"yellow": 3, "red": 0}
   }
 }
