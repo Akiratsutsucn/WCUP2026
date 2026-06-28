@@ -410,19 +410,20 @@ def predict_h2h(team_a, team_b):
     p_a = (1.0 - draw_prob) * expected_a
     p_b = (1.0 - draw_prob) * (1.0 - expected_a)
     
-    # Goal prediction based on team strength scores (not just Elo)
-    # Stronger teams score more, weaker teams score less
-    lambda_a = 0.6 + 1.1 * (score_val_a / 0.65) + elo_diff / 1500.0
-    lambda_b = 0.6 + 1.1 * (score_val_b / 0.65) - elo_diff / 1500.0
-    lambda_a = max(0.2, min(4.0, lambda_a))
-    lambda_b = max(0.2, min(4.0, lambda_b))
+    # Realistic goal prediction for knockout football (avg 2.3 total goals)
+    total_goals = 2.3
+    share_a = expected_a  # stronger team gets more goals
+    share_b = 1.0 - expected_a
+    lambda_a = total_goals * share_a * (0.9 + 0.2 * (score_val_a / 0.7))
+    lambda_b = total_goals * share_b * (0.9 + 0.2 * (score_val_b / 0.7))
+    lambda_a = max(0.3, min(3.5, lambda_a))
+    lambda_b = max(0.3, min(3.5, lambda_b))
     
-    # Score prediction: consistent noise for variety
+    # Score: use Poisson most-likely value with tiny noise for ties
     rng = random.Random(hash(team_a + team_b) % 100000)
-    noise_a = rng.uniform(-0.2, 0.2)
-    noise_b = rng.uniform(-0.2, 0.2)
-    pred_home = max(0, int(lambda_a + noise_a + 0.5))
-    pred_away = max(0, int(lambda_b + noise_b + 0.5))
+    noise = rng.uniform(-0.1, 0.1)
+    pred_home = max(0, int(lambda_a + noise + 0.5))
+    pred_away = max(0, int(lambda_b - noise + 0.5))
     
     return {"team_a":team_a,"team_b":team_b,"elo_a":round(elo_a),"elo_b":round(elo_b),
             "elo_diff":round(elo_diff),"win_prob_a":round(p_a*100,1),
