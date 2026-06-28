@@ -51,12 +51,41 @@ def get_all_elos():
         result[k] = v.get('elo', 1700)
     return result
 
+# ── 球队名称标准化映射 ──────────────────────────────
+TEAM_ALIASES = {
+    'United States': 'USA', 'USA': 'USA',
+    'South Korea': 'South Korea', 'Korea Republic': 'South Korea',
+    'Ivory Coast': "Cote d'Ivoire", "Cote d'Ivoire": "Cote d'Ivoire",
+    'Czech Republic': 'Czech Republic', 'Czechia': 'Czech Republic',
+    'Bosnia and Herzegovina': 'Bosnia and Herzegovina',
+    'Cape Verde': 'Cape Verde',
+    'Curacao': 'Curacao', 'Curaçao': 'Curacao',
+}
+
+def _normalize_team(name):
+    """统一球队名称"""
+    if name in TEAM_ALIASES:
+        return TEAM_ALIASES[name]
+    return name
+
 # ── 球员数据 ──────────────────────────────────────────
 def get_team_players(team_name):
     """获取某队球员列表"""
-    for k, v in PLAYERS_DATA.items():
-        if k.lower() == team_name.lower() or team_name.lower() in k.lower():
-            return v if isinstance(v, list) else v.get('players', [])
+    teams = PLAYERS_DATA.get('teams', PLAYERS_DATA)
+    # 直接匹配
+    if team_name in teams:
+        v = teams[team_name]
+        return v.get('players', v) if isinstance(v, dict) else (v if isinstance(v, list) else [])
+    # 别名匹配
+    alias = _normalize_team(team_name)
+    if alias != team_name and alias in teams:
+        v = teams[alias]
+        return v.get('players', v) if isinstance(v, dict) else (v if isinstance(v, list) else [])
+    # 小写匹配
+    tn_lower = team_name.lower()
+    for k, v in teams.items():
+        if k.lower() == tn_lower or tn_lower in k.lower() or k.lower() in tn_lower:
+            return v.get('players', v) if isinstance(v, dict) else (v if isinstance(v, list) else [])
     return []
 
 def get_team_player_count(team_name):
